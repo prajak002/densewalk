@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>G1 Varanasi Walk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F4F6F4; --surface:#FFFFFF; --ink:#18221F; --muted:#56645F; --rule:#D5DCD8;
+  --accent:#0B6B66; --accent-soft:#DCEDEA;
+  --scene:#2F5E8C; --scene-bg:#E2EBF4; --crowd:#9A5A12; --crowd-bg:#F5E9D8;
+  --robot:#6A3F8F; --robot-bg:#ECE3F3; --sim:#0B6B66; --sim-bg:#DCEDEA;
+  --render:#8A3350; --render-bg:#F4E2E8;
+  --ok:#2E7A48; --ok-bg:#E1F0E5; --warn:#9A640F; --warn-bg:#F6EBD5;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --cond:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#111715; --surface:#18201D; --ink:#E3EAE6; --muted:#9AA8A2; --rule:#2C3733;
+    --accent:#5CC2B9; --accent-soft:#16332F;
+    --scene:#8DB6E0; --scene-bg:#172533; --crowd:#E2AE66; --crowd-bg:#33260F;
+    --robot:#C3A2E2; --robot-bg:#2A1F36; --sim:#5CC2B9; --sim-bg:#16332F;
+    --render:#E895B0; --render-bg:#3A1C26;
+    --ok:#6CC78A; --ok-bg:#16301F; --warn:#E0AE5A; --warn-bg:#35280F;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#111715; --surface:#18201D; --ink:#E3EAE6; --muted:#9AA8A2; --rule:#2C3733;
+  --accent:#5CC2B9; --accent-soft:#16332F;
+  --scene:#8DB6E0; --scene-bg:#172533; --crowd:#E2AE66; --crowd-bg:#33260F;
+  --robot:#C3A2E2; --robot-bg:#2A1F36; --sim:#5CC2B9; --sim-bg:#16332F;
+  --render:#E895B0; --render-bg:#3A1C26;
+  --ok:#6CC78A; --ok-bg:#16301F; --warn:#E0AE5A; --warn-bg:#35280F;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 var(--sans)}
+img{max-width:100%}
+.wrap{max-width:1040px;margin:0 auto;padding:40px 20px 72px}
+h1,h2,h3{font-family:var(--cond);text-wrap:balance;line-height:1.15;margin:0}
+h1{font-size:clamp(30px,5vw,44px);font-weight:700}
+h2{font-size:26px;font-weight:600}
+h3{font-size:16px;font-weight:600}
+p{margin:0;max-width:70ch}
+.mono{font-family:var(--mono);font-size:.86em}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+header{display:grid;gap:14px;padding-bottom:28px;border-bottom:1px solid var(--rule)}
+.lede{font-size:17px}
+section{padding-top:48px;display:grid;gap:18px}
+a{color:var(--accent)}
+
+/* timeline */
+.timeline{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:18px}
+.shot{margin:0;display:grid;gap:8px;align-content:start}
+.shot img{width:100%;height:auto;display:block;border-radius:6px;border:1px solid var(--rule)}
+.shot .hd{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.shot .t{font:600 18px/1 var(--cond);font-variant-numeric:tabular-nums}
+.bar{height:6px;border-radius:3px;background:var(--rule);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent)}
+.facts{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.facts b{color:var(--ink);font-weight:500}
+.shot p{font-size:13px;color:var(--muted)}
+.hold{font:500 11px/1 var(--mono);padding:4px 7px;border-radius:99px;color:var(--warn);background:var(--warn-bg)}
+
+.sbs{display:grid;gap:14px}
+.sbs figure{margin:0;display:grid;gap:6px}
+.sbs img{width:100%;height:auto;border-radius:6px;border:1px solid var(--rule);display:block}
+.sbs figcaption{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.sbsgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,460px),1fr));gap:18px}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.kpi{background:var(--surface);padding:12px 14px;display:grid;gap:2px}
+.kpi .v{font:600 22px/1.2 var(--cond);font-variant-numeric:tabular-nums}
+.kpi .l{font-size:12.5px;color:var(--muted);line-height:1.35}
+.tbl{overflow-x:auto;border:1px solid var(--rule);border-radius:6px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;font-variant-numeric:tabular-nums}
+th,td{padding:8px 12px;text-align:right;border-bottom:1px solid var(--rule);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+thead th{font:500 11.5px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.05em;background:var(--bg)}
+tbody tr:last-child td{border-bottom:0}
+td.best{color:var(--accent);font-weight:600}
+figure.wide{margin:0;display:grid;gap:8px}
+figure.wide img{width:100%;border-radius:6px;border:1px solid var(--rule);background:#fff}
+figure.wide figcaption{font-size:13px;color:var(--muted)}
+.note{border-left:3px solid var(--warn);background:var(--warn-bg);padding:10px 14px;border-radius:0 6px 6px 0;font-size:14px;max-width:80ch}
+
+/* flowchart */
+.flow{display:grid;gap:0;justify-items:center}
+.node{background:var(--surface);border:1.5px solid var(--c,var(--rule));border-radius:8px;padding:10px 12px;display:grid;gap:3px;width:100%;max-width:340px;position:relative}
+.node .k{font:500 10.5px/1.2 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--c)}
+.node .n{font:600 14.5px/1.25 var(--cond)}
+.node .d{font-size:12.5px;color:var(--muted);line-height:1.4}
+.node .f{font:400 11px/1.3 var(--mono);color:var(--c);word-break:break-word}
+.node.io{--c:var(--ink);background:var(--bg);border-style:dashed;max-width:420px;text-align:center}
+.scene{--c:var(--scene)} .crowd{--c:var(--crowd)} .robot{--c:var(--robot)} .sim{--c:var(--sim)} .render{--c:var(--render)}
+.node.scene,.node.crowd,.node.robot,.node.sim,.node.render{border-left-width:5px}
+.arrow{width:2px;height:26px;background:var(--muted);position:relative;justify-self:center}
+.arrow::after{content:"";position:absolute;left:50%;bottom:-1px;transform:translateX(-50%);border:6px solid transparent;border-top:7px solid var(--muted);border-bottom:0}
+.lanes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;width:100%;position:relative;padding-top:26px}
+.lanes::before{content:"";position:absolute;top:0;left:16.66%;right:16.66%;height:2px;background:var(--muted)}
+.lane{display:flex;flex-direction:column;align-items:center;position:relative}
+.lane::before{content:"";position:absolute;top:-26px;left:50%;width:2px;height:26px;background:var(--muted);transform:translateX(-50%)}
+.lane .title{font:600 12px/1 var(--mono);text-transform:uppercase;letter-spacing:.07em;color:var(--c);padding:0 0 10px}
+.merge{width:100%;position:relative;height:28px}
+.merge::before{content:"";position:absolute;top:0;left:16.66%;right:16.66%;height:2px;background:var(--muted)}
+.merge::after{content:"";position:absolute;top:0;left:50%;width:2px;height:28px;background:var(--muted);transform:translateX(-50%)}
+.lanes .lane > .node:last-child{margin-bottom:0}
+.lane-end{width:2px;flex:1;background:var(--muted);min-height:18px}
+.decide{display:grid;grid-template-columns:auto;justify-items:center;gap:0}
+.diamond{width:150px;height:150px;display:grid;place-items:center;position:relative}
+.diamond::before{content:"";position:absolute;inset:22px;transform:rotate(45deg);background:var(--warn-bg);border:1.5px solid var(--warn);border-radius:6px}
+.diamond span{position:relative;font:600 13px/1.25 var(--cond);text-align:center;max-width:96px}
+.branch{display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;font-size:12.5px;color:var(--muted);max-width:640px;text-align:center}
+.branch b{font:500 11px/1 var(--mono);padding:3px 6px;border-radius:99px}
+.branch .y{color:var(--warn);background:var(--warn-bg)} .branch .nn{color:var(--ok);background:var(--ok-bg)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;border:2px solid var(--c);background:var(--surface)}
+.renderrow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;width:100%;align-items:stretch}
+.renderrow .node{max-width:none}
+@media (max-width:760px){
+  .lane-end{display:none}
+  .lanes{grid-template-columns:1fr;gap:26px}
+  .lanes::before,.merge::before{display:none}
+  .lane::before{display:none}
+  .renderrow{grid-template-columns:1fr 1fr}
+}
+@media (max-width:420px){.renderrow{grid-template-columns:1fr}}
+</style>
+</head><body>
+<div class="wrap">
+<header>
+  <span class="eyebrow">DenseWalk · stage 6 · Varanasi street</span>
+  <h1>G1 walking through the splatted street</h1>
+  <p class="lede">Intermediate frames of the Unitree G1 walking the reconstructed Varanasi market, and the full pipeline that produced them as a flowchart. Frames were pulled from the saved M4 videos on the Mac.</p>
+  <p style="font-size:13px;color:var(--muted)">See also <a href="densewalk_status.html">the overall progress report</a>.</p>
+</header>
+
+<section id="timeline">
+  <div><span class="eyebrow">Composite view</span></div>
+  <h2>Six moments along the walk</h2>
+  <p>From <span class="mono">m4_final_crowd_walk.mp4</span>: the splat street, the real people re-inserted as cutouts at their tracked ground positions, and the G1 rendered by Isaac from the same camera. Green boxes are the people the robot can perceive: inside its field of view and not hidden behind someone nearer. The inset minimap shows the robot (red) moving down the street. Numbers are read from each frame's own overlay.</p>
+  <div class="timeline">
+    <figure class="shot">
+      <div class="hd"><span class="t">t = 1.2 s</span><span class="mono" style="font-size:12px;color:var(--muted)">start</span></div>
+      <img src="steps/final_crowd_walk_t01.jpg" alt="G1 at the start of the street with a dense group of people boxed ahead">
+      <div class="bar" title="progress toward goal"><i style="width:3%"></i></div>
+      <div class="facts"><span>goal <b>28.9 m</b></span><span>crowd <b>14</b></span><span>perceived <b>7</b></span><span>occluded <b>5</b></span></div>
+      <p>Densest moment. Seven people in view, five more hidden behind them, a motorbike on the right.</p>
+    </figure>
+    <figure class="shot">
+      <div class="hd"><span class="t">t = 8.4 s</span></div>
+      <img src="steps/final_crowd_walk_t07.jpg" alt="G1 walking with the street ahead clear of nearby people">
+      <div class="bar"><i style="width:18%"></i></div>
+      <div class="facts"><span>goal <b>24.5 m</b></span><span>crowd <b>10</b></span><span>perceived <b>0</b></span><span>occluded <b>0</b></span></div>
+      <p>The near group has passed. Nobody is inside the perception range, so the robot walks straight.</p>
+    </figure>
+    <figure class="shot">
+      <div class="hd"><span class="t">t = 15.6 s</span></div>
+      <img src="steps/final_crowd_walk_t13.jpg" alt="G1 mid-street, crowd visible far ahead">
+      <div class="bar"><i style="width:34%"></i></div>
+      <div class="facts"><span>goal <b>19.9 m</b></span><span>crowd <b>11</b></span><span>perceived <b>0</b></span><span>occluded <b>0</b></span></div>
+      <p>The crowd is far down the street. The smear on the road is the part of the ground no camera frame ever saw.</p>
+    </figure>
+    <figure class="shot">
+      <div class="hd"><span class="t">t = 22.8 s</span></div>
+      <img src="steps/final_crowd_walk_t19.jpg" alt="G1 approaching two groups of pedestrians boxed in green">
+      <div class="bar"><i style="width:44%"></i></div>
+      <div class="facts"><span>goal <b>16.2 m</b></span><span>crowd <b>12</b></span><span>perceived <b>6</b></span><span>occluded <b>0</b></span></div>
+      <p>Two groups come into range, one on each side of the street.</p>
+    </figure>
+    <figure class="shot">
+      <div class="hd"><span class="t">t = 30.0 s</span></div>
+      <img src="steps/final_crowd_walk_t25.jpg" alt="G1 continuing down the street with people further ahead">
+      <div class="bar"><i style="width:59%"></i></div>
+      <div class="facts"><span>goal <b>12.0 m</b></span><span>crowd <b>10</b></span><span>perceived <b>0</b></span><span>occluded <b>0</b></span></div>
+      <p>The groups are behind it. The street ahead is clear again.</p>
+    </figure>
+    <figure class="shot">
+      <div class="hd"><span class="t">t = 37.2 s</span><span class="hold">HOLDING</span></div>
+      <img src="steps/final_crowd_walk_t31.jpg" alt="G1 stopped with a wall of people boxed directly ahead">
+      <div class="bar"><i style="width:72%"></i></div>
+      <div class="facts"><span>goal <b>8.1 m</b></span><span>crowd <b>15</b></span><span>perceived <b>7</b></span><span>occluded <b>3</b></span></div>
+      <p>A line of people crosses directly ahead. The time-to-collision rule sees them closing and holds the robot in place instead of pushing through.</p>
+    </figure>
+  </div>
+  <p style="font-size:13px;color:var(--muted)">Progress bars show the share of the ~29.8 m start-to-goal distance already covered.</p>
+</section>
+
+<section id="sbs">
+  <div><span class="eyebrow">Physics beside visuals</span></div>
+  <h2>What Isaac simulates vs. what the robot sees</h2>
+  <p>From <span class="mono">m4_g1_walk_sidebyside.mp4</span>. Left: the G1 in Isaac Sim on the flat ground-plane collider. That is the entire physics world, because the splat is never a collider. Right: the same pose rendered in the Varanasi splat.</p>
+  <div class="sbsgrid sbs">
+    <figure><img src="steps/g1_walk_sidebyside_t01.jpg" alt="Side by side at 1.2 s"><figcaption>t = 1.2 s · goal 29.8 m · crowd 14</figcaption></figure>
+    <figure><img src="steps/g1_walk_sidebyside_t07.jpg" alt="Side by side at 8.4 s"><figcaption>t = 8.4 s · goal 25.3 m · crowd 10</figcaption></figure>
+    <figure><img src="steps/g1_walk_sidebyside_t13.jpg" alt="Side by side at 15.6 s"><figcaption>t = 15.6 s · goal 19.8 m · crowd 11</figcaption></figure>
+    <figure><img src="steps/g1_walk_sidebyside_t19.jpg" alt="Side by side at 22.8 s"><figcaption>t = 22.8 s · goal 13.7 m · crowd 0</figcaption></figure>
+    <figure><img src="steps/g1_walk_sidebyside_t25.jpg" alt="Side by side at 30.0 s"><figcaption>t = 30.0 s · goal 7.8 m · crowd 0</figcaption></figure>
+    <figure><img src="steps/g1_walk_sidebyside_t31.jpg" alt="Side by side at 37.2 s"><figcaption>t = 37.2 s · goal 2.8 m · crowd 0</figcaption></figure>
+  </div>
+  <div class="note">The composite and side-by-side videos come from different runs. At 37.2 s one is holding 8.1 m short of the goal and the other is 2.8 m out. The best run on record, <span class="mono">m4_run8.json</span>, finished 0.53 m from the goal after 40 s.</div>
+</section>
+
+<section id="path">
+  <div><span class="eyebrow">Top-down</span></div>
+  <h2>Path and run results</h2>
+  <figure class="wide">
+    <img src="a/m4_path.jpg" alt="Top-down plot: G1 path weaving between pedestrian tracks from x=0 to x=-30">
+    <figcaption>Run 8: the G1's path (red) against every tracked pedestrian (grey), inside the street corridor (dotted).</figcaption>
+  </figure>
+  <div class="kpis">
+    <div class="kpi"><span class="v">0</span><span class="l">Collisions</span></div>
+    <div class="kpi"><span class="v">35.9 m</span><span class="l">Walked in 40 s</span></div>
+    <div class="kpi"><span class="v">0.53 m</span><span class="l">Final distance to goal</span></div>
+    <div class="kpi"><span class="v">1.84 m</span><span class="l">Closest approach to a person</span></div>
+    <div class="kpi"><span class="v">27</span><span class="l">Steps stopped (of 2000)</span></div>
+    <div class="kpi"><span class="v">No</span><span class="l">Fell (min base height 0.63 m)</span></div>
+  </div>
+  <h3>Navigation controller comparison, 120 identical crowd episodes each</h3>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Controller</th><th>Success</th><th>Collision rate ↓</th><th>Left street</th><th>Final goal dist. ↓</th><th>Mean min clearance</th></tr></thead>
+      <tbody>
+        <tr><td>Learned (PPO)</td><td class="best">56.7%</td><td class="best">44.2%</td><td>0%</td><td class="best">2.99 m</td><td class="best">0.89 m</td></tr>
+        <tr><td>Rule-based (time to collision)</td><td>51.7%</td><td>50.0%</td><td>0%</td><td>3.23 m</td><td>0.66 m</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:13.5px;color:var(--muted)">These are short training-environment episodes, harder than the single demo run. Both controllers still collide in almost half of them, so crowd navigation is far from solved. Run 8's zero collisions is one episode, not a rate.</p>
+</section>
+
+<section id="flow">
+  <div><span class="eyebrow">Pipeline</span></div>
+  <h2>How the walk was produced</h2>
+  <div class="legend">
+    <span class="scene"><i></i>Scene reconstruction</span>
+    <span class="crowd"><i></i>Crowd</span>
+    <span class="robot"><i></i>Robot control</span>
+    <span class="sim"><i></i>Simulation</span>
+    <span class="render"><i></i>Rendering</span>
+  </div>
+
+  <div class="flow">
+    <div class="node io"><span class="k">Input</span><span class="n">Phone video of the Varanasi market</span><span class="d">varanasi1.mp4 · 361 frames · 640×360 · one forward walk</span></div>
+
+    <div class="lanes">
+      <div class="lane scene">
+        <span class="title">Scene</span>
+        <div class="node scene"><span class="k">Step 1</span><span class="n">Extract frames, check blur</span><span class="d">0 of 361 frames rejected</span><span class="f">varanasi_frames.py</span></div>
+        <div class="arrow"></div>
+        <div class="node scene"><span class="k">Step 2</span><span class="n">Mask the moving crowd</span><span class="d">Instance segmenter; masks drop people before SfM and training</span><span class="f">varanasi_masks.py</span></div>
+        <div class="arrow"></div>
+        <div class="node scene"><span class="k">Step 3</span><span class="n">Solve camera poses (COLMAP)</span><span class="d">Sequential matcher, one shared camera, CPU SIFT</span><span class="f">varanasi_colmap.sh</span></div>
+        <div class="arrow"></div>
+        <div class="node scene"><span class="k">Step 5</span><span class="n">Train the static splat</span><span class="d">gsplat, MCMC, 500k Gaussians, 30k steps</span><span class="f">varanasi_train_splat.py</span></div>
+        <div class="arrow"></div>
+        <div class="node scene"><span class="k">Step 7</span><span class="n">Make the world metric</span><span class="d">Ground plane solved from people's heights. Camera height 1.62 m. Z-up, floor at z = 0.</span><span class="f">varanasi_scale_ground.py · varanasi_ground_from_people.py → world.json</span></div>
+        <div class="lane-end"></div>
+      </div>
+
+      <div class="lane crowd">
+        <span class="title">Crowd</span>
+        <div class="node crowd"><span class="k">Step 4</span><span class="n">Track every person and vehicle</span><span class="d">Persistent tracks; each detection's foot point marks where it meets the ground</span><span class="f">varanasi_tracks.py</span></div>
+        <div class="arrow"></div>
+        <div class="node crowd"><span class="k">Step 8</span><span class="n">Lift tracks into the metric world</span><span class="d">69 moving obstacles with position, velocity and radius. Speeds divided by 1.45 to undo the sped-up video.</span><span class="f">varanasi_crowd_world.py → crowd_world.json</span></div>
+        <div class="arrow"></div>
+        <div class="node crowd"><span class="k">Step 8b</span><span class="n">Cut out people as sprites</span><span class="d">Real pixels of each person, matched to their track</span><span class="f">varanasi_people_sprites.py · varanasi_match_sprites.py</span></div>
+        <div class="lane-end"></div>
+      </div>
+
+      <div class="lane robot">
+        <span class="title">Robot</span>
+        <div class="node robot"><span class="k">Reused</span><span class="n">G1 locomotion policy</span><span class="d">Trained on flat ground, 1500 iterations, mean reward 28.09. Turns a velocity command into walking. Not retrained.</span><span class="f">g1_policy/model_1499.pt</span></div>
+        <div class="arrow"></div>
+        <div class="node robot"><span class="k">Navigation</span><span class="n">Choose the velocity command</span><span class="d">Rule based on time to collision, with a learned PPO alternative. Sees only people inside its field of view and range who aren't hidden behind nearer people.</span><span class="f">crowd_nav.py · varanasi_train_nav.py</span></div>
+        <div class="lane-end"></div>
+      </div>
+    </div>
+
+    <div class="merge"></div>
+    <div class="arrow" style="height:14px"></div>
+
+    <div class="node sim" style="max-width:520px"><span class="k">Step M4 · Isaac Sim</span><span class="n">Walk the G1 through the recorded crowd</span><span class="d">The robot stands on a ground-plane collider at z = 0, and the splat stays out of physics. People are analytic moving obstacles, not rigid bodies. Start, goal and crowd all come from the same metric world. 50 Hz control, 40 s.</span><span class="f">varanasi_m4_walk.py → m4_run*.json</span></div>
+    <div class="arrow"></div>
+
+    <div class="decide">
+      <div class="diamond"><span>Collision, fall, or goal not reached?</span></div>
+      <div class="branch"><span><b class="y">yes</b> adjust the controller or its commands and run again (runs 1 → 6 → 8)</span><span><b class="nn">no</b> render the run</span></div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="renderrow">
+      <div class="node render"><span class="k">Render 1</span><span class="n">Capture the robot alone</span><span class="d">Isaac RGBA, alpha from depth, ground hidden but still colliding</span><span class="f">varanasi_m4_capture.py</span></div>
+      <div class="node render"><span class="k">Render 2</span><span class="n">Composite into the splat</span><span class="d">Splat rendered with Isaac's camera settings so the layers line up</span><span class="f">varanasi_m4_composite.py</span></div>
+      <div class="node render"><span class="k">Render 3</span><span class="n">First-person view</span><span class="d">Street seen from the robot's pose, frame by frame</span><span class="f">varanasi_m4_fpv.py</span></div>
+      <div class="node render"><span class="k">Render 4</span><span class="n">Final composite</span><span class="d">Splat + real-people sprites + robot, sorted by depth, with perception boxes and minimap</span><span class="f">varanasi_final_video.py</span></div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="node io"><span class="k">Output</span><span class="n">Videos and run logs</span><span class="d">m4_final_crowd_walk.mp4 · m4_g1_walk_sidebyside.mp4 · m4_g1_fpv_street.mp4 · m4_g1_crowd_chase.mp4 · m4_run8.json · m4_path8.png</span></div>
+  </div>
+  <p style="font-size:13px;color:var(--muted)">Step numbers follow the script docstrings, so the scene and crowd lanes interleave: step 4 (tracking) runs between steps 3 and 5.</p>
+</section>
+</div>
+</body></html>

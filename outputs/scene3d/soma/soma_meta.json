@@ -1,0 +1,22 @@
+{
+  "source_body": "kimodo somaskel77 skin_standard.npz (SOMA mid LOD)",
+  "source_motion": "kimodo/assets/demo/examples/kimodo-soma-rp/05_root_path/motion.npz -- 'A person is casually walking forward slowly'",
+  "fps": 30.0,
+  "n_frames": 105,
+  "n_joints": 77,
+  "n_vertices": 18056,
+  "n_faces": 36108,
+  "clip_speed_mps": 1.0951154877914775,
+  "loop_frames": [
+    99,
+    204
+  ],
+  "frame": "Z-up, body faces +X, metres; hips horizontally fixed (in-place loop)",
+  "validation": {
+    "lbs_vs_kimodo_SOMASkin_max_m": 2.1823956668498568e-06,
+    "top4_weights_vs_full_max_m": 0.0019240615174811646,
+    "top4_weights_vs_full_mean_m": 6.6471905088520266e-06,
+    "loop_seam_pose_dist": 0.38677364587783813,
+    "lowest_foot_joint_z_m": 0.014865066833996465
+  }
+}

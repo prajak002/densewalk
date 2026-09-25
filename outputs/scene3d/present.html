@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DenseWalk: Humanoid in a Real Crowd</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<style>
+:root{
+  --bg:#0B0F0E; --panel:rgba(12,17,16,.84); --ink:#EAF0EC; --muted:#9AA8A2; --rule:rgba(255,255,255,.10);
+  --learn:#4FD1C5; --rule-c:#F6A15B; --ok:#63D68D; --warn:#F2C14E; --bad:#FF6B5E;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --cond:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace; color-scheme:dark;
+}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font:13px/1.45 var(--sans);overflow:hidden}
+#view{position:fixed;inset:0}
+.panel{position:fixed;background:var(--panel);border:1px solid var(--rule);border-radius:12px;backdrop-filter:blur(8px)}
+#title{left:16px;top:calc(env(safe-area-inset-top,0px) + 16px);padding:14px 16px;max-width:min(400px,calc(100vw - 32px));display:grid;gap:6px}
+#title h1{margin:0;font:700 22px/1.1 var(--cond);letter-spacing:.01em}
+#title p{margin:0;color:var(--muted);font-size:12.5px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.chip{font:500 11.5px var(--mono);padding:4px 8px;border-radius:99px;border:1px solid var(--rule);font-variant-numeric:tabular-nums}
+.chip.L{color:var(--learn);border-color:rgba(79,209,197,.4)} .chip.R{color:var(--rule-c);border-color:rgba(246,161,91,.4)}
+#banner{left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top,0px) + 16px);padding:10px 18px;display:flex;gap:12px;align-items:center;min-width:min(420px,60vw);justify-content:center}
+#banner .who{font:600 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--learn)}
+#banner .what{font:700 20px/1.1 var(--cond)}
+#banner .why{color:var(--muted);font-size:12px}
+#explain{right:16px;top:calc(env(safe-area-inset-top,0px) + 16px);width:min(380px,calc(100vw - 32px));padding:14px 16px;display:grid;gap:10px;max-height:calc(100vh - 190px);overflow:auto}
+#explain h2{margin:0;font:600 15px var(--cond);letter-spacing:.02em}
+.step{display:grid;gap:3px;border-left:3px solid var(--rule);padding-left:10px}
+.step b{font:600 12px var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.step .eq{font-size:13px;overflow-x:auto}
+.step .live{font:500 12px var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.step.p{border-color:#8DB6E0} .step.p b{color:#8DB6E0}
+.step.r{border-color:var(--warn)} .step.r b{color:var(--warn)}
+.step.a{border-color:var(--learn)} .step.a b{color:var(--learn)}
+.live .L{color:var(--learn)} .live .R{color:var(--rule-c)}
+#bar{left:16px;right:16px;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);padding:10px 12px;display:grid;gap:8px}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+button,select{font:600 12px/1 var(--sans);color:var(--ink);background:rgba(255,255,255,.06);border:1px solid var(--rule);border-radius:7px;padding:7px 10px;cursor:pointer}
+select{font-weight:500}
+button:hover{border-color:var(--learn)} button[aria-pressed="true"]{color:var(--learn);border-color:var(--learn)}
+button.primary{background:var(--learn);color:#062422;border-color:var(--learn);min-width:68px}
+button:focus-visible,select:focus-visible{outline:2px solid var(--learn);outline-offset:2px}
+.grp{display:flex;gap:4px;flex-wrap:wrap}
+.clock{font:500 12px var(--mono);font-variant-numeric:tabular-nums;color:var(--muted)}
+#chart{width:100%;height:64px;display:block;cursor:pointer}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;color:var(--muted);font-size:11.5px}
+.legend i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.lbl{font:600 11px var(--mono);color:#fff;background:rgba(0,0,0,.62);padding:2px 6px;border-radius:5px;white-space:nowrap;pointer-events:none;font-variant-numeric:tabular-nums}
+.lbl.hi{background:rgba(255,107,94,.85)} .lbl.md{background:rgba(242,193,78,.85);color:#1a1300} .lbl.robot{background:rgba(79,209,197,.85);color:#062422}
+.lbl.robotR{background:rgba(246,161,91,.85);color:#2a1300}
+#load{position:fixed;inset:0;display:grid;place-items:center;font:500 13px var(--mono);color:var(--muted);pointer-events:none}
+@media (max-width:900px){#explain{display:none}#banner{top:auto;bottom:170px}}
+</style>
+</head><body>
+<div id="view"></div>
+<div id="load">loading market, crowd and robot…</div>
+
+<div id="title" class="panel">
+  <h1>A humanoid walking through a real market crowd</h1>
+  <p>Varanasi street reconstructed from one phone video. Every person is a 3D SOMA body replaying their own motion from the video. The Unitree G1 is steered by a learned navigation policy (teal) or the rule-based baseline (orange) on the same episode.</p>
+  <div class="chips" id="chips"></div>
+</div>
+
+<div id="banner" class="panel" aria-live="polite"><div><div class="who">learned policy is</div><div class="what" id="bWhat">–</div><div class="why" id="bWhy"></div></div></div>
+
+<div id="explain" class="panel">
+  <h2>How the robot decides, every 0.1 s</h2>
+  <div class="step p"><b>1 · Predict the crowd</b>
+    <div class="eq" id="eqP"></div>
+    <div class="live" id="lvP"></div></div>
+  <div class="step r"><b>2 · Score the risk</b>
+    <div class="eq" id="eqR1"></div><div class="eq" id="eqR2"></div>
+    <div class="live" id="lvR"></div></div>
+  <div class="step a"><b>3 · Act</b>
+    <div class="eq" id="eqA1"></div><div class="eq" id="eqA2"></div>
+    <div class="live" id="lvA"></div></div>
+  <div class="step a" style="border-color:rgba(255,255,255,.2)"><b style="color:var(--muted)">How the weights were trained</b>
+    <div class="eq" id="eqT"></div>
+    <div class="live">PPO, reward above; the rule-based robot uses the step-2 terms directly.</div></div>
+</div>
+
+<div id="bar" class="panel">
+  <canvas id="chart" aria-label="Risk timeline: minimum time to contact for both robots, with the maneuver strip"></canvas>
+  <div class="legend"><span><i style="background:var(--learn)"></i>learned: min time-to-contact</span><span><i style="background:var(--rule-c)"></i>rule-based: min time-to-contact</span><span><i style="background:var(--bad)"></i>&lt; 0.7 s = contact imminent</span><span>strip: learned robot's maneuver</span></div>
+  <div class="row">
+    <button id="play" class="primary">Play</button>
+    <div class="grp" role="group" aria-label="Speed"><button data-rate="0.5">0.5×</button><button data-rate="1" aria-pressed="true">1×</button><button data-rate="2">2×</button></div>
+    <span class="clock" id="clock">t 0.0 s</span>
+    <select id="ep" aria-label="Episode"></select>
+    <div class="grp" role="group" aria-label="View"><button data-view="street" aria-pressed="true">Street view</button><button data-view="analysis">Analysis view</button></div>
+    <div class="grp" role="group" aria-label="Robots"><button id="tglRule" aria-pressed="true">Show rule-based robot</button></div>
+  </div>
+</div>
+
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+  "urdf-loader": "https://cdn.jsdelivr.net/npm/urdf-loader@0.12.3/src/URDFLoader.js",
+  "gsplat3d": "https://cdn.jsdelivr.net/npm/@mkkellogg/gaussian-splats-3d@0.4.7/build/gaussian-splats-3d.module.js",
+  "katex": "https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.mjs"
+} }
+</script>
+<script type="module">
+import * as THREE from "three";
+import { CSS2DRenderer, CSS2DObject } from "three/examples/jsm/renderers/CSS2DRenderer.js";
+import URDFLoader from "urdf-loader";
+import * as GS from "gsplat3d";
+import katex from "katex";
+THREE.Object3D.DEFAULT_UP.set(0, 0, 1);
+const $ = id => document.getElementById(id);
+const J = u => fetch(u).then(r => r.json());
+const [S, NAV, G3] = await Promise.all([J("scene.json"), J("nav/nav_annotated.json"), J("people3d/meta.json")]);
+const P = NAV.params, TS = S.time_scale;
+
+// ---------- equations ----------
+const K = (id, tex) => katex.render(tex, $(id), { displayMode: false, throwOnError: false });
+K("eqP", String.raw`\hat{p}_i(t{+}s)=p_i+v_i\,s,\quad s\in[0,3]\,\mathrm{s}`);
+K("eqR1", String.raw`\tau_i=\min\{t>0:\ \lVert \Delta p_i+t\,\Delta v_i\rVert=r_i+r_{\mathrm{robot}}\}`);
+K("eqR2", String.raw`w_i=\frac{1}{\max(\tau_i,0.2)}+0.6\,\big[r_i+r_{\mathrm{robot}}+0.6-d_i^{\min}\big]_+`);
+K("eqA1", String.raw`\text{learned: } a_t=\pi_\theta(o_t),\ \ o_t=[\text{goal},\,v,\,\text{kerbs},\,6\times(\Delta p,\Delta v,r)]`);
+K("eqA2", String.raw`\text{rule: } u=\hat g+1.2\,\mathrm{clip}\Big(\sum_i w_i\,\hat n_i\Big)+u_{\text{kerb}},\ \ \text{stop if }\tau<0.7`);
+K("eqT", String.raw`r_t=6\,\Delta d_{\text{goal}}-1.2\,[0.6-c_t]_+-0.6\,\mathbb{1}_{\text{off road}}-12\,\mathbb{1}_{\text{hit}}+25\,\mathbb{1}_{\text{goal}}`);
+
+// ---------- renderer ----------
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2)); renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true; $("view").appendChild(renderer.domElement);
+const labels = new CSS2DRenderer(); labels.setSize(innerWidth, innerHeight);
+Object.assign(labels.domElement.style, { position: "fixed", inset: "0", pointerEvents: "none" }); $("view").appendChild(labels.domElement);
+const scene = new THREE.Scene(); scene.background = new THREE.Color(0x0B0F0E);
+const camera = new THREE.PerspectiveCamera(58, innerWidth / innerHeight, 0.05, 400); camera.up.set(0, 0, 1);
+scene.add(new THREE.HemisphereLight(0xeef3ff, 0x2e2a26, 1.5));
+const sun = new THREE.DirectionalLight(0xffffff, 1.5); sun.position.set(-8, -10, 20); sun.castShadow = true;
+Object.assign(sun.shadow.camera, { left: -30, right: 30, top: 30, bottom: -30 }); sun.shadow.mapSize.set(2048, 2048); scene.add(sun, sun.target);
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(140, 60), new THREE.MeshStandardMaterial({ color: 0x151b19, roughness: 1 }));
+ground.receiveShadow = true; scene.add(ground);
+const grid = new THREE.GridHelper(140, 140, 0x26302c, 0x1a221f); grid.rotation.x = Math.PI / 2; grid.position.z = 0.003; scene.add(grid);
+
+// road: the walkable corridor (from where the crowd walks)
+const [cy0, cy1] = NAV.corridor_y;
+const road = new THREE.Mesh(new THREE.PlaneGeometry(90, cy1 - cy0), new THREE.MeshBasicMaterial({ color: 0x4FD1C5, transparent: true, opacity: .05, depthWrite: false }));
+road.position.set(5, (cy0 + cy1) / 2, 0.005); scene.add(road);
+for (const y of [cy0, cy1]) {
+  const g = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-40, y, 0.01), new THREE.Vector3(50, y, 0.01)]);
+  const l = new THREE.Line(g, new THREE.LineDashedMaterial({ color: 0x4FD1C5, dashSize: .8, gapSize: .5, transparent: true, opacity: .55 }));
+  l.computeLineDistances(); scene.add(l);
+}
+
+// ---------- market (splat, street view only) ----------
+let splat = null;
+async function setSplat(on) {
+  if (on && !splat) { splat = new GS.DropInViewer({ gpuAcceleratedSort: false, sharedMemoryForWorkers: false }); scene.add(splat);
+    await splat.addSplatScenes([{ path: "splat/varanasi_clean.ply", showLoadingUI: false }], false); }
+  if (splat) splat.visible = on;
+}
+
+// ---------- 3D people (GEM-X -> SOMA), coloured from the video ----------
+const g3faces = new Uint32Array(await (await fetch("people3d/faces.bin")).arrayBuffer());
+const bodies = {};
+await Promise.all(Object.entries(G3.people).map(async ([tid, m]) => {
+  const buf = await (await fetch(`people3d/${tid}.bin`)).arrayBuffer();
+  const nF = m.frames.length, nV = m.n_verts;
+  const pel = new Float32Array(buf, 0, nF * 3), off = new Int16Array(buf, nF * 12, nF * nV * 3);
+  const col = new Uint8Array(buf, nF * 12 + nF * nV * 6, nV * 3);
+  const lin = new Float32Array(nV * 3); for (let i = 0; i < lin.length; i++) lin[i] = Math.pow(col[i] / 255, 2.2);
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(nV * 3), 3));
+  geo.setAttribute("color", new THREE.BufferAttribute(lin, 3)); geo.setIndex(new THREE.BufferAttribute(g3faces, 1));
+  const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: .85 }));
+  mesh.castShadow = true; mesh.frustumCulled = false; mesh.visible = false; scene.add(mesh);
+  bodies[tid] = { m, pel, off, mesh, nF, nV, key: -1 };
+}));
+function poseBodies(t) {
+  const fv = t / TS * G3.fps;
+  for (const b of Object.values(bodies)) {
+    const F = b.m.frames, on = fv >= F[0] && fv <= F[b.nF - 1];
+    b.mesh.visible = on; if (!on) continue;
+    let k = 0; while (k < b.nF - 2 && F[k + 1] <= fv) k++;
+    const u = Math.max(0, Math.min(1, (fv - F[k]) / Math.max(1, F[k + 1] - F[k]))), key = k + u;
+    if (key === b.key) continue; b.key = key;
+    const pos = b.mesh.geometry.attributes.position.array, A = k * b.nV * 3, B = (k + 1) * b.nV * 3;
+    const px = b.pel[3 * k] + (b.pel[3 * k + 3] - b.pel[3 * k]) * u, py = b.pel[3 * k + 1] + (b.pel[3 * k + 4] - b.pel[3 * k + 1]) * u,
+          pz = b.pel[3 * k + 2] + (b.pel[3 * k + 5] - b.pel[3 * k + 2]) * u;
+    for (let i = 0; i < b.nV * 3; i += 3) {
+      pos[i] = px + 0.001 * (b.off[A + i] + (b.off[B + i] - b.off[A + i]) * u);
+      pos[i + 1] = py + 0.001 * (b.off[A + i + 1] + (b.off[B + i + 1] - b.off[A + i + 1]) * u);
+      pos[i + 2] = pz + 0.001 * (b.off[A + i + 2] + (b.off[B + i + 2] - b.off[A + i + 2]) * u);
+    }
+    b.mesh.geometry.attributes.position.needsUpdate = true; b.mesh.geometry.computeVertexNormals();
+  }
+}
+// tracked obstacles with no reconstructed body (vehicles, short tracks): shown as their footprint
+const noBody = NAV.crowd.filter(c => !(c.id in G3.people));
+const nbMesh = new THREE.InstancedMesh(new THREE.CylinderGeometry(1, 1, 1.4, 20).rotateX(Math.PI / 2).translate(0, 0, 0.7),
+  new THREE.MeshStandardMaterial({ color: 0x8c9690, transparent: true, opacity: .45 }), 64);
+scene.add(nbMesh);
+function interp(ts, arr, t) { let lo = 0, hi = ts.length - 1;
+  if (t <= ts[0]) return arr[0]; if (t >= ts[hi]) return arr[hi];
+  while (hi - lo > 1) { const m = (lo + hi) >> 1; (ts[m] <= t ? lo = m : hi = m); }
+  const a = (t - ts[lo]) / (ts[hi] - ts[lo]); return [arr[lo][0] + a * (arr[hi][0] - arr[lo][0]), arr[lo][1] + a * (arr[hi][1] - arr[lo][1])]; }
+const _m = new THREE.Matrix4(), _q = new THREE.Quaternion(), _v = new THREE.Vector3(), _s = new THREE.Vector3();
+function poseNoBody(t) { let n = 0;
+  for (const c of noBody) { if (t < c.t[0] || t > c.t[c.t.length - 1]) continue; const q = interp(c.t, c.xy, t);
+    _m.compose(_v.set(q[0], q[1], 0), _q, _s.set(c.r, c.r, 1)); nbMesh.setMatrixAt(n++, _m); }
+  nbMesh.count = n; nbMesh.instanceMatrix.needsUpdate = true; }
+
+// ---------- robots ----------
+function gaitPose(u, dist, moving) { if (!u) return; const ph = dist / 0.55 * Math.PI, a = moving ? 1 : 0;
+  for (const [sd, o] of [["left", 0], ["right", Math.PI]]) { const s = Math.sin(ph + o);
+    const set = (n, v) => u.joints[n] && u.setJointValue(n, v);
+    set(`${sd}_hip_pitch_joint`, -0.15 - a * 0.38 * s); set(`${sd}_knee_joint`, 0.32 + a * 0.45 * Math.max(0, Math.sin(ph + o + 0.8)));
+    set(`${sd}_ankle_pitch_joint`, -0.18 + a * 0.15 * s); set(`${sd}_shoulder_pitch_joint`, 0.2 + a * 0.3 * s); set(`${sd}_elbow_joint`, 0.9); } }
+function lineObj(color, op = 1, dashed = false) {
+  const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.BufferAttribute(new Float32Array(3 * 64), 3));
+  const m = dashed ? new THREE.LineDashedMaterial({ color, dashSize: .18, gapSize: .12, transparent: true, opacity: op }) : new THREE.LineBasicMaterial({ color, transparent: true, opacity: op });
+  const l = new THREE.Line(g, m); l.frustumCulled = false; scene.add(l); return l; }
+function setLine(l, pts) { const a = l.geometry.attributes.position.array; pts.forEach((p, i) => { a[3 * i] = p[0]; a[3 * i + 1] = p[1]; a[3 * i + 2] = p[2] ?? .06; });
+  l.geometry.setDrawRange(0, pts.length); l.geometry.attributes.position.needsUpdate = true; if (l.material.isLineDashedMaterial) l.computeLineDistances(); }
+function label(cls) { const d = document.createElement("div"); d.className = "lbl " + cls; const o = new CSS2DObject(d); scene.add(o); return o; }
+function makeRobot(color, key, lblCls) {
+  const r = { key, color, g: new THREE.Group(), urdf: null };
+  scene.add(r.g);
+  new URDFLoader().load("g1/g1_29dof.urdf", u => { r.urdf = u; u.position.z = 0.74;
+    u.traverse(o => { if (o.isMesh) { o.castShadow = true; o.material = new THREE.MeshStandardMaterial({ color: key === "learned" ? 0xdfeeed : 0xf1e6dc, metalness: .25, roughness: .45 }); } });
+    r.g.add(u); $("load")?.remove(); });
+  const ring = (rad, op, dashed) => { const m = new THREE.Mesh(new THREE.RingGeometry(rad - .03, rad, 48),
+    new THREE.MeshBasicMaterial({ color, transparent: true, opacity: op, side: THREE.DoubleSide, depthWrite: false })); m.position.z = .02; r.g.add(m); return m; };
+  ring(P.robot_radius, .95); r.bubble = ring(P.robot_radius + P.comfort_dist, .45);
+  r.trail = lineObj(color, .9); r.plan = lineObj(color, 1, true);
+  r.fan = new THREE.Mesh(new THREE.CircleGeometry(6, 40, -P.fov_rad / 2, P.fov_rad), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: .06, side: THREE.DoubleSide, depthWrite: false }));
+  r.fan.position.z = .015; r.g.add(r.fan);
+  r.lbl = label(lblCls); r.lbl.position.z = 2.1; r.g.add(r.lbl);
+  r.hit = new THREE.Mesh(new THREE.TorusGeometry(.6, .07, 10, 40), new THREE.MeshBasicMaterial({ color: 0xFF6B5E })); r.hit.visible = false; scene.add(r.hit);
+  return r;
+}
+const RL = makeRobot(0x4FD1C5, "learned", "robot"), RR = makeRobot(0xF6A15B, "rule", "robotR");
+// perception annotations for the learned robot: future paths, risk rings, labels
+const MAXP = 12;
+const ann = [...Array(MAXP)].map(() => {
+  const ringM = new THREE.Mesh(new THREE.RingGeometry(.42, .5, 32), new THREE.MeshBasicMaterial({ color: 0x63D68D, transparent: true, opacity: .9, side: THREE.DoubleSide, depthWrite: false }));
+  ringM.position.z = .03; scene.add(ringM);
+  const fut = lineObj(0x8DB6E0, .9, true);
+  const dots = [1, 2, 3].map(s => { const d = new THREE.Mesh(new THREE.CircleGeometry(.12 - s * .02, 16), new THREE.MeshBasicMaterial({ color: 0x8DB6E0, transparent: true, opacity: 1 - s * .22 })); d.position.z = .04; scene.add(d); return d; });
+  const lb = label("md");
+  return { ringM, fut, dots, lb };
+});
+const closest = lineObj(0xffffff, .8, true), closestLbl = label("");
+
+// ---------- episodes ----------
+const epSel = $("ep");
+NAV.episodes.forEach((e, k) => { const o = document.createElement("option"); o.value = k; o.textContent = `Episode ${k + 1}: ${e.label}`; epSel.appendChild(o); });
+let EP = null, T0 = 0, T1 = 1, t = 0;
+function riskColor(w) { return w >= 1.0 ? 0xFF6B5E : w >= 0.3 ? 0xF2C14E : 0x63D68D; }
+function maneuver(st, speedAlong) {
+  const [vx, vy, om] = st.cmd, tt = st.min_ttc;
+  if (vx < 0.1 && Math.abs(vy) < 0.1) return ["Stopping", "contact risk too close to steer", "bad"];
+  // overtaking: someone ahead, moving our way, slower than us, whom we pass to one side
+  const c = Math.cos(st.yaw), s = Math.sin(st.yaw);
+  for (const p of st.seen) {
+    const dx = p[0] - st.xy[0], dy = p[1] - st.xy[1], bx = c * dx + s * dy, by = -s * dx + c * dy;
+    const along = c * p[2] + s * p[3];
+    if (bx > 0 && bx < 4 && Math.abs(by) < 1.8 && along > 0.3 && along < vx - 0.05) {
+      const side = by > 0 ? "right" : "left";
+      return [`Overtaking on the ${side}`, `person ${bx.toFixed(1)} m ahead walking ${along.toFixed(1)} m/s, robot ${vx.toFixed(1)} m/s`, "ok"];
+    }
+  }
+  if (tt != null && tt < 2.0 && vx < 0.6) return ["Yielding", `closest contact in ${tt.toFixed(1)} s, slowing to ${vx.toFixed(1)} m/s`, "warn"];
+  if (Math.abs(vy) > 0.12 || Math.abs(om) > 0.25) {
+    const left = (vy + 0.6 * om) > 0;
+    return [`Steering ${left ? "left" : "right"}`, tt != null ? `making room: contact was ${tt.toFixed(1)} s away` : "keeping to the road", "warn"];
+  }
+  return ["Walking — path clear", tt != null ? `nearest contact ${tt.toFixed(1)} s away` : "no one on a collision course", "ok"];
+}
+function setEpisode(k) {
+  EP = NAV.episodes[+k];
+  for (const [r, key] of [[RL, "learned"], [RR, "rule"]]) {
+    const st = EP[key].steps; r.cum = [0];
+    for (let i = 1; i < st.length; i++) r.cum.push(r.cum[i - 1] + Math.hypot(st[i].xy[0] - st[i - 1].xy[0], st[i].xy[1] - st[i - 1].xy[1]));
+    r.man = st.map(s => maneuver(s)); r.hit.visible = false;
+  }
+  T0 = EP.t0; T1 = EP.t0 + P.dt * Math.max(EP.learned.steps.length, EP.rule.steps.length) + 1.5; t = T0;
+  const L = EP.learned, R = EP.rule;
+  $("chips").innerHTML = `<span class="chip L">learned: ${L.outcome} · closest ${L.min_clear.toFixed(2)} m · swerve ${L.max_lateral_dev.toFixed(1)} m</span>
+    <span class="chip R">rule-based: ${R.outcome}${R.min_clear != null ? " · closest " + R.min_clear.toFixed(2) + " m" : ""}</span>
+    <span class="chip">test set (120 eps): success 78.3% vs 71.7% · collisions 21.7% vs 28.3%</span>`;
+  drawChart();
+}
+epSel.onchange = () => setEpisode(epSel.value);
+
+// ---------- chart ----------
+const cv = $("chart"), cx = cv.getContext("2d");
+function drawChart() {
+  const dpr = devicePixelRatio || 1, W = cv.clientWidth, H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  cx.clearRect(0, 0, W, H);
+  const X = tt => (tt - T0) / (T1 - T0) * W, Y = v => H - 14 - Math.min(v, 5) / 5 * (H - 20);
+  cx.fillStyle = "rgba(255,107,94,.12)"; cx.fillRect(0, Y(0.7), W, H - 14 - Y(0.7));
+  cx.fillStyle = "rgba(154,168,162,.7)"; cx.font = "10px IBM Plex Mono, monospace"; cx.fillText("5 s", 2, Y(5) + 9); cx.fillText("0.7 s", 2, Y(0.7) - 2);
+  for (const [key, col] of [["rule", "#F6A15B"], ["learned", "#4FD1C5"]]) {
+    cx.strokeStyle = col; cx.lineWidth = 2; cx.beginPath(); let started = false;
+    for (const s of EP[key].steps) { const v = s.min_ttc == null ? 5 : s.min_ttc; const x = X(s.t), y = Y(v);
+      started ? cx.lineTo(x, y) : (cx.moveTo(x, y), started = true); } cx.stroke();
+  }
+  const mc = { ok: "#63D68D", warn: "#F2C14E", bad: "#FF6B5E" };
+  EP.learned.steps.forEach((s, i) => { cx.fillStyle = mc[RL.man[i][2]]; cx.fillRect(X(s.t), H - 8, Math.max(1, P.dt / (T1 - T0) * W + .5), 6); });
+}
+cv.onclick = e => { const r = cv.getBoundingClientRect(); t = T0 + (e.clientX - r.left) / r.width * (T1 - T0); };
+
+// ---------- per-frame ----------
+function stepAt(r, key) { const st = EP[key].steps, f = (t - EP.t0) / P.dt;
+  const k = Math.max(0, Math.min(st.length - 1, Math.floor(f))), k2 = Math.min(st.length - 1, k + 1), u = Math.max(0, Math.min(1, f - k));
+  return { st, k, k2, u, ended: f >= st.length - 1 }; }
+function driveRobot(r, key) {
+  const { st, k, k2, u, ended } = stepAt(r, key), a = st[k], b = st[k2];
+  const x = a.xy[0] + (b.xy[0] - a.xy[0]) * u, y = a.xy[1] + (b.xy[1] - a.xy[1]) * u;
+  let dyaw = Math.atan2(Math.sin(b.yaw - a.yaw), Math.cos(b.yaw - a.yaw)); const yaw = a.yaw + dyaw * u;
+  r.g.position.set(x, y, 0); r.g.rotation.z = yaw;
+  gaitPose(r.urdf, r.cum[k] + (r.cum[k2] - r.cum[k]) * u, !ended && a.cmd[0] > 0.05);
+  setLine(r.trail, st.slice(Math.max(0, k - 63), k + 1).map(s => [s.xy[0], s.xy[1], .05]));
+  // planned path: roll the current body command forward 3 s
+  const pl = []; let px = x, py = y, pyaw = yaw;
+  for (let i = 0; i <= 30; i++) { pl.push([px, py, .07]); const c = Math.cos(pyaw), s = Math.sin(pyaw);
+    px += (c * a.cmd[0] - s * a.cmd[1]) * .1; py += (s * a.cmd[0] + c * a.cmd[1]) * .1; pyaw += a.cmd[2] * .1; }
+  setLine(r.plan, ended ? [] : pl);
+  const out = EP[key].outcome;
+  r.hit.visible = ended && out === "collided"; if (r.hit.visible) { r.hit.position.set(EP[key].end_xy[0], EP[key].end_xy[1], 1.0); r.hit.rotation.x = Math.PI / 2; }
+  const m = r.man[k];
+  r.lbl.element.textContent = ended ? (out === "reached" ? "goal reached" : out === "collided" ? "collision" : out) : `${key === "learned" ? "learned" : "rule"} · ${m[0].toLowerCase()}`;
+  return { a, x, y, yaw, m, ended };
+}
+function annotate(state) {
+  const a = state.a, seen = [...a.seen].sort((p, q) => q[7] - p[7]);
+  let best = null;
+  ann.forEach((A, i) => {
+    const p = seen[i], on = !!p && !state.ended;
+    A.ringM.visible = A.fut.visible = on; A.dots.forEach(d => d.visible = on); A.lb.visible = on && i < 3 && p[7] >= 0.3;
+    if (!on) { A.lb.element.textContent = ""; return; }
+    A.ringM.position.set(p[0], p[1], .03); A.ringM.scale.setScalar(Math.max(.7, p[4] / .45)); A.ringM.material.color.setHex(riskColor(p[7]));
+    setLine(A.fut, [[p[0], p[1], .05], [p[0] + p[2] * 3, p[1] + p[3] * 3, .05]]);
+    A.dots.forEach((d, j) => d.position.set(p[0] + p[2] * (j + 1), p[1] + p[3] * (j + 1), .04));
+    A.lb.position.set(p[0], p[1], 2.05);
+    A.lb.element.className = "lbl " + (p[7] >= 1 ? "hi" : "md");
+    A.lb.element.textContent = `τ ${p[5] == null ? "∞" : p[5].toFixed(1) + " s"} · closest ${p[6].toFixed(1)} m`;
+    const d = Math.hypot(p[0] - state.x, p[1] - state.y) - p[4] - P.robot_radius;
+    if (!best || d < best.d) best = { d, p };
+  });
+  closest.visible = closestLbl.visible = !!best;
+  if (best) { setLine(closest, [[state.x, state.y, .08], [best.p[0], best.p[1], .08]]);
+    closestLbl.position.set((state.x + best.p[0]) / 2, (state.y + best.p[1]) / 2, .35);
+    closestLbl.element.className = "lbl " + (best.d < 0.6 ? "hi" : ""); closestLbl.element.textContent = `gap ${Math.max(0, best.d).toFixed(2)} m`; }
+  // side panel, live
+  const wmax = seen.length ? seen[0][7] : 0;
+  $("lvP").innerHTML = `${a.seen.length} people in view (120°, 12 m) · dashed = next 3 s`;
+  $("lvR").innerHTML = `min τ <span class="L">${a.min_ttc == null ? "∞" : a.min_ttc.toFixed(2) + " s"}</span> · max w <span class="L">${wmax.toFixed(2)}</span> · gap <span class="L">${best ? Math.max(0, best.d).toFixed(2) + " m" : "–"}</span>`;
+  $("lvA").innerHTML = `learned: v <span class="L">${a.cmd[0].toFixed(2)} m/s</span> · side <span class="L">${a.cmd[1] >= 0 ? "+" : ""}${a.cmd[1].toFixed(2)}</span> · turn <span class="L">${a.cmd[2] >= 0 ? "+" : ""}${a.cmd[2].toFixed(2)} rad/s</span> · critic V(o) <span class="L">${a.value == null ? "–" : a.value.toFixed(1)}</span>`;
+}
+
+// ---------- view / camera ----------
+let view = "street";
+document.querySelectorAll("[data-view]").forEach(b => b.onclick = () => { view = b.dataset.view;
+  document.querySelectorAll("[data-view]").forEach(x => x.setAttribute("aria-pressed", x === b));
+  setSplat(view === "street"); grid.visible = view !== "street"; });
+$("tglRule").onclick = e => { const on = e.target.getAttribute("aria-pressed") !== "true"; e.target.setAttribute("aria-pressed", on);
+  for (const o of [RR.g, RR.trail, RR.plan, RR.hit]) o.visible = on; };
+const camPos = new THREE.Vector3(), camLook = new THREE.Vector3(); let camInit = false;
+function placeCamera(s) {
+  const f = new THREE.Vector3(Math.cos(s.yaw), Math.sin(s.yaw), 0);
+  const wantPos = view === "street" ? new THREE.Vector3(s.x, s.y, 0).addScaledVector(f, -4.6).setZ(2.3)
+                                    : new THREE.Vector3(s.x, s.y, 0).addScaledVector(f, -6.5).add(new THREE.Vector3(0, -3, 0)).setZ(11);
+  const wantLook = new THREE.Vector3(s.x, s.y, 0).addScaledVector(f, view === "street" ? 4 : 3).setZ(view === "street" ? 1.0 : 0);
+  if (!camInit) { camPos.copy(wantPos); camLook.copy(wantLook); camInit = true; }
+  camPos.lerp(wantPos, .08); camLook.lerp(wantLook, .12); camera.position.copy(camPos); camera.lookAt(camLook);
+}
+
+// ---------- loop ----------
+let playing = false, rate = 1, last = performance.now();
+$("play").onclick = () => { playing = !playing; $("play").textContent = playing ? "Pause" : "Play"; if (t >= T1 - .01) t = T0; };
+document.querySelectorAll("[data-rate]").forEach(b => b.onclick = () => { rate = +b.dataset.rate; document.querySelectorAll("[data-rate]").forEach(x => x.setAttribute("aria-pressed", x === b)); });
+function frame(now) {
+  const dt = Math.min(.1, (now - last) / 1000); last = now;
+  if (playing) { t += dt * rate; if (t >= T1) { t = T1; playing = false; $("play").textContent = "Play"; } }
+  poseBodies(t); poseNoBody(t);
+  const sL = driveRobot(RL, "learned"); driveRobot(RR, "rule");
+  annotate(sL);
+  const [what, why, lvl] = sL.ended ? [EP.learned.outcome === "reached" ? "Goal reached safely" : EP.learned.outcome, `closest pass in the episode: ${EP.learned.min_clear.toFixed(2)} m`, "ok"] : sL.m;
+  $("bWhat").textContent = what; $("bWhy").textContent = why;
+  $("bWhat").style.color = { ok: "var(--ok)", warn: "var(--warn)", bad: "var(--bad)" }[lvl];
+  $("clock").textContent = `t ${(t - T0).toFixed(1)} s`;
+  sun.position.set(sL.x - 8, sL.y - 10, 20); sun.target.position.set(sL.x, sL.y, 0);
+  placeCamera(sL);
+  // chart playhead
+  drawChart(); const X = (t - T0) / (T1 - T0) * cv.clientWidth; cx.fillStyle = "#fff"; cx.fillRect(X, 0, 2, cv.clientHeight);
+  renderer.render(scene, camera); labels.render(scene, camera);
+  requestAnimationFrame(frame);
+}
+addEventListener("resize", () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); labels.setSize(innerWidth, innerHeight); });
+setEpisode(0); setSplat(true); grid.visible = false;
+requestAnimationFrame(frame);
+</script>
+</body></html>

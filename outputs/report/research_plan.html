@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DenseWalk JEPA Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F4F6F4; --surface:#FFFFFF; --ink:#18221F; --muted:#56645F; --rule:#D5DCD8;
+  --accent:#0B6B66; --accent-soft:#DCEDEA;
+  --ok:#2E7A48; --ok-bg:#E1F0E5; --warn:#9A640F; --warn-bg:#F6EBD5; --bad:#A93A33; --bad-bg:#F6E0DD;
+  --l1:#2F5E8C; --l1-bg:#E2EBF4; --l2:#6A3F8F; --l2-bg:#ECE3F3; --l3:#8A3350; --l3-bg:#F4E2E8;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --cond:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#111715; --surface:#18201D; --ink:#E3EAE6; --muted:#9AA8A2; --rule:#2C3733;
+    --accent:#5CC2B9; --accent-soft:#16332F;
+    --ok:#6CC78A; --ok-bg:#16301F; --warn:#E0AE5A; --warn-bg:#35280F; --bad:#EE8A80; --bad-bg:#3A1B18;
+    --l1:#8DB6E0; --l1-bg:#172533; --l2:#C3A2E2; --l2-bg:#2A1F36; --l3:#E895B0; --l3-bg:#3A1C26;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#111715; --surface:#18201D; --ink:#E3EAE6; --muted:#9AA8A2; --rule:#2C3733;
+  --accent:#5CC2B9; --accent-soft:#16332F;
+  --ok:#6CC78A; --ok-bg:#16301F; --warn:#E0AE5A; --warn-bg:#35280F; --bad:#EE8A80; --bad-bg:#3A1B18;
+  --l1:#8DB6E0; --l1-bg:#172533; --l2:#C3A2E2; --l2-bg:#2A1F36; --l3:#E895B0; --l3-bg:#3A1C26;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.62 var(--sans)}
+.page{max-width:1160px;margin:0 auto;padding-inline:20px;padding-block:40px 80px;display:grid;grid-template-columns:220px minmax(0,1fr);gap:40px}
+nav{position:sticky;top:calc(env(safe-area-inset-top,0px) + 20px);align-self:start;font-size:13px;display:grid;gap:2px;max-height:calc(100vh - 40px);overflow:auto}
+nav a{color:var(--muted);text-decoration:none;padding:3px 0 3px 10px;border-left:2px solid transparent}
+nav a:hover{color:var(--ink);border-color:var(--accent)}
+nav .grp{font:500 11px var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-top:12px}
+main{min-width:0;display:grid;gap:0}
+h1,h2,h3{font-family:var(--cond);text-wrap:balance;line-height:1.15;margin:0}
+h1{font-size:clamp(30px,5vw,46px);font-weight:700}
+h2{font-size:25px;font-weight:600}
+h3{font-size:16.5px;font-weight:600}
+p{margin:0;max-width:72ch}
+ul,ol{margin:0;padding-left:20px;display:grid;gap:5px;max-width:78ch}
+.mono{font-family:var(--mono);font-size:.86em}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+header{display:grid;gap:14px;padding-bottom:28px;border-bottom:1px solid var(--rule)}
+.lede{font-size:17px}
+section{padding-top:44px;display:grid;gap:14px;scroll-margin-top:16px}
+.num{font:500 12px var(--mono);color:var(--accent)}
+.box{background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:14px 16px;display:grid;gap:8px}
+.statement{font:500 19px/1.45 var(--sans);border-left:4px solid var(--accent);padding:4px 0 4px 16px;max-width:75ch}
+.callout{border-left:3px solid var(--warn);background:var(--warn-bg);padding:12px 16px;border-radius:0 8px 8px 0;display:grid;gap:6px;max-width:86ch}
+.callout.bad{border-color:var(--bad);background:var(--bad-bg)}
+.callout.ok{border-color:var(--ok);background:var(--ok-bg)}
+.callout b{font-weight:600}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:14px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:8px;overflow:hidden}
+.facts div{background:var(--surface);padding:12px 14px;display:grid;gap:3px;align-content:start}
+.facts .k{font:500 11px var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.facts .v{font:600 15px/1.35 var(--cond)}
+.facts .d{font-size:12.5px;color:var(--muted);line-height:1.45}
+.tbl{overflow-x:auto;border:1px solid var(--rule);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--rule);vertical-align:top}
+thead th{font:500 11.5px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.05em;background:var(--bg);white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+td.nw{white-space:nowrap}
+.pill{display:inline-block;font:500 11px/1 var(--mono);padding:4px 7px;border-radius:99px;white-space:nowrap}
+.keep{color:var(--ok);background:var(--ok-bg)}.cut{color:var(--bad);background:var(--bad-bg)}.defer{color:var(--warn);background:var(--warn-bg)}
+.lv1{color:var(--l1);background:var(--l1-bg)}.lv2{color:var(--l2);background:var(--l2-bg)}.lv3{color:var(--l3);background:var(--l3-bg)}
+/* flow diagram */
+.flow{display:grid;gap:0;justify-items:center;background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:20px 14px}
+.fn{border:1.5px solid var(--c,var(--rule));border-left-width:5px;border-radius:7px;padding:8px 12px;background:var(--bg);width:100%;max-width:560px;display:grid;gap:2px}
+.fn .t{font:600 14px/1.25 var(--cond)} .fn .d{font-size:12.5px;color:var(--muted);line-height:1.4}
+.fn .tag{font:500 10.5px var(--mono);color:var(--c);letter-spacing:.05em;text-transform:uppercase}
+.off{--c:var(--l2)} .wm{--c:var(--l1)} .rob{--c:var(--l3)} .env{--c:var(--muted)}
+.ar{width:2px;height:20px;background:var(--muted);position:relative}
+.ar::after{content:"";position:absolute;left:50%;bottom:-1px;transform:translateX(-50%);border:6px solid transparent;border-top:7px solid var(--muted);border-bottom:0}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:760px}
+.loopnote{font:500 12px var(--mono);color:var(--accent);padding:8px 0;text-align:center}
+.gate{border:1.5px dashed var(--warn);background:var(--warn-bg);border-radius:7px;padding:8px 12px;max-width:560px;width:100%;font-size:12.5px}
+.gate b{font:600 13px var(--cond);color:var(--warn)}
+/* milestones */
+.ms{display:grid;gap:10px}
+details{background:var(--surface);border:1px solid var(--rule);border-radius:8px}
+summary{cursor:pointer;padding:11px 14px;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+";font:600 14px var(--mono);color:var(--accent);width:12px}
+details[open] summary::before{content:"–"}
+summary .wk{font:500 11.5px var(--mono);color:var(--muted);margin-left:auto}
+summary b{font:600 15px var(--cond)}
+.msb{padding:0 16px 14px 38px;display:grid;grid-template-columns:120px minmax(0,1fr);gap:6px 14px;font-size:13.5px}
+.msb .k{font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);padding-top:3px}
+.team{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:14px}
+.team .box h3{display:flex;gap:8px;align-items:baseline}
+footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--rule);font-size:13px;color:var(--muted)}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:880px){.page{grid-template-columns:1fr}nav{display:none}.split{grid-template-columns:1fr}.msb{grid-template-columns:1fr;padding-left:16px}}
+</style>
+</head><body>
+<div class="page">
+<nav aria-label="Sections">
+  <span class="grp">Status</span>
+  <a href="#box">Box check</a><a href="#facts">What V-JEPA predicts</a><a href="#critique">Critique of the proposal</a>
+  <span class="grp">Answers</span>
+  <a href="#decisions">10 decision questions</a>
+  <span class="grp">Plan</span>
+  <a href="#problem">Problem & hypothesis</a><a href="#arch">Architecture</a><a href="#roles">Component roles</a><a href="#loop">Closed-loop formulation</a><a href="#data">Dataset strategy</a><a href="#protocol">Protocol & baselines</a><a href="#metrics">Metrics</a><a href="#ablations">Ablations</a><a href="#failures">Failure analysis</a><a href="#team">Team</a><a href="#roadmap">Roadmap</a><a href="#paper">Paper figures</a><a href="#novelty">Novelty</a><a href="#risks">Risks</a>
+</nav>
+<main>
+<header>
+  <span class="eyebrow">DenseWalk · research plan · 26 Sep 2026</span>
+  <h1>JEPA predictions for humanoid navigation among walking people</h1>
+  <p class="lede">A focused plan built on what the V-JEPA code and the box actually contain, not on what the proposal assumes. The first two sections are a status check. The rest answers the 25-point brief.</p>
+</header>
+
+<section id="box">
+  <span class="num">Status 1</span>
+  <h2>What's on the new box (180.189.55.43:14046)</h2>
+  <div class="facts">
+    <div><span class="k">GPU</span><span class="v">RTX 5090, 32 GB, idle</span><span class="d">torch 2.11 + CUDA 12.8, transformers 5.17</span></div>
+    <div><span class="k">Disk</span><span class="v">31 GB free of 56 GB</span><span class="d">Above the 20 GB floor. The trimmed Cosmos3-Nano takes 17 GB.</span></div>
+    <div><span class="k">Port 8080</span><span class="v">Jupyter notebook</span><span class="d">Token-protected. The <span class="mono">-L 8080:localhost:8080</span> tunnel opens it at localhost:8080. Nothing else is running.</span></div>
+    <div><span class="k">V-JEPA</span><span class="v">Library only, no weights</span><span class="d"><span class="mono">transformers.VJEPA2Model</span> takes <span class="mono">context_mask</span>/<span class="mono">target_mask</span> and repeats a single image to fill a tubelet. The ViT-L checkpoint (4.8 GB) is on the Mac in <span class="mono">~/latent2rgb/checkpoints/vitl.pt</span>.</span></div>
+  </div>
+  <div class="callout ok"><b>Correction: the DCA feature job was not lost.</b> <span>It finished on this box on 25 Sep. <span class="mono">latents_dca_full.npz</span> and <span class="mono">latents_lora_only.npz</span> (13,498 frames each) both pass verification against the checkpoint's recorded test predictions (2655 of 2655 frames match). They're being copied to <span class="mono">outputs/dca_latents/</span> on the Mac. That makes the real-data Δt horizon run on Cosmos3-Nano possible now. It's a separate thread from this plan.</span></div>
+  <div class="callout bad"><b>The Mac has only 9.3 GB free.</b> <span>The latents fit, but a second V-JEPA checkpoint or any batch of renders won't. Keep bulk artifacts on the box and copy only results, or free space first.</span></div>
+</section>
+
+<section id="facts">
+  <span class="num">Status 2 · critical question 7</span>
+  <h2>What the existing V-JEPA work actually predicts</h2>
+  <p>From <span class="mono">~/latent2rgb</span> (Horizon Ladder), read from its adapter and README rather than assumed:</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Property</th><th>Fact</th><th>Consequence for this project</th></tr></thead>
+    <tbody>
+      <tr><td>Model</td><td>V-JEPA2 ViT-L/16, 256 px, frozen, <b>action-free</b> (not V-JEPA2-AC)</td><td>It can't be asked "what happens if the robot does X". Navigation has to use it as a forecaster of the scene, not as a planner.</td></tr>
+      <tr><td>Encoder output</td><td>Tokens <span class="mono">[T/2 × 16 × 16, 1024]</span>: one 1024-d token per 16×16 patch per 2-frame tubelet</td><td>A grid of patch features, not a human state. No positions, no identities.</td></tr>
+      <tr><td>Predictor's native task</td><td>Masked spatiotemporal completion: predict tokens at hidden positions from visible ones <i>within an observed clip</i></td><td>Filling in <b>hidden regions</b> is in-distribution. That matches your "unseen things" requirement.</td></tr>
+      <tr><td>How latent2rgb queries it</td><td>Causally: context = past tubelets, target = the one tubelet containing frame t+k. One forward pass per horizon, not an autoregressive loop.</td><td>This query is <b>out-of-distribution</b>, and the repo says so itself. "Multi-step prediction" means several independent single-shot queries.</td></tr>
+      <tr><td>Measured quality of future predictions</td><td>The predicted latent sits at <b>0.79</b> on a 0 (exact) to 1 (unrelated clip) scale, and moves only 0.016 between k = 2 and k = 32. Error after re-injection <i>shrinks</i> with horizon.</td><td>As queried, the predictor barely uses its context. The prior is that these latents <b>don't</b> carry usable per-person future motion. Test this before building anything downstream.</td></tr>
+      <tr><td>Decoder</td><td>A deliberately weak linear pixel decoder. It loses to copy-last-frame at short horizons (0.1807 vs 0.1663 RMSE).</td><td>Pixel decoding can't be the interface to the scene. Use a task probe instead.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout"><b>So "next-frame prediction" is the wrong description.</b> <span>The existing system predicts the latent patch tokens of one future 2-frame tubelet per query, from a frozen predictor queried outside its training distribution, with no action input and no human-level output.</span></div>
+</section>
+
+<section id="critique">
+  <span class="num">Status 3</span>
+  <h2>What in the proposal holds up, and what doesn't</h2>
+  <div class="grid2">
+    <div class="box"><h3>Sound</h3><ul>
+      <li>Keeping Level 1 (world-model accuracy) and Level 2 (robotics use) as separate claims and metrics.</li>
+      <li>Static scene plus controllable walking humans. Excluding vehicles and other dynamics.</li>
+      <li>3DGS by default, with 4DGS only if an experiment shows it's needed.</li>
+      <li>Treating occlusion failures as a failure mode to measure, not the whole thesis.</li>
+      <li>~20 reconstructed scenes chosen by explicit criteria; the large dataset stays for Level 1.</li>
+      <li>A simple TTC planner before any VLA or new policy.</li>
+    </ul></div>
+    <div class="box"><h3>Needs changing</h3><ul>
+      <li><b>The closed loop in §6/§8 mixes two different loops.</b> If the <i>predicted</i> human state is written into the scene and then re-observed, the model is watching its own predictions. That's an imagination rollout, useful for measuring compounding error. The robotics loop is different: the world advances by ground truth, and the robot acts on predictions and re-observes. Both are needed, measured separately (see <a href="#loop">formulation</a>).</li>
+      <li><b>"Apply V-JEPA output to the scene" has no interface yet.</b> The output is 256×1024 patch tokens. The smallest missing piece is a trained probe from tokens to per-person ground-plane position. That probe is the real Milestone 7.</li>
+      <li><b>The existing evidence already points to a limitation.</b> Saturated latents that ignore context are the "genuine limitation" the brief asks us to show before changing the model. Put the test in week 2 as a go/no-go gate, not in week 8.</li>
+      <li><b>Render gap is missing.</b> In the loop, V-JEPA sees splat renders with pasted humans, not real video. Its accuracy on renders has to be measured against the same moments on real frames, or the Level 2 results won't carry over to reality.</li>
+      <li><b>The planner baseline is too weak right now.</b> In the existing 120-episode test the rule-based controller collides in 50% of episodes and PPO in 44%. With a baseline that weak, any gain from prediction is lost in the noise. Fix the baseline first.</li>
+    </ul></div>
+  </div>
+  <div class="callout ok"><b>Your two new requirements map well onto V-JEPA.</b>
+    <span><b>Unseen regions:</b> predicting hidden patches is V-JEPA's native training task. Occluded-region completion is therefore the <i>strongest</i> use of the model here, stronger than future prediction.</span>
+    <span><b>Single-frame end to end:</b> the encoder accepts one image (the library repeats it to fill a 2-frame tubelet). One frame carries no velocity, though. The loop should take <b>one new frame per step</b> into a rolling context buffer of 8–16 frames. That keeps the loop frame-by-frame without asking a single still image to tell you how fast people are walking.</span>
+  </div>
+</section>
+
+<section id="decisions">
+  <span class="num">§24</span>
+  <h2>Answers to the 10 decision questions</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>#</th><th>Question</th><th>Answer</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>What does V-JEPA predict?</td><td>1024-d latent patch tokens at masked or target positions of a 2-frame tubelet grid. Natively for hidden positions inside an observed clip; causally (out of distribution) for one future tubelet per query. Action-free.</td></tr>
+      <tr><td>2</td><td>Can it represent human future motion?</td><td>Unknown, with a negative prior: future latents are saturated near chance. Gate G1 in week 2 decides.</td></tr>
+      <tr><td>3</td><td>Can it map to 3D human state?</td><td>Only through a trained probe: predicted tokens plus each person's current box → that person's ground-plane position at t+h. Supervision comes from tracks lifted with the ground plane. Train one probe on current tokens and one on predicted tokens, so the predictor's own contribution is isolated.</td></tr>
+      <tr><td>4</td><td>Is 4DGS needed?</td><td>No for the core loop. 4DGS bakes in the original people's motion, which conflicts with controllable humans. 3DGS + explicit trajectories is enough. 4DGS is only an optional render-realism ablation.</td></tr>
+      <tr><td>5</td><td>Does SOMA add control?</td><td>Only when humans must follow trajectories that were <i>not</i> recorded (counterfactual paths or poses). Replaying recorded tracks works with the real-pixel cutouts we already have. Check SOMA's license and how it renders against gsplat before committing; any SMPL-family body with retargeted walking cycles does the same job.</td></tr>
+      <tr><td>6</td><td>Minimum scene complexity?</td><td>One street, 10–30 walking people at moderate density, a walkable corridor ≥ 3 m wide, the robot within ~1 m sideways of the original camera path (where the splat is trustworthy). Varanasi already meets this.</td></tr>
+      <tr><td>7</td><td>Minimum humanoid setup?</td><td>What exists: the G1 flat-ground velocity policy (1500 iterations), a ground-plane collider, and people as analytic obstacles. No new locomotion training.</td></tr>
+      <tr><td>8</td><td>Simplest closed-loop experiment?</td><td>Replayed humans, robot on a receding horizon. Each step: render the robot's view → V-JEPA → probe → predicted positions → TTC planner → G1 step → humans advance along their recordings. Compare predictors with the planner held fixed.</td></tr>
+      <tr><td>9</td><td>Which failures matter?</td><td>Not known yet. Log occlusion fraction, crowd density, crossing angle and render quality for every frame, then rank failure types by frequency × impact. Occlusion is the hypothesis, not a result.</td></tr>
+      <tr><td>10</td><td>What's necessary vs interesting?</td><td>See the component table in <a href="#roles">Component roles</a>. Cut: VLA, new PPO variants, optical flow, new depth models, 4DGS in the core loop. Deferred: SMPL/SOMA humans, reactive humans.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="problem">
+  <span class="num">§25.1–2</span>
+  <h2>Problem statement and hypothesis</h2>
+  <p class="statement">In crowded pedestrian streets a humanoid has to act on people's near-future positions and on regions it can't currently see. We test whether a frozen video JEPA (V-JEPA2) supplies either one well enough, through a minimal learned readout, to improve navigation inside a controlled reconstruction of a real street.</p>
+  <div class="box">
+    <h3>Hypotheses (each tested on its own)</h3>
+    <ol>
+      <li><b>H1, hidden regions (native task).</b> Filling in occluded ground-level patches with V-JEPA2 lowers the false-free-space rate in occluded cells, compared with treating them as unknown-free or using a nearest-visible fill.</li>
+      <li><b>H2, human futures (out-of-distribution task).</b> For 0.33–2.7 s ahead, a probe reading predicted tokens gets lower per-person FDE than both constant velocity and the same probe reading current tokens. If this fails with the frozen predictor, a small causal predictor trained on frozen encoder tokens passes.</li>
+      <li><b>H3, downstream use.</b> With the planner held fixed, replacing constant-velocity futures with probe futures raises success rate or lowers collision rate in closed loop. The gain shrinks as horizon, density and occlusion grow.</li>
+    </ol>
+    <p style="color:var(--muted);font-size:13.5px">Each is falsifiable, and each is reported with scene-level bootstrap CIs. A negative H2 is still a publishable finding about frozen video JEPAs, given the evidence already collected in latent2rgb.</p>
+  </div>
+</section>
+
+<section id="arch">
+  <span class="num">§25.3 · §13</span>
+  <h2>Final system architecture</h2>
+  <div class="flow">
+    <div class="fn off"><span class="tag">Offline, per scene (exists for Varanasi)</span><span class="t">Video → detect + track → mask people → COLMAP → 3DGS static → ground plane from people's heights → metric tracks</span><span class="d">Outputs: splat, world.json, human tracks in metres (Z-up, floor z = 0). Speed check flags sped-up footage.</span></div>
+    <div class="ar"></div>
+    <div class="fn env"><span class="tag">Step t: world state</span><span class="t">Robot pose + humans at their ground-truth positions (replayed tracks)</span></div>
+    <div class="ar"></div>
+    <div class="fn env"><span class="tag">Render</span><span class="t">Splat view from the robot's head camera + humans inserted (cutouts, later SMPL)</span><span class="d">One new frame, appended to a rolling buffer of the last 8–16 frames</span></div>
+    <div class="ar"></div>
+    <div class="fn wm"><span class="tag">World model (frozen)</span><span class="t">V-JEPA2 encoder → context tokens</span></div>
+    <div class="ar"></div>
+    <div class="split">
+      <div class="fn wm"><span class="tag">Head A · native</span><span class="t">Masked completion of hidden regions</span><span class="d">Target = patches behind people and out-of-view ground → occupancy probe → free / obstacle / unknown per ground cell</span></div>
+      <div class="fn wm"><span class="tag">Head B · gated</span><span class="t">Future human state</span><span class="d">Predictor target = tubelets at +h → per-person probe → Δxy at h ∈ {0.33, 0.67, 1.33, 2.67} s, with uncertainty</span></div>
+    </div>
+    <div class="ar"></div>
+    <div class="gate"><b>Gate G1 (week 2).</b> If Head B doesn't beat both constant velocity and the current-token probe, swap in a small causal predictor trained on frozen tokens. If that also fails, Head B falls back to constant velocity and H2 is reported as negative.</div>
+    <div class="ar"></div>
+    <div class="fn rob"><span class="tag">Risk + plan</span><span class="t">Sample velocity commands → roll out the robot 2.7 s → TTC and closest approach against predicted humans, plus a penalty for predicted obstacle cells</span></div>
+    <div class="ar"></div>
+    <div class="fn rob"><span class="tag">Control</span><span class="t">G1 velocity policy (frozen) → Isaac step on the ground-plane collider</span></div>
+    <div class="ar"></div>
+    <div class="fn env"><span class="tag">World update</span><span class="t">Humans advance along their tracks (ground truth, not predictions) → back to step t + 1</span></div>
+    <div class="loopnote">↺ repeats every tubelet (2 frames ≈ 67 ms at 30 fps). The planner replans every step.</div>
+  </div>
+</section>
+
+<section id="roles">
+  <span class="num">§25.4–7 · §14</span>
+  <h2>Exact role of each component</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Component</th><th>Decision</th><th>Role, and why</th></tr></thead>
+    <tbody>
+      <tr><td>V-JEPA2 (frozen)</td><td><span class="pill keep">keep</span></td><td>The only world model in the chain. Head A (hidden-region completion) is its in-distribution use. Head B (futures) is on probation until G1. The encoder is never fine-tuned; only probes, plus a small predictor if G1 fails, are trained.</td></tr>
+      <tr><td>Probe heads</td><td><span class="pill keep">new, minimal</span></td><td>The smallest module that turns tokens into scene state. A 2-layer cross-attention readout keyed by each person's current box. Target size ≤ 5M parameters.</td></tr>
+      <tr><td>3DGS</td><td><span class="pill keep">keep</span></td><td>Visual backdrop and the source of observations only. Never a collider. Trusted only near the original camera path; elsewhere its pixels are flagged low-confidence.</td></tr>
+      <tr><td>4DGS</td><td><span class="pill defer">ablation only</span></td><td>It would reproduce the original people's motion, which is exactly what controllable humans replace. Test only whether it improves render realism enough to shrink the render gap.</td></tr>
+      <tr><td>Human cutouts (existing)</td><td><span class="pill keep">stage 1</span></td><td>Real pixels at tracked positions, sorted by depth. Enough for replayed trajectories.</td></tr>
+      <tr><td>SOMA / SMPL-family body</td><td><span class="pill defer">stage 2</span></td><td>Needed only for trajectories that weren't recorded (stress tests, crossing scenarios). Not needed for the core H2/H3 result.</td></tr>
+      <tr><td>Detection + tracking</td><td><span class="pill keep">keep, offline</span></td><td>Who is present and which person is which over time. Supplies the probe's queries and training labels. At runtime, stage 1 uses oracle current positions and stage 2 uses a detector on the render.</td></tr>
+      <tr><td>Depth</td><td><span class="pill keep">ground-plane only</span></td><td>Where each person is in 3D: back-project the foot point onto the fitted ground plane. That's already measured (stature correlation with depth 0.365). Add a monocular depth model only if placement error exceeds 0.3 m at 10 m.</td></tr>
+      <tr><td>Optical flow</td><td><span class="pill cut">cut</span></td><td>Image-space motion is already available from tracks. Reintroduce only if the tracker fragments identities.</td></tr>
+      <tr><td>TTC planner</td><td><span class="pill keep">keep, fix</span></td><td>Sampling over velocity commands with TTC and closest-approach cost. First fix the 50% collision baseline (collision radius, horizon, stop rule) so that prediction effects can show.</td></tr>
+      <tr><td>G1 locomotion</td><td><span class="pill keep">frozen</span></td><td>The existing policy: 1500 iterations, reward 28.09. No retraining.</td></tr>
+      <tr><td>VLA / new PPO / semantic maps</td><td><span class="pill cut">cut</span></td><td>No language goal and no semantic task in this chain. A VLA would duplicate what the probe and planner already do.</td></tr>
+      <tr><td>Cosmos3-Nano DCA</td><td><span class="pill defer">separate thread</span></td><td>It predicts the ego walker's own action, not other people. Useful later as a second model family for Level 1. Its recovered latents let the Δt study run now, off the critical path.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="loop">
+  <span class="num">§25.8 · §8</span>
+  <h2>Closed-loop formulation: two loops, kept apart</h2>
+  <div class="grid2">
+    <div class="box">
+      <h3><span class="pill lv1">Imagination rollout</span> for Level 1–2 error growth</h3>
+      <p class="mono" style="font-size:12.5px;line-height:1.7">Ĥ<sub>t+1</sub> = g(f(o<sub>≤t</sub>), H<sub>t</sub>)<br>ô<sub>t+1</sub> = R(S, Ĥ<sub>t+1</sub>, pose<sub>t+1</sub>)<br>Ĥ<sub>t+2</sub> = g(f(o<sub>≤t</sub>, ô<sub>t+1</sub>), Ĥ<sub>t+1</sub>) …</p>
+      <p style="font-size:13.5px">Predictions are rendered and fed back. Measure: FDE against ground truth over the steps, the step where FDE first exceeds 0.5 m, and whether error compounds or saturates (latent2rgb's Stage F saw it shrink). This is the loop described in §6. It tests self-consistency, not navigation.</p>
+    </div>
+    <div class="box">
+      <h3><span class="pill lv3">Receding-horizon control</span> for Level 2–3 usefulness</h3>
+      <p class="mono" style="font-size:12.5px;line-height:1.7">o<sub>t</sub> = R(S, H<sub>t</sub>, pose<sub>t</sub>)  ← real state<br>Ĥ<sub>t+h</sub> = g(f(o<sub>≤t</sub>), H<sub>t</sub>)<br>a<sub>t</sub> = argmin<sub>a</sub> J(a; Ĥ, goal)<br>pose<sub>t+1</sub> = G1(pose<sub>t</sub>, a<sub>t</sub>),  H<sub>t+1</sub> = replay</p>
+      <p style="font-size:13.5px">The world is always ground truth; only the robot's beliefs come from the model. Re-observing every step lets it recover from a wrong prediction. Measure: success, collisions, clearance, time to goal, stops, and the recovery rate after a large prediction error. This is why closed loop matters more for robotics: open-loop FDE punishes errors the robot would have corrected a step later.</p>
+    </div>
+  </div>
+  <p style="font-size:13.5px;color:var(--muted)">Cost: J = w<sub>g</sub>·(remaining goal distance) + w<sub>r</sub>·Σ<sub>i,h</sub> exp(−TTC<sub>i</sub>/τ) + w<sub>c</sub>·max(0, d<sub>safe</sub> − d<sub>min</sub>) + w<sub>o</sub>·(predicted-obstacle cells on the path). Humans are replayed, so they don't react to the robot. That's a stated limitation; reactive crowds are out of scope.</p>
+</section>
+
+<section id="data">
+  <span class="num">§25.9 · §11–12</span>
+  <h2>Dataset strategy</h2>
+  <div class="grid2">
+    <div class="box"><h3>Level 1: large data, no reconstruction</h3><ul>
+      <li><b>AV2 pedestrians:</b> ego-moving video with 3D pedestrian cuboids from lidar. Metric ground truth for Head B, and lidar ground truth for Head A (the occluded ground is revealed later). Re-download sequences from the public S3 bucket.</li>
+      <li><b>WildTrack</b> (already on the Mac, 4.8 GB): dense crowd with ground-truth world positions. A static camera, so it's a pure crowd-dynamics test.</li>
+      <li><b>dense_walk_mini</b> (215 clips): egocentric crowd walking. Check the frame rate first: keyframes are 6 Hz, and V-JEPA2 was trained on denser video.</li>
+    </ul></div>
+    <div class="box"><h3>Level 2–3: 20 reconstructed scenes</h3>
+      <p style="font-size:13.5px">Selected by thresholds written down <i>before</i> reconstructing:</p>
+      <ul>
+        <li>SfM registers ≥ 90% of frames</li>
+        <li>Novel-view PSNR ≥ 22 dB with a <i>gapped</i> hold-out, not every-8th-frame interpolation</li>
+        <li>≥ 5 people with tracks ≥ 3 s</li>
+        <li>Stature–depth correlation &lt; 0.4 after the ground fit</li>
+        <li>Walkable corridor ≥ 3 m</li>
+        <li>Speed check passes: median walking speed 0.9–1.5 m/s, or a correction is recorded</li>
+        <li>Spread over density, occlusion and scene type</li>
+      </ul>
+      <p style="font-size:13.5px">Order: 5 moderate → 10 denser → 5 stress scenes (crossing flows, heavy occlusion).</p>
+    </div>
+  </div>
+</section>
+
+<section id="protocol">
+  <span class="num">§25.10–11 · §16</span>
+  <h2>Experimental protocol and baselines</h2>
+  <ol>
+    <li><b>Freeze the splits</b> by scene/clip before training any probe. The 20 reconstruction scenes never appear in probe training.</li>
+    <li><b>Level 1</b>: open-loop Head A and Head B on held-out clips, real frames only.</li>
+    <li><b>Render gap</b>: the same probes on renders of the same moments (camera on the original path), then with robot-viewpoint offsets of 0, 0.5 and 1 m sideways and head height 1.2 m.</li>
+    <li><b>Imagination rollout</b>: 20 scenes × all start times.</li>
+    <li><b>Closed loop</b>: 20 scenes × 3 goals × 10 start offsets = 600 episodes per condition. The planner and its weights are fixed across conditions and tuned once, on B2 only.</li>
+  </ol>
+  <div class="tbl"><table>
+    <thead><tr><th>ID</th><th>Futures given to the planner</th><th>Question it answers</th></tr></thead>
+    <tbody>
+      <tr><td class="nw">B0</td><td>Oracle future (ground-truth tracks)</td><td>Upper bound: how much can prediction help at all?</td></tr>
+      <tr><td class="nw">B1</td><td>None (people treated as static at their current position)</td><td>Does any prediction matter?</td></tr>
+      <tr><td class="nw">B2</td><td>Constant velocity from the last 0.5 s of track</td><td>The standard bar to beat</td></tr>
+      <tr><td class="nw">B3</td><td>Probe on <i>current</i> V-JEPA tokens (no predictor)</td><td>Isolates the predictor: do the encoder features alone already help?</td></tr>
+      <tr><td class="nw">B4</td><td>Probe on frozen-predictor tokens</td><td>H2 as proposed</td></tr>
+      <tr><td class="nw">B5</td><td>Probe on a small causal predictor trained on frozen tokens</td><td>The minimal model change, only if G1 fails</td></tr>
+      <tr><td class="nw">+A</td><td>Any of the above + Head A occupancy</td><td>H1: does filling in hidden regions reduce collisions caused by occlusion?</td></tr>
+    </tbody>
+  </table></div>
+  <p style="font-size:13.5px;color:var(--muted)">The proposal's "B4: V-JEPA + closed-loop replanning" is replaced: every condition replans every step. Plan-once versus replanning is instead an ablation (#6).</p>
+</section>
+
+<section id="metrics">
+  <span class="num">§25.12 · §17</span>
+  <h2>Metrics, by level</h2>
+  <div class="grid2">
+    <div class="box"><h3><span class="pill lv1">A · world model</span></h3><ul>
+      <li>Per-person ADE/FDE (m) at each horizon, and miss rate at 0.5 m</li>
+      <li>Skill vs constant velocity: 1 − FDE/FDE<sub>CV</sub>, split by visible vs occluded people</li>
+      <li>Head A: false-free-space rate and IoU in occluded ground cells, plus calibration (ECE)</li>
+      <li>Latent cosine to target tokens, secondary only, always reported with the chance baseline</li>
+    </ul></div>
+    <div class="box"><h3><span class="pill lv2">B · scene / simulation</span></h3><ul>
+      <li>Render gap: probe FDE on renders minus on real frames</li>
+      <li>Human placement error: reprojected foot point vs detection (px and m)</li>
+      <li>Splat PSNR/LPIPS with a gapped hold-out, and PSNR as a function of distance from the camera path</li>
+      <li>Imagination rollout: steps until FDE > 0.5 m, and the growth slope</li>
+    </ul></div>
+    <div class="box"><h3><span class="pill lv3">C · robotics</span></h3><ul>
+      <li>Success rate, collision rate, minimum human–robot distance</li>
+      <li>Time to goal, path-length ratio, freezing rate (stopped > 3 s)</li>
+      <li>Unnecessary stops (stopped while oracle TTC > 3 s)</li>
+      <li>Recovery rate after a prediction error > 1 m</li>
+      <li>All with scene-level bootstrap 95% CIs; no claim without a CI</li>
+    </ul></div>
+  </div>
+</section>
+
+<section id="ablations">
+  <span class="num">§25.13 · §18</span>
+  <h2>Ablations, in priority order</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>#</th><th>Ablation</th><th>Runs after</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>No prediction vs constant velocity vs V-JEPA (B1/B2/B4)</td><td>M9</td></tr>
+      <tr><td>2</td><td>Current-token vs predicted-token probe (B3 vs B4)</td><td>G1, week 2</td></tr>
+      <tr><td>3</td><td>Horizon 0.33 / 0.67 / 1.33 / 2.67 s</td><td>M3</td></tr>
+      <tr><td>4</td><td>Ground-truth vs predicted futures (B0 vs B4)</td><td>M9</td></tr>
+      <tr><td>5</td><td>Head A on vs off, split by occlusion fraction</td><td>M9</td></tr>
+      <tr><td>6</td><td>Plan once vs replan every step</td><td>M9</td></tr>
+      <tr><td>7</td><td>Moderate vs dense crowd, low vs high occlusion</td><td>M11</td></tr>
+      <tr><td>8</td><td>Real frames vs renders; cutouts vs SMPL humans; 3DGS vs 4DGS</td><td>M11, only if the render gap is large</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="failures">
+  <span class="num">§25.14 · §9</span>
+  <h2>Failure analysis</h2>
+  <p>Every closed-loop episode logs, per step: occlusion fraction in the planning corridor, density within 5 m, crossing angle of the nearest person, render confidence (distance from the camera path), prediction error per person, and the planner's chosen action. Afterwards:</p>
+  <ol>
+    <li>Label each collision or near miss with one cause: missed person, wrong future, hidden obstacle, planner error, render artifact, or locomotion.</li>
+    <li>Report the <b>frequency</b> of each type, then its <b>impact</b> (drop in success rate when that type occurs).</li>
+    <li>Fit failure probability against occlusion and density (logistic model, scene random effect).</li>
+    <li>Occluded-hazard test ("the pond"): insert hidden static obstacles behind crowds in 20% of episodes and measure the false-free-space rate with and without Head A.</li>
+    <li>Recovery: of the episodes with a prediction error > 1 m, how many still reach the goal because the planner replans?</li>
+  </ol>
+</section>
+
+<section id="team">
+  <span class="num">§25.15 · §23</span>
+  <h2>Three-person split</h2>
+  <div class="team">
+    <div class="box"><h3><span class="pill lv1">A</span>World model</h3><ul>
+      <li>Port latent2rgb's V-JEPA2 loading to the box and cache tokens</li>
+      <li>Head A and Head B probes, gate G1, and B5 if needed</li>
+      <li>Level 1 benchmark (AV2, WildTrack, dense_walk)</li>
+      <li>Imagination-rollout study</li>
+    </ul></div>
+    <div class="box"><h3><span class="pill lv2">B</span>Scene and humans</h3><ul>
+      <li>Scene selection script and 20 reconstructions</li>
+      <li>Metric track lifting and the speed check</li>
+      <li>Renderer: <span class="mono">render(cam_pose, t, humans) → RGB, mask</span></li>
+      <li>Cutouts, later SMPL humans; render-gap measurements</li>
+    </ul></div>
+    <div class="box"><h3><span class="pill lv3">C</span>Robotics and integration</h3><ul>
+      <li>Fix the TTC planner baseline</li>
+      <li>Closed-loop harness with a pluggable predictor</li>
+      <li>G1 in Isaac, episode runner, metrics and logging</li>
+      <li>Failure labelling and statistics</li>
+    </ul></div>
+  </div>
+  <div class="callout"><b>How to avoid blocking each other:</b> fix three interfaces in week 1, and each person starts against a stub.
+    <span class="mono" style="font-size:12.5px">HumanState{id, xy, vel, heading, t} · Renderer.render(pose, t, humans) · Predictor.predict(frame_buffer, humans_now, horizons) → {id: xy, σ}</span>
+    <span>C starts on the existing Varanasi scene with oracle and constant-velocity predictors. B's first renderer is the existing composite code. A works only on real video until G1.</span></div>
+</section>
+
+<section id="roadmap">
+  <span class="num">§25.16 · §22</span>
+  <h2>Roadmap</h2>
+  <p style="font-size:13.5px;color:var(--muted)">About 12 weeks. Gates can reorder work. Click a milestone for details.</p>
+  <div class="ms">
+    <details open><summary><b>M1 Reproduce V-JEPA results on the box</b><span class="pill lv1">A</span><span class="wk">week 1</span></summary><div class="msb">
+      <span class="k">Objective</span><span>latent2rgb Stage D/H numbers reproduced on the 5090</span>
+      <span class="k">Inputs</span><span>vitl.pt (copy from the Mac, 4.8 GB), SSv2 / Kinetics-mini clips</span>
+      <span class="k">Outputs</span><span>Token cache; reproduced 0.79 chance-scale figure</span>
+      <span class="k">Tasks</span><span>Check that <span class="mono">transformers.VJEPA2Model</span> matches the vendored loader numerically</span>
+      <span class="k">Dependencies</span><span>none</span>
+      <span class="k">Success</span><span>Stage H numbers within 5%</span>
+      <span class="k">Likely failure</span><span>HF vs vendored mask-index conventions differ; compare outputs tensor by tensor</span></div></details>
+    <details><summary><b>M2 Formalize the output + build the probe dataset</b><span class="pill lv1">A</span><span class="wk">week 1–2</span></summary><div class="msb">
+      <span class="k">Objective</span><span>Token → per-person target pairs</span>
+      <span class="k">Inputs</span><span>AV2 pedestrian cuboids, WildTrack ground truth</span>
+      <span class="k">Outputs</span><span>(tokens_t, predicted tokens_t+h, box_t, xy_t+h) tuples</span>
+      <span class="k">Dependencies</span><span>M1</span>
+      <span class="k">Success</span><span>≥ 20k tuples, split by scene</span>
+      <span class="k">Likely failure</span><span>Too few pedestrians in AV2 → add more logs</span></div></details>
+    <details open><summary><b>M3 Gate G1: does V-JEPA carry human futures?</b><span class="pill lv1">A</span><span class="wk">week 2–3</span></summary><div class="msb">
+      <span class="k">Objective</span><span>Decide Head B's fate</span>
+      <span class="k">Outputs</span><span>FDE vs horizon for B2/B3/B4 with CIs</span>
+      <span class="k">Success</span><span>B4 beats B2 and B3 at ≥ 2 horizons (CIs exclude 0)</span>
+      <span class="k">If it fails</span><span>Train B5 (week 3–4). If that fails too, use constant velocity and report H2 as negative</span>
+      <span class="k">Likely failure</span><span>This is the expected outcome for B4, given the saturation result</span></div></details>
+    <details><summary><b>M3b Head A: hidden-region completion</b><span class="pill lv1">A</span><span class="wk">week 2–4</span></summary><div class="msb">
+      <span class="k">Objective</span><span>Test H1 on real frames</span>
+      <span class="k">Inputs</span><span>AV2 frames + lidar ground-plane labels; crowd masks</span>
+      <span class="k">Outputs</span><span>False-free-space rate and IoU in occluded cells vs nearest-fill and unknown baselines</span>
+      <span class="k">Success</span><span>Lower false-free rate than both baselines</span>
+      <span class="k">Likely failure</span><span>Patch 16 px is too coarse for small obstacles → report as a resolution limit</span></div></details>
+    <details><summary><b>M4 Select 20 scenes</b><span class="pill lv2">B</span><span class="wk">week 1–3</span></summary><div class="msb">
+      <span class="k">Objective</span><span>Candidate pool scored by the pre-registered thresholds</span>
+      <span class="k">Outputs</span><span>scene_scores.csv, 20 picks, documented rejections</span>
+      <span class="k">Dependencies</span><span>none (runs in parallel)</span>
+      <span class="k">Likely failure</span><span>Few phone clips pass the speed check → record a time-scale correction per clip</span></div></details>
+    <details><summary><b>M5 Static reconstructions</b><span class="pill lv2">B</span><span class="wk">week 3–5</span></summary><div class="msb">
+      <span class="k">Objective</span><span>20 metric splats + ground planes</span>
+      <span class="k">Success</span><span>Gapped novel-view PSNR ≥ 22; placement error &lt; 0.3 m at 10 m</span>
+      <span class="k">Likely failure</span><span>Ghost geometry from never-seen ground (known) → the ground plane handles physics; flag low-confidence pixels</span></div></details>
+    <details><summary><b>M6 Walking humans in the renderer</b><span class="pill lv2">B</span><span class="wk">week 4–6</span></summary><div class="msb">
+      <span class="k">Objective</span><span><span class="mono">render(pose, t, humans)</span> with cutouts, depth order and masks</span>
+      <span class="k">Success</span><span>Render gap measured on held-out frames</span>
+      <span class="k">Later</span><span>SMPL / SOMA humans only if M9 needs trajectories that weren't recorded</span></div></details>
+    <details><summary><b>M7 V-JEPA → human-state interface</b><span class="pill lv1">A</span><span class="pill lv3">C</span><span class="wk">week 4–5</span></summary><div class="msb">
+      <span class="k">Objective</span><span>Predictor interface backed by the chosen head (B4, B5 or constant velocity)</span>
+      <span class="k">Success</span><span>&lt; 50 ms per step on the 5090 for a 16-frame buffer</span>
+      <span class="k">Dependencies</span><span>M3, M6 stub</span></div></details>
+    <details><summary><b>M8 Open-loop and imagination rollouts in the sim</b><span class="pill lv2">B</span><span class="pill lv1">A</span><span class="wk">week 6</span></summary><div class="msb">
+      <span class="k">Outputs</span><span>Render-gap table; steps-to-divergence curve</span>
+      <span class="k">Likely failure</span><span>Large render gap → fine-tune the probe on renders (not the encoder) and report both</span></div></details>
+    <details><summary><b>M9 Closed-loop navigation</b><span class="pill lv3">C</span><span class="wk">week 6–8</span></summary><div class="msb">
+      <span class="k">Objective</span><span>B0–B5 (+A) × 600 episodes</span>
+      <span class="k">Prerequisite</span><span>Planner baseline fixed: B0 success ≥ 85%, otherwise the planner is the bottleneck</span>
+      <span class="k">Success</span><span>A result with CIs, whichever direction it points</span></div></details>
+    <details><summary><b>M10 Humanoid integration</b><span class="pill lv3">C</span><span class="wk">already mostly done</span></summary><div class="msb">
+      <span class="k">Status</span><span>The G1 policy, ground plane and analytic obstacles already work (run 8). Remaining: a head-height camera pose for rendering</span></div></details>
+    <details><summary><b>M11 Ablations + failure analysis</b><span class="pill lv3">all</span><span class="wk">week 8–10</span></summary><div class="msb">
+      <span class="k">Outputs</span><span>Ablation table; failure-type frequency × impact; the occluded-hazard test</span></div></details>
+    <details><summary><b>M12 Paper</b><span class="pill lv3">all</span><span class="wk">week 10–12</span></summary><div class="msb">
+      <span class="k">Outputs</span><span>Figures, tables and videos below; a limitations section written from the failure analysis</span></div></details>
+  </div>
+</section>
+
+<section id="paper">
+  <span class="num">§25.17</span>
+  <h2>Expected figures and tables</h2>
+  <div class="grid2">
+    <div class="box"><h3>Figures</h3><ol>
+      <li>System diagram with the two loops shown separately</li>
+      <li>FDE vs horizon: oracle / constant velocity / current-token / frozen predictor / trained predictor</li>
+      <li>Hidden-region completion examples + false-free rate vs occlusion fraction</li>
+      <li>Render gap vs distance from the camera path</li>
+      <li>Imagination rollout: error vs step</li>
+      <li>Closed-loop success and collisions vs density, by baseline</li>
+      <li>Failure taxonomy (frequency × impact)</li>
+    </ol></div>
+    <div class="box"><h3>Tables and supplement</h3><ol>
+      <li>Level 1 results per dataset</li>
+      <li>Scene selection statistics (all candidates, not just picks)</li>
+      <li>Closed-loop B0–B5 with CIs</li>
+      <li>Ablations</li>
+      <li>Supplement: synchronized multi-view episode videos, like the current playback page</li>
+    </ol></div>
+  </div>
+</section>
+
+<section id="novelty">
+  <span class="num">§25.18–19</span>
+  <h2>What could be novel, and what isn't</h2>
+  <div class="grid2">
+    <div class="box"><h3>Could be novel (literature check first)</h3><ul>
+      <li>A controlled comparison of a frozen video JEPA's <b>in-distribution</b> use (masked completion of hidden regions) against its <b>out-of-distribution</b> use (causal future prediction) for the same downstream robot task</li>
+      <li>Occlusion safety measured as false-free-space rate against ground truth revealed later, rather than image similarity</li>
+      <li>Closed-loop humanoid evaluation inside reconstructions of <i>real</i> dense streets with controllable replayed humans, with the render gap measured instead of assumed away</li>
+    </ul>
+    <p style="font-size:13px;color:var(--muted)">Check against V-JEPA 2 / V-JEPA 2-AC, Navigation World Models, Vid2Sim, SplatSim, human-Gaussian work (HUGS), CrowdNav / SocNavBench, and ego-centric forecasting benchmarks (JRDB). None of these has been read for this plan yet.</p></div>
+    <div class="box"><h3>Not novel</h3><ul>
+      <li>Using 3DGS or 4DGS as a simulation backdrop</li>
+      <li>Pasting humans into splats</li>
+      <li>A TTC planner, or the G1 walking</li>
+      <li>Constant-velocity pedestrian baselines</li>
+      <li>Demo videos without statistics</li>
+      <li>Adding a VLA or 4DGS "because it's more advanced"</li>
+    </ul></div>
+  </div>
+</section>
+
+<section id="risks">
+  <span class="num">§25.20</span>
+  <h2>Major risks and fallbacks</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Risk</th><th>Likelihood</th><th>Fallback</th></tr></thead>
+    <tbody>
+      <tr><td>Frozen predictor carries no human-future signal (G1 fails)</td><td><span class="pill cut">high</span></td><td>Small causal predictor on frozen tokens (B5). If that fails, constant velocity + Head A, and H2 becomes a documented negative result</td></tr>
+      <tr><td>Large render gap</td><td><span class="pill defer">medium</span></td><td>Keep the robot near the camera path; fine-tune probes on renders; report both</td></tr>
+      <tr><td>Planner baseline too weak (currently 44–50% collisions)</td><td><span class="pill defer">known</span></td><td>Fix before M9; require the oracle (B0) to reach ≥ 85% success</td></tr>
+      <tr><td>Sped-up phone footage</td><td><span class="pill defer">known</span></td><td>Speed check per clip; correction factor or rejection</td></tr>
+      <tr><td>16 px patches too coarse for small hidden obstacles</td><td><span class="pill defer">medium</span></td><td>Report as a resolution limit; test at 384 px if a checkpoint exists</td></tr>
+      <tr><td>Humans don't react to the robot</td><td><span class="pill keep">accepted</span></td><td>State it as a limitation; reactive crowds are out of scope</td></tr>
+      <tr><td>Instance loss (happened twice)</td><td><span class="pill defer">medium</span></td><td>Copy after every milestone, detach long jobs with setsid, keep a token cache on HF</td></tr>
+      <tr><td>Disk: box 31 GB, Mac 9.3 GB</td><td><span class="pill defer">medium</span></td><td>Delete the trimmed Cosmos checkpoint on the box once the latents are safe; keep only results on the Mac</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<footer>Sources: <span class="mono">~/latent2rgb</span> (vjepa_adapter.py, interfaces.py, README), the box at 180.189.55.43:14046, and the DenseWalk outputs in this folder. The literature list in Novelty hasn't been checked against the papers yet.</footer>
+</main>
+</div>
+</body></html>

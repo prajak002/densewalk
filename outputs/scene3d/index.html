@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Varanasi Scene 3D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --panel:rgba(16,22,20,.86); --ink:#E3EAE6; --muted:#9AA8A2; --rule:rgba(255,255,255,.12);
+  --accent:#5CC2B9; --robot:#F07A68; --warn:#E0AE5A; --ok:#6CC78A; --bg:#0D1211;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --cond:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font:13px/1.45 var(--sans);overflow:hidden}
+#view{position:fixed;inset:0}
+.panel{position:fixed;background:var(--panel);border:1px solid var(--rule);border-radius:10px;backdrop-filter:blur(6px)}
+#info{top:calc(env(safe-area-inset-top,0px) + 12px);left:12px;padding:12px 14px;display:grid;gap:8px;max-width:min(360px,calc(100vw - 24px))}
+#info h1{font:600 18px/1.15 var(--cond);margin:0}
+#info p{margin:0;color:var(--muted);font-size:12px}
+.tele{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;font-variant-numeric:tabular-nums}
+.tele div{display:grid}
+.tele b{font:600 15px var(--cond)}
+.tele span{font-size:11px;color:var(--muted)}
+.state{font:500 11px/1 var(--mono);padding:4px 7px;border-radius:99px;justify-self:start}
+.state.walk{color:var(--ok);background:rgba(108,199,138,.14)}.state.stop{color:var(--warn);background:rgba(224,174,90,.16)}
+#bar{left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 12px);padding:10px 12px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+button{font:600 12px/1 var(--sans);color:var(--ink);background:rgba(255,255,255,.06);border:1px solid var(--rule);border-radius:6px;padding:7px 10px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+button[aria-pressed="true"]{color:var(--accent);border-color:var(--accent)}
+button.primary{background:var(--accent);color:#0D1211;border-color:var(--accent);min-width:64px}
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.grp{display:flex;gap:4px;flex-wrap:wrap}
+#scrub{flex:1 1 220px;accent-color:var(--accent)}
+.clock{font:500 12px var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+#pip{top:calc(env(safe-area-inset-top,0px) + 12px);right:12px;width:min(320px,40vw);padding:6px;display:grid;gap:4px}
+#pip video{width:100%;border-radius:6px;display:block;background:#000}
+#pip span{font:500 11px var(--mono);color:var(--muted);padding:0 2px}
+#legend{right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 74px);padding:8px 10px;display:grid;gap:3px;font-size:11.5px;color:var(--muted)}
+#legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+#nav{right:12px;top:calc(env(safe-area-inset-top,0px) + 232px);width:min(320px,40vw);padding:10px 12px;display:grid;gap:6px;font-size:12px}
+#nav select{font:500 12px var(--sans);background:rgba(255,255,255,.06);color:var(--ink);border:1px solid var(--rule);border-radius:6px;padding:6px}
+#nav table{border-collapse:collapse;font-variant-numeric:tabular-nums}#nav td,#nav th{padding:2px 6px;text-align:right}#nav td:first-child,#nav th:first-child{text-align:left}
+#nav .L{color:#5CC2B9}#nav .R{color:#F0A45A}
+#load{position:fixed;inset:0;display:grid;place-items:center;font:500 13px var(--mono);color:var(--muted);pointer-events:none}
+@media (max-width:700px){#pip{width:44vw}#legend{display:none}#info{max-width:52vw}}
+</style>
+</head><body>
+<div id="view"></div>
+<div id="load">loading scene…</div>
+
+<div id="info" class="panel">
+  <h1>Varanasi street · G1 run 8</h1>
+  <p>Metric street (metres, floor z = 0). People: full 3D SOMA bodies with each person's own motion recovered from the video by GEM-X, coloured from their video pixels, on their tracked paths. Robot: Unitree G1.</p>
+  <div class="tele">
+    <div><b id="hGoal">–</b><span>distance to goal</span></div>
+    <div><b id="hClr">–</b><span>nearest person</span></div>
+    <div><b id="hObs">–</b><span>obstacles in range</span></div>
+    <div><b id="hPeople">–</b><span>people visible</span></div>
+  </div>
+  <span id="hState" class="state walk">walking</span>
+  <p style="font-size:11px">G1 leg motion is a procedural gait for display only: the run logged base pose, not joint angles. Vehicles are excluded (walking humans only).</p>
+</div>
+
+<div id="pip" class="panel" aria-label="Original video, synced">
+  <video id="vid" src="varanasi1.mp4" muted playsinline preload="auto"></video>
+  <span id="vidlbl">source video · synced</span>
+</div>
+
+<div id="nav" class="panel" aria-label="Navigation">
+  <label for="navSel" style="color:var(--muted)">Robot navigation</label>
+  <select id="navSel"><option value="run8">Isaac G1 run 8 · rule-based · physics sim</option></select>
+  <div id="navBody"></div>
+</div>
+
+<div id="legend" class="panel">
+  <span><i style="background:#F07A68"></i>G1 + trail</span>
+  <span><i style="background:#5CC2B9"></i>goal</span>
+  <span><i style="background:#B9A38C"></i>people (3D, real motion)</span>
+  <span><i style="background:#5CC2B9"></i>learned policy robot (compare)</span>
+  <span><i style="background:#F0A45A"></i>rule-based robot (compare)</span>
+</div>
+
+<div id="bar" class="panel" role="group" aria-label="Playback">
+  <button id="play" class="primary">Play</button>
+  <div class="grp" role="group" aria-label="Speed"><button data-rate="0.5">0.5×</button><button data-rate="1" aria-pressed="true">1×</button><button data-rate="2">2×</button><button data-rate="4">4×</button></div>
+  <input id="scrub" type="range" min="0" max="40" step="0.02" value="0" aria-label="Time">
+  <span class="clock">t <b id="tt">0.00</b> s</span>
+  <div class="grp" role="group" aria-label="Camera">
+    <button data-cam="orbit" aria-pressed="true">Orbit</button><button data-cam="follow">Follow</button><button data-cam="eye">G1 eye</button><button data-cam="phone">Phone cam</button>
+  </div>
+  <div class="grp" role="group" aria-label="Street"><button data-splat="splat/varanasi_clean.ply" aria-pressed="true">Market</button><button data-splat="splat/varanasi_unaltered.ply">Market (unaltered)</button><button data-splat="">No splat</button></div>
+  <div class="grp" role="group" aria-label="People"><button data-people="gemx" aria-pressed="true">3D people (their real motion)</button><button data-people="soma">SOMA generic walk</button></div>
+  <div class="grp"><button id="tglPts" aria-pressed="false">SfM points</button></div>
+</div>
+
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+  "urdf-loader": "https://cdn.jsdelivr.net/npm/urdf-loader@0.12.3/src/URDFLoader.js",
+  "gsplat3d": "https://cdn.jsdelivr.net/npm/@mkkellogg/gaussian-splats-3d@0.4.7/build/gaussian-splats-3d.module.js"
+} }
+</script>
+<script type="module">
+import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import URDFLoader from "urdf-loader";
+import * as GS from "gsplat3d";
+
+
+THREE.Object3D.DEFAULT_UP.set(0, 0, 1);
+const S = await (await fetch("scene.json")).json();
+const T_END = S.robot.t[S.robot.t.length - 1];
+
+// ---------- renderer / scene ----------
+const host = document.getElementById("view");
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
+host.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0d1211);
+scene.fog = new THREE.Fog(0x0d1211, 45, 110);
+const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.05, 400);
+camera.up.set(0, 0, 1);
+camera.position.set(-2, -26, 18);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(0, 0, 0.5);
+controls.enableDamping = true;
+scene.add(new THREE.HemisphereLight(0xdfe8ff, 0x2a2622, 1.3));
+const sun = new THREE.DirectionalLight(0xffffff, 1.4);
+sun.position.set(-10, -12, 25); sun.castShadow = true;
+sun.shadow.camera.left = -40; sun.shadow.camera.right = 40; sun.shadow.camera.top = 40; sun.shadow.camera.bottom = -40;
+sun.shadow.mapSize.set(2048, 2048);
+scene.add(sun);
+
+// ground (the physics ground plane, z = 0)
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(120, 60),
+  new THREE.MeshStandardMaterial({ color: 0x1b2321, roughness: 1 }));
+ground.receiveShadow = true; scene.add(ground);
+const grid = new THREE.GridHelper(120, 120, 0x34403c, 0x222b28);
+grid.rotation.x = Math.PI / 2; grid.position.z = 0.002; scene.add(grid);
+
+// ---------- static scene: SfM points ----------
+const N = S.points.xyz.length;
+function makePoints(filterLow) {
+  const pos = [], col = [];
+  for (let i = 0; i < N; i++) {
+    const p = S.points.xyz[i];
+    const low = p[2] < -0.15;
+    if (low !== filterLow) continue;
+    pos.push(p[0], p[1], p[2]);
+    const c = S.points.rgb[i]; col.push(c[0] / 255, c[1] / 255, c[2] / 255);
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+  g.setAttribute("color", new THREE.Float32BufferAttribute(col, 3));
+  return new THREE.Points(g, new THREE.PointsMaterial({ size: 0.11, vertexColors: true, sizeAttenuation: true }));
+}
+const ptsMain = makePoints(false), ptsLow = makePoints(true);
+ptsLow.visible = false; ptsMain.visible = false; scene.add(ptsMain, ptsLow);
+
+// ---------- camera path + corridor + goal ----------
+const line = (arr, color, z = 0.02, opts = {}) => {
+  const g = new THREE.BufferGeometry().setFromPoints(arr.map(p => new THREE.Vector3(p[0], p[1], p.length > 2 && !opts.flat ? p[2] : z)));
+  const m = opts.dashed ? new THREE.LineDashedMaterial({ color, dashSize: 0.6, gapSize: 0.4, transparent: true, opacity: .7 })
+                        : new THREE.LineBasicMaterial({ color, transparent: true, opacity: opts.op ?? 1 });
+  const l = new THREE.Line(g, m); if (opts.dashed) l.computeLineDistances(); scene.add(l); return l;
+};
+const debugLines = [line(S.camera.xyz, 0xE0AE5A, 0, { op: .9 }),
+  line(S.camera.xyz.map(p => [p[0], p[1], 0.02]), 0xE0AE5A, 0.02, { op: .25 }),
+  ...S.corridor.map(c => line(c, 0xE0AE5A, 0.03, { dashed: true, flat: true }))];
+debugLines.forEach(l => l.visible = false);
+const goal = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.35, 0.06, 32), new THREE.MeshStandardMaterial({ color: 0x5CC2B9, emissive: 0x1b4a46 }));
+goal.rotation.x = Math.PI / 2; goal.position.set(S.goal[0], S.goal[1], 0.04); scene.add(goal);
+const goalPole = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 2.2), new THREE.MeshStandardMaterial({ color: 0x5CC2B9 }));
+goalPole.rotation.x = Math.PI / 2; goalPole.position.set(S.goal[0], S.goal[1], 1.1); scene.add(goalPole);
+
+// phone camera frustum marker
+const frustum = new THREE.Mesh(new THREE.ConeGeometry(0.25, 0.5, 4, 1, true), new THREE.MeshBasicMaterial({ color: 0xE0AE5A, wireframe: true }));
+scene.add(frustum);
+
+
+// ---------- street: Gaussian splat, unaltered (visual only, never a collider) ----------
+let splatViewer = null;
+async function loadSplat(path) {
+  document.querySelectorAll("[data-splat]").forEach(x => x.setAttribute("aria-pressed", x.dataset.splat === path));
+  if (splatViewer) { scene.remove(splatViewer); splatViewer.dispose?.(); splatViewer = null; }
+  grid.visible = !path;
+  if (!path) return;
+  splatViewer = new GS.DropInViewer({ gpuAcceleratedSort: false, sharedMemoryForWorkers: false });
+  scene.add(splatViewer);
+  await splatViewer.addSplatScenes([{ path, showLoadingUI: false }], false);
+}
+document.querySelectorAll("[data-splat]").forEach(b => b.onclick = () => loadSplat(b.dataset.splat));
+loadSplat("splat/varanasi_clean.ply").catch(e => console.error("splat load failed", e));
+
+// ---------- video people: the real pixels of each person, per video frame ----------
+const VP = await (await fetch("people/people.json")).json();
+const texLoader = new THREE.TextureLoader();
+const cardGeo = new THREE.PlaneGeometry(1, 1).translate(0, 0.5, 0).rotateX(Math.PI / 2);  // vertical card, feet at z=0
+const videoPeople = Object.entries(VP.tracks).map(([id, tr]) => {
+  const tex = texLoader.load("people/" + tr.atlas); tex.colorSpace = THREE.SRGBColorSpace;
+  tex.minFilter = THREE.LinearFilter; tex.generateMipmaps = false;
+  const mesh = new THREE.Mesh(cardGeo, new THREE.MeshBasicMaterial({ map: tex, transparent: true, alphaTest: 0.5, side: THREE.DoubleSide }));
+  mesh.visible = false; scene.add(mesh);
+  const byF = new Map(tr.frames.map(fr => [fr.f, fr]));
+  return { id, tr, tex, mesh, byF };
+});
+let peopleMode = "gemx";
+document.querySelectorAll("[data-people]").forEach(b => b.onclick = () => {
+  peopleMode = b.dataset.people;
+  document.querySelectorAll("[data-people]").forEach(x => x.setAttribute("aria-pressed", x === b));
+});
+function updateVideoPeople(vt) {
+  const f = Math.round(vt * S.video_fps);
+  let n = 0;
+  for (const p of videoPeople) {
+    let fr = null;
+    if (peopleMode === "cutouts") for (const d of [0, -1, 1, -2, 2]) { fr = p.byF.get(f + d); if (fr) break; }
+    p.mesh.visible = !!fr; if (!fr) continue; n++;
+    const [W, H] = p.tr.size;
+    p.tex.repeat.set(fr.w / W, fr.h / H); p.tex.offset.set(fr.u / W, 1 - (fr.v + fr.h) / H);
+    p.mesh.position.set(fr.xy[0], fr.xy[1], 0);
+    p.mesh.scale.set(fr.wm, 1, fr.hm);
+    p.mesh.rotation.z = Math.atan2(camera.position.y - fr.xy[1], camera.position.x - fr.xy[0]) - Math.PI / 2;  // face the viewer
+  }
+  return n;
+}
+
+
+// ---------- 3D people: each real person's own motion (GEM-X -> SOMA), coloured from the video ----------
+const G3 = await (await fetch("people3d/meta.json")).json();
+const g3faces = new Uint32Array(await (await fetch("people3d/faces.bin")).arrayBuffer());
+const gemPeople = [];
+for (const [tid, m] of Object.entries(G3.people)) {
+  const buf = await (await fetch(`people3d/${tid}.bin`)).arrayBuffer();
+  const nF = m.frames.length, nV = m.n_verts;
+  const pel = new Float32Array(buf, 0, nF * 3);
+  const off = new Int16Array(buf, nF * 12, nF * nV * 3);
+  const col = new Uint8Array(buf, nF * 12 + nF * nV * 6, nV * 3);
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(nV * 3), 3));
+  // video pixels are sRGB; three.js vertex colours are linear
+  const lin = new Float32Array(nV * 3); for (let i = 0; i < lin.length; i++) lin[i] = Math.pow(col[i] / 255, 2.2);
+  geo.setAttribute("color", new THREE.BufferAttribute(lin, 3));
+  geo.setIndex(new THREE.BufferAttribute(g3faces, 1));
+  const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: .8 }));
+  mesh.castShadow = true; mesh.frustumCulled = false; mesh.visible = false; scene.add(mesh);
+  gemPeople.push({ tid, m, pel, off, mesh, nF, nV, lastKey: -1 });
+}
+function updateGemPeople(vt) {
+  const fv = vt * G3.fps; let n = 0;
+  for (const p of gemPeople) {
+    const F = p.m.frames, on = peopleMode === "gemx" && fv >= F[0] && fv <= F[p.nF - 1];
+    p.mesh.visible = on; if (!on) continue; n++;
+    let k = 0; while (k < p.nF - 2 && F[k + 1] <= fv) k++;
+    const u = Math.max(0, Math.min(1, (fv - F[k]) / Math.max(1, F[k + 1] - F[k])));
+    const key = k + u; if (key === p.lastKey) continue; p.lastKey = key;
+    const pos = p.mesh.geometry.attributes.position.array, a = k * p.nV * 3, b = (k + 1) * p.nV * 3;
+    const px = p.pel[3 * k] + (p.pel[3 * k + 3] - p.pel[3 * k]) * u, py = p.pel[3 * k + 1] + (p.pel[3 * k + 4] - p.pel[3 * k + 1]) * u,
+          pz = p.pel[3 * k + 2] + (p.pel[3 * k + 5] - p.pel[3 * k + 2]) * u;
+    for (let i = 0; i < p.nV * 3; i += 3) {
+      pos[i] = px + 0.001 * (p.off[a + i] + (p.off[b + i] - p.off[a + i]) * u);
+      pos[i + 1] = py + 0.001 * (p.off[a + i + 1] + (p.off[b + i + 1] - p.off[a + i + 1]) * u);
+      pos[i + 2] = pz + 0.001 * (p.off[a + i + 2] + (p.off[b + i + 2] - p.off[a + i + 2]) * u);
+    }
+    p.mesh.geometry.attributes.position.needsUpdate = true; p.mesh.geometry.computeVertexNormals();
+  }
+  return n;
+}
+
+// ---------- crowd: SOMA bodies + Kimodo walk (people only) ----------
+const SM = await (await fetch("soma/soma_meta.json")).json();
+const bodyBuf = await (await fetch("soma/soma_body.bin")).arrayBuffer();
+const walk = new Float32Array(await (await fetch("soma/soma_walk.bin")).arrayBuffer());
+const NV = SM.n_vertices, NFc = SM.n_faces, NJ = SM.n_joints, NFR = SM.n_frames;
+let off = 0;
+const take = (Ctor, n) => { const a = new Ctor(bodyBuf, off, n); off += n * Ctor.BYTES_PER_ELEMENT; return a; };
+const vPos = take(Float32Array, NV * 3), vIdx = take(Uint32Array, NFc * 3);
+const sIdx = take(Uint16Array, NV * 4), sW = take(Float32Array, NV * 4), bInv = take(Float32Array, NJ * 16);
+const boneInverses = [...Array(NJ)].map((_, j) => new THREE.Matrix4().fromArray(bInv, j * 16));
+const baseGeo = new THREE.BufferGeometry();
+baseGeo.setAttribute("position", new THREE.BufferAttribute(vPos, 3));
+baseGeo.setAttribute("skinIndex", new THREE.Uint16BufferAttribute(sIdx, 4));
+baseGeo.setAttribute("skinWeight", new THREE.BufferAttribute(sW, 4));
+baseGeo.setIndex(new THREE.BufferAttribute(vIdx, 1));
+baseGeo.computeVertexNormals();
+// clothing regions from the bind (T-)pose: z is height, |y| is lateral reach of the arms
+const SKIN = [0xC89F82, 0xA5785C, 0x8A5F45, 0x6E4A36], TOP = [0xE8E4DC, 0x3E5C76, 0x9C3D3D, 0xD9A441, 0x5B6B4E, 0x7A4E7E, 0x2F2F33, 0xB8B0A2],
+      BOTTOM = [0x2B2F3A, 0x4A4640, 0x2E3B4E, 0x6B6254, 0x1F1F22];
+function personGeometry(i) {
+  const g = new THREE.BufferGeometry();
+  for (const k of ["position", "normal", "skinIndex", "skinWeight"]) g.setAttribute(k, baseGeo.getAttribute(k));
+  g.setIndex(baseGeo.getIndex());
+  const pick = (a, s) => new THREE.Color(a[(i * s) % a.length]);
+  const cS = pick(SKIN, 3), cT = pick(TOP, 5), cB = pick(BOTTOM, 7), cShoe = new THREE.Color(0x1a1a1a), col = new Float32Array(NV * 3);
+  for (let v = 0; v < NV; v++) {
+    const y = vPos[3 * v + 1], z = vPos[3 * v + 2];
+    const c = z > 1.47 || Math.abs(y) > 0.62 ? cS : z < 0.09 ? cShoe : z < 0.98 ? cB : cT;
+    col[3 * v] = c.r; col[3 * v + 1] = c.g; col[3 * v + 2] = c.b;
+  }
+  g.setAttribute("color", new THREE.BufferAttribute(col, 3));
+  return g;
+}
+const people = S.tracks.filter(tr => tr.cls === "person");
+const agents = people.map((tr, i) => {
+  const grp = new THREE.Group();
+  const bones = [...Array(NJ)].map(() => { const b = new THREE.Bone(); b.matrixAutoUpdate = false; grp.add(b); return b; });
+  const mesh = new THREE.SkinnedMesh(personGeometry(i), new THREE.MeshStandardMaterial({ vertexColors: true, roughness: .85 }));
+  mesh.frustumCulled = false; mesh.castShadow = true;
+  grp.add(mesh);
+  mesh.bind(new THREE.Skeleton(bones, boneInverses.map(m => m.clone())), new THREE.Matrix4());
+  grp.visible = false; scene.add(grp);
+  // per-track speed (m/s) for gait phase, from the track itself
+  const sp = tr.t.map((_, k) => { const a = Math.max(k - 1, 0), b = Math.min(k + 1, tr.t.length - 1);
+    return b > a ? Math.hypot(tr.xy[b][0] - tr.xy[a][0], tr.xy[b][1] - tr.xy[a][1]) / (tr.t[b] - tr.t[a]) : 0; });
+  return { tr, grp, bones, sp, heading: 0, phase: (i * 17) % NFR, lastT: null };
+});
+const _q = new THREE.Quaternion(), _q2 = new THREE.Quaternion(), _p = new THREE.Vector3(), _p2 = new THREE.Vector3(), _one = new THREE.Vector3(1, 1, 1);
+function poseAgent(a, ph) {
+  const f0 = Math.floor(ph) % NFR, f1 = (f0 + 1) % NFR, u = ph - Math.floor(ph);
+  for (let j = 0; j < NJ; j++) {
+    const o0 = (f0 * NJ + j) * 7, o1 = (f1 * NJ + j) * 7;
+    _p.set(walk[o0], walk[o0 + 1], walk[o0 + 2]).lerp(_p2.set(walk[o1], walk[o1 + 1], walk[o1 + 2]), u);
+    _q.set(walk[o0 + 3], walk[o0 + 4], walk[o0 + 5], walk[o0 + 6]).slerp(_q2.set(walk[o1 + 3], walk[o1 + 4], walk[o1 + 5], walk[o1 + 6]), u);
+    a.bones[j].matrix.compose(_p, _q, _one); a.bones[j].matrixWorldNeedsUpdate = true;
+  }
+}
+function interp(ts, arr, t) {
+  let lo = 0, hi = ts.length - 1;
+  if (t <= ts[0]) return [arr[0], 0]; if (t >= ts[hi]) return [arr[hi], hi];
+  while (hi - lo > 1) { const m = (lo + hi) >> 1; (ts[m] <= t ? lo = m : hi = m); }
+  const a = (t - ts[lo]) / (ts[hi] - ts[lo]);
+  return [arr[lo].map((v, k) => v + a * (arr[hi][k] - v)), lo];
+}
+
+// ---------- robot ----------
+const robot = new THREE.Group(); scene.add(robot);
+let urdf = null;
+const loader = new URDFLoader();
+loader.load("g1/g1_29dof.urdf", r => {
+  urdf = r;
+  r.traverse(o => { if (o.isMesh) { o.castShadow = true; o.material = new THREE.MeshStandardMaterial({ color: 0xd8dde0, metalness: .25, roughness: .45 }); } });
+  robot.add(r);
+  document.getElementById("load").remove();
+}, undefined, e => { document.getElementById("load").textContent = "G1 model failed to load: " + e; });
+const ring = new THREE.Mesh(new THREE.RingGeometry(0.45, 0.5, 40), new THREE.MeshBasicMaterial({ color: 0xF07A68, transparent: true, opacity: .8, side: THREE.DoubleSide }));
+ring.position.z = 0.02; robot.add(ring);
+const clrRing = new THREE.Mesh(new THREE.RingGeometry(0.98, 1, 64), new THREE.MeshBasicMaterial({ color: 0xF07A68, transparent: true, opacity: .35, side: THREE.DoubleSide }));
+clrRing.position.z = 0.02; scene.add(clrRing);
+// trail
+const R = S.robot, NR = R.t.length;
+const trailPos = new Float32Array(NR * 3);
+const trailGeo = new THREE.BufferGeometry(); trailGeo.setAttribute("position", new THREE.BufferAttribute(trailPos, 3));
+R.xy.forEach((p, i) => { trailPos[3 * i] = p[0]; trailPos[3 * i + 1] = p[1]; trailPos[3 * i + 2] = 0.05; });
+const trail = new THREE.Line(trailGeo, new THREE.LineBasicMaterial({ color: 0xF07A68 })); scene.add(trail);
+line(R.xy, 0xF07A68, 0.04, { op: .18 });
+// cumulative distance for gait phase
+const cum = [0]; for (let i = 1; i < NR; i++) cum.push(cum[i - 1] + Math.hypot(R.xy[i][0] - R.xy[i - 1][0], R.xy[i][1] - R.xy[i - 1][1]));
+function gait(dist, moving, u = urdf) {
+  if (!u) return;
+  const ph = dist / 0.55 * Math.PI, a = moving ? 1 : 0;
+  const J = (n, v) => u.joints[n] && u.setJointValue(n, v);
+  for (const [side, off] of [["left", 0], ["right", Math.PI]]) {
+    const s = Math.sin(ph + off);
+    J(`${side}_hip_pitch_joint`, -0.15 - a * 0.38 * s);
+    J(`${side}_knee_joint`, 0.32 + a * 0.45 * Math.max(0, Math.sin(ph + off + 0.8)));
+    J(`${side}_ankle_pitch_joint`, -0.18 + a * 0.15 * s);
+    J(`${side}_shoulder_pitch_joint`, 0.2 + a * 0.3 * s);
+    J(`${side}_elbow_joint`, 0.9);
+  }
+}
+
+
+// ---------- navigation comparison: learned (PPO) vs rule-based (TTC), identical episodes ----------
+const NAV = await (await fetch("nav/nav_compare.json")).json();
+const navSel = document.getElementById("navSel");
+NAV.episodes.forEach((e, k) => { const o = document.createElement("option"); o.value = k;
+  o.textContent = `Compare · ${e.label} · learned ${e.learned.outcome} / rule ${e.rule.outcome}`; navSel.appendChild(o); });
+const SUMM = NAV.summary, sl = SUMM["learned (PPO)"], sr = SUMM["rule-based (TTC)"];
+const pct = v => (100 * v).toFixed(1) + "%";
+const summaryHTML = `<table><tr><th>${sl.episodes} episodes</th><th class="L">learned</th><th class="R">rule</th></tr>
+  <tr><td>success</td><td class="L">${pct(sl.success_rate)}</td><td class="R">${pct(sr.success_rate)}</td></tr>
+  <tr><td>collision</td><td class="L">${pct(sl.collision_rate)}</td><td class="R">${pct(sr.collision_rate)}</td></tr>
+  <tr><td>mean min clearance</td><td class="L">${sl.mean_min_clearance_m.toFixed(2)} m</td><td class="R">${sr.mean_min_clearance_m.toFixed(2)} m</td></tr></table>
+  <span style="color:var(--muted)">Same seed per episode for both: same start, goal and crowd. Robots move at the velocity-command level the controllers output; locomotion not simulated here.</span>`;
+function makeRobot(color) {
+  const g = new THREE.Group(); g.visible = false; scene.add(g);
+  const r = { g, urdf: null, color };
+  new URDFLoader().load("g1/g1_29dof.urdf", u => { r.urdf = u;
+    u.traverse(o => { if (o.isMesh) { o.castShadow = true; o.material = new THREE.MeshStandardMaterial({ color, metalness: .2, roughness: .5 }); } });
+    u.position.z = 0.74; g.add(u); });
+  const P = NAV.params;
+  const fan = new THREE.Mesh(new THREE.CircleGeometry(P.sense_range_m, 40, -P.fov_rad / 2, P.fov_rad),
+    new THREE.MeshBasicMaterial({ color, transparent: true, opacity: .10, side: THREE.DoubleSide, depthWrite: false }));
+  fan.position.z = 0.03; g.add(fan);
+  const body = new THREE.Mesh(new THREE.RingGeometry(P.robot_radius - 0.04, P.robot_radius, 32),
+    new THREE.MeshBasicMaterial({ color, side: THREE.DoubleSide })); body.position.z = 0.03; g.add(body);
+  r.seen = new THREE.InstancedMesh(new THREE.RingGeometry(0.28, 0.36, 24), new THREE.MeshBasicMaterial({ color, side: THREE.DoubleSide }), 16);
+  r.seen.visible = false; scene.add(r.seen);
+  r.trailGeo = new THREE.BufferGeometry(); r.trail = new THREE.Line(r.trailGeo, new THREE.LineBasicMaterial({ color }));
+  r.trail.visible = false; scene.add(r.trail);
+  r.endMark = new THREE.Mesh(new THREE.TorusGeometry(0.55, 0.06, 8, 32), new THREE.MeshBasicMaterial({ color: 0xff3b30 }));
+  r.endMark.visible = false; scene.add(r.endMark);
+  return r;
+}
+const RL = makeRobot(0x5CC2B9), RR = makeRobot(0xF0A45A);
+const discs = new THREE.InstancedMesh(new THREE.CircleGeometry(1, 28), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: .13, depthWrite: false }), 128);
+discs.visible = false; scene.add(discs);
+const goalMark = goal.clone(); goalMark.visible = false; scene.add(goalMark);
+let navMode = "run8", EP = null;
+const _m = new THREE.Matrix4(), _s = new THREE.Vector3(), _qI = new THREE.Quaternion(), _pp = new THREE.Vector3();
+function setNav(v) {
+  navMode = v; EP = v === "run8" ? null : NAV.episodes[+v];
+  const cmp = !!EP;
+  for (const o of [robot, trail, clrRing]) o.visible = !cmp;
+  for (const r of [RL, RR]) { r.g.visible = r.trail.visible = r.seen.visible = cmp; r.endMark.visible = false; }
+  discs.visible = goalMark.visible = cmp; goal.visible = goalPole.visible = !cmp;
+  if (cmp) {
+    for (const [r, key] of [[RL, "learned"], [RR, "rule"]]) {
+      const st = EP[key].steps; const a = new Float32Array(st.length * 3);
+      st.forEach((s, k) => { a[3 * k] = s.xy[0]; a[3 * k + 1] = s.xy[1]; a[3 * k + 2] = 0.06; });
+      r.trailGeo.setAttribute("position", new THREE.BufferAttribute(a, 3)); r.trailGeo.setDrawRange(0, 1);
+      r.cum = [0]; for (let k = 1; k < st.length; k++) r.cum.push(r.cum[k - 1] + Math.hypot(st[k].xy[0] - st[k - 1].xy[0], st[k].xy[1] - st[k - 1].xy[1]));
+    }
+    goalMark.position.set(EP.goal[0], EP.goal[1], 0.04);
+    T0 = EP.t0; T1 = EP.t0 + NAV.params.dt * Math.max(EP.learned.steps.length, EP.rule.steps.length) + 1.0;
+    // camera: overview of the episode
+    const cx = (EP.start[0] + EP.goal[0]) / 2, cy = (EP.start[1] + EP.goal[1]) / 2;
+    camera.position.set(cx - 2, cy - 14, 11); controls.target.set(cx, cy, 0.5);
+    document.querySelector('[data-cam="orbit"]').click();
+  } else { T0 = 0; T1 = T_END; }
+  scrub.min = T0.toFixed(2); scrub.max = T1.toFixed(2); t = T0; scrub.value = t;
+  $("navBody").innerHTML = cmp ? summaryHTML + `<div id="navLive"></div>` :
+    `<span style="color:var(--muted)">Physics run of the G1 locomotion policy in Isaac Sim, steered by the rule-based TTC controller. Choose a Compare entry to see the trained PPO navigation policy against it on identical episodes.</span>` + summaryHTML;
+}
+function driveRobot(r, key) {
+  const st = EP[key].steps, dt = NAV.params.dt;
+  const f = (t - EP.t0) / dt, k = Math.max(0, Math.min(st.length - 1, Math.floor(f))), k2 = Math.min(st.length - 1, k + 1), u = Math.max(0, Math.min(1, f - k));
+  const a = st[k], b = st[k2];
+  const x = a.xy[0] + (b.xy[0] - a.xy[0]) * u, y = a.xy[1] + (b.xy[1] - a.xy[1]) * u;
+  let dy = b.yaw - a.yaw; dy = Math.atan2(Math.sin(dy), Math.cos(dy));
+  r.g.position.set(x, y, 0); r.g.rotation.z = a.yaw + dy * u;
+  const ended = f >= st.length - 1;
+  gait(r.cum[k] + (r.cum[k2] - r.cum[k]) * u, !ended && a.cmd[0] > 0.05, r.urdf);
+  r.trailGeo.setDrawRange(0, k + 1);
+  r.seen.count = Math.min(16, a.seen.length);
+  for (let i = 0; i < r.seen.count; i++) { _m.compose(_pp.set(a.seen[i][0], a.seen[i][1], 0.05), _qI, _s.set(1, 1, 1)); r.seen.setMatrixAt(i, _m); }
+  r.seen.instanceMatrix.needsUpdate = true;
+  const end = EP[key].end; r.endMark.visible = ended && end.collided;
+  if (r.endMark.visible) { r.endMark.position.set(end.xy[0], end.xy[1], 0.9); r.endMark.rotation.x = Math.PI / 2; }
+  const state = ended ? EP[key].outcome : "walking";
+  return `<span class="${key === "learned" ? "L" : "R"}">${key === "learned" ? "learned" : "rule"}</span>: ${state} · clearance ${a.clr == null ? "–" : a.clr.toFixed(2) + " m"} · v ${a.cmd[0].toFixed(2)} m/s · sees ${a.seen.length}`;
+}
+function updateNav() {
+  if (!EP) return null;
+  let n = 0;
+  for (const c of NAV.crowd) {
+    if (t < c.t[0] || t > c.t[c.t.length - 1] || n >= 128) continue;
+    const [q] = interp(c.t, c.xy, t);
+    _m.compose(_pp.set(q[0], q[1], 0.02), _qI, _s.set(c.r, c.r, 1)); discs.setMatrixAt(n++, _m);
+  }
+  discs.count = n; discs.instanceMatrix.needsUpdate = true;
+  const html = driveRobot(RL, "learned") + "<br>" + driveRobot(RR, "rule");
+  const live = document.getElementById("navLive"); if (live) live.innerHTML = html;
+  return RL.g.position;
+}
+navSel.onchange = () => setNav(navSel.value);
+
+// ---------- time, UI ----------
+let t = 0, T0 = 0, T1 = T_END, playing = false, rate = 1, camMode = "orbit", lastWall = performance.now();
+const $ = id => document.getElementById(id);
+const scrub = $("scrub"); scrub.max = T_END.toFixed(2);
+const vid = $("vid");
+$("play").onclick = () => { playing = !playing; $("play").textContent = playing ? "Pause" : "Play"; if (t >= T1 - 0.01) t = T0; };
+document.querySelectorAll("[data-rate]").forEach(b => b.onclick = () => { rate = +b.dataset.rate; document.querySelectorAll("[data-rate]").forEach(x => x.setAttribute("aria-pressed", x === b)); });
+document.querySelectorAll("[data-cam]").forEach(b => b.onclick = () => {
+  camMode = b.dataset.cam; controls.enabled = camMode === "orbit";
+  document.querySelectorAll("[data-cam]").forEach(x => x.setAttribute("aria-pressed", x === b));
+  if (camMode === "orbit") { camera.fov = 55; camera.updateProjectionMatrix(); }
+});
+scrub.oninput = () => { t = +scrub.value; };
+$("tglPts").onclick = e => { ptsMain.visible = !ptsMain.visible; e.target.setAttribute("aria-pressed", ptsMain.visible); };
+
+
+const tmpV = new THREE.Vector3();
+function update() {
+  // agents
+  let nVis = 0;
+  for (const a of agents) {
+    const ts = a.tr.t, on = peopleMode === "soma" && t >= ts[0] && t <= ts[ts.length - 1];
+    a.grp.visible = on; if (!on) continue; nVis++;
+    const [p, k] = interp(ts, a.tr.xy, t);
+    a.grp.position.set(p[0], p[1], 0);
+    const k2 = Math.min(k + 1, ts.length - 1), k1 = Math.max(k2 - 1, 0);
+    const dx = a.tr.xy[k2][0] - a.tr.xy[k1][0], dy = a.tr.xy[k2][1] - a.tr.xy[k1][1];
+    if (Math.hypot(dx, dy) > 1e-3) a.heading = Math.atan2(dy, dx);
+    a.grp.rotation.z = a.heading;
+    // gait phase advances with distance walked, so feet keep pace with the track (no skating)
+    const dtS = a.lastT == null ? 0 : Math.max(-1, Math.min(1, t - a.lastT)); a.lastT = t;
+    const v = a.sp[k] ?? 0;
+    if (v > 0.15) a.phase = (a.phase + Math.abs(dtS) * (Math.min(v, 2.2) / SM.clip_speed_mps) * SM.fps + NFR) % NFR;
+    poseAgent(a, a.phase);
+  }
+  const navPos = updateNav();
+  // robot
+  const [p, i] = interp(R.t, R.xy, Math.min(t, R.t[R.t.length - 1]));
+  const yaw = R.yaw[i], z = R.z[i];
+  robot.position.set(p[0], p[1], 0);
+  if (urdf) { urdf.position.set(0, 0, z); }
+  robot.rotation.z = yaw;
+  gait(cum[i], !R.stopped[i] && i < NR - 1);
+  trailGeo.setDrawRange(0, i + 1);
+  const clr = R.clearance[i];
+  clrRing.visible = clr != null; if (clr != null) { clrRing.position.set(p[0], p[1], 0.02); clrRing.scale.setScalar(clr); }
+  // phone camera at crowd time (video time = t / time_scale)
+  const vt = t / S.time_scale, fi = Math.min(Math.round(vt * S.video_fps), S.camera.xyz.length - 1);
+  const nVideo = updateVideoPeople(vt), nGem = updateGemPeople(vt);
+  const cp = S.camera.xyz[fi], cf = S.camera.fwd[fi];
+  frustum.position.set(cp[0], cp[1], cp[2]);
+  frustum.quaternion.setFromUnitVectors(new THREE.Vector3(0, -1, 0), new THREE.Vector3(cf[0], cf[1], cf[2]).normalize());
+  frustum.visible = false;
+  // HUD
+  $("tt").textContent = t.toFixed(2);
+  document.querySelector("#info .tele").style.display = document.querySelector("#hState").style.display = EP ? "none" : "";
+  $("hGoal").textContent = R.goal_dist[i].toFixed(2) + " m";
+  $("hClr").textContent = clr == null ? "none in range" : clr.toFixed(2) + " m";
+  $("hObs").textContent = R.n_obs[i];
+  $("hPeople").textContent = peopleMode === "soma" ? nVis : nGem;
+  const st = $("hState"); st.textContent = R.stopped[i] ? "stopped" : "walking"; st.className = "state " + (R.stopped[i] ? "stop" : "walk");
+  // source video sync
+  if (vt <= 12.04) {
+    $("vidlbl").textContent = `source video · ${vt.toFixed(2)} s (crowd time)`;
+    if (Math.abs(vid.currentTime - vt) > 0.12) vid.currentTime = vt;
+    if (playing && vid.paused) { vid.playbackRate = rate / S.time_scale; vid.play().catch(() => {}); }
+    if (!playing && !vid.paused) vid.pause();
+    vid.playbackRate = rate / S.time_scale;
+  } else { if (!vid.paused) vid.pause(); $("vidlbl").textContent = "source clip ended (12.0 s → crowd gone at t ≈ 17.4 s)"; }
+  // cameras
+  const fwd = new THREE.Vector3(Math.cos(yaw), Math.sin(yaw), 0);
+  if (camMode === "follow" && navPos) {
+    const fy = RL.g.rotation.z, fv = new THREE.Vector3(Math.cos(fy), Math.sin(fy), 0);
+    camera.position.lerp(tmpV.set(navPos.x, navPos.y, 0).addScaledVector(fv, -5).setZ(3.2), 0.12);
+    camera.lookAt(navPos.x + fv.x * 3, navPos.y + fv.y * 3, 0.6);
+  } else if (camMode === "follow") {
+    camera.position.lerp(tmpV.set(p[0], p[1], 0).addScaledVector(fwd, -4.2).setZ(2.4), 0.12);
+    camera.lookAt(p[0] + fwd.x * 3, p[1] + fwd.y * 3, 0.9);
+  } else if (camMode === "eye") {
+    camera.fov = 75; camera.updateProjectionMatrix();
+    camera.position.set(p[0] + fwd.x * 0.15, p[1] + fwd.y * 0.15, z + 0.55);
+    camera.lookAt(p[0] + fwd.x * 10, p[1] + fwd.y * 10, 0.9);
+  } else if (camMode === "phone") {
+    camera.fov = 60; camera.updateProjectionMatrix();
+    camera.position.set(cp[0], cp[1], cp[2]);
+    camera.lookAt(cp[0] + cf[0], cp[1] + cf[1], cp[2] + cf[2]);
+  }
+}
+
+function loop(now) {
+  const dt = Math.min(0.1, (now - lastWall) / 1000); lastWall = now;
+  if (playing) { t += dt * rate; if (t >= T1) { t = T1; playing = false; $("play").textContent = "Play"; } scrub.value = t; }
+  update();
+  if (camMode === "orbit") controls.update();
+  renderer.render(scene, camera);
+  requestAnimationFrame(loop);
+}
+setNav("0"); navSel.value = "0";   // default: the trained policy in one of the episodes it gets through
+// deep link: #cam=phone&t=4.2
+{ const h = new URLSearchParams(location.hash.slice(1));
+  if (h.get("t")) t = +h.get("t");
+  if (h.get("cam")) document.querySelector(`[data-cam="${h.get("cam")}"]`)?.click();
+  if (h.get("pos")) { camera.position.set(...h.get("pos").split(",").map(Number)); }
+  if (h.get("look")) { controls.target.set(...h.get("look").split(",").map(Number)); }
+}
+addEventListener("resize", () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); });
+requestAnimationFrame(loop);
+</script>
+</body></html>

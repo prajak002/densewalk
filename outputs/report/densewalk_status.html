@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>body{margin:0}img{max-width:100%}</style>
+<title>DenseWalk Progress</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F4F6F4; --surface:#FFFFFF; --ink:#18221F; --muted:#56645F; --rule:#D5DCD8;
+  --accent:#0B6B66; --accent-soft:#DCEDEA;
+  --ok:#2E7A48; --ok-bg:#E1F0E5; --warn:#9A640F; --warn-bg:#F6EBD5;
+  --bad:#A93A33; --bad-bg:#F6E0DD; --idle:#6B7773; --idle-bg:#E7ECE9;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --cond:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#111715; --surface:#18201D; --ink:#E3EAE6; --muted:#9AA8A2; --rule:#2C3733;
+    --accent:#5CC2B9; --accent-soft:#16332F;
+    --ok:#6CC78A; --ok-bg:#16301F; --warn:#E0AE5A; --warn-bg:#35280F;
+    --bad:#EE8A80; --bad-bg:#3A1B18; --idle:#9AA8A2; --idle-bg:#232C29;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#111715; --surface:#18201D; --ink:#E3EAE6; --muted:#9AA8A2; --rule:#2C3733;
+  --accent:#5CC2B9; --accent-soft:#16332F;
+  --ok:#6CC78A; --ok-bg:#16301F; --warn:#E0AE5A; --warn-bg:#35280F;
+  --bad:#EE8A80; --bad-bg:#3A1B18; --idle:#9AA8A2; --idle-bg:#232C29;
+}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 var(--sans);}
+.wrap{max-width:980px;margin:0 auto;padding:40px 20px 72px;}
+h1,h2,h3{font-family:var(--cond);text-wrap:balance;line-height:1.15;margin:0}
+h1{font-size:clamp(30px,5vw,44px);font-weight:700;letter-spacing:-.01em}
+h2{font-size:26px;font-weight:600}
+h3{font-size:17px;font-weight:600}
+p{margin:0;max-width:68ch}
+.mono{font-family:var(--mono);font-size:.86em}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+header{display:grid;gap:14px;padding-bottom:28px;border-bottom:1px solid var(--rule)}
+.meta{display:flex;flex-wrap:wrap;gap:6px 20px;color:var(--muted);font-size:13px}
+.meta b{color:var(--ink);font-weight:500}
+.lede{font-size:17px;color:var(--ink)}
+
+/* pipeline strip */
+.pipe{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;list-style:none;padding:0}
+.pipe li{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:10px 12px;display:grid;gap:6px;align-content:start}
+.pipe .n{font:500 11px var(--mono);color:var(--muted)}
+.pipe .t{font:600 14px/1.25 var(--cond)}
+.pill{justify-self:start;font:500 11px/1 var(--mono);padding:4px 7px;border-radius:99px;letter-spacing:.02em}
+.ok{color:var(--ok);background:var(--ok-bg)} .warn{color:var(--warn);background:var(--warn-bg)}
+.bad{color:var(--bad);background:var(--bad-bg)} .idle{color:var(--idle);background:var(--idle-bg)}
+
+section{padding-top:48px;display:grid;gap:18px}
+.sechead{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.kpi{background:var(--surface);padding:12px 14px;display:grid;gap:2px}
+.kpi .v{font:600 22px/1.2 var(--cond);font-variant-numeric:tabular-nums}
+.kpi .l{font-size:12.5px;color:var(--muted);line-height:1.35}
+figure{margin:0;display:grid;gap:8px}
+figure img,figure video{width:100%;max-width:100%;height:auto;display:block;border-radius:6px;border:1px solid var(--rule);background:#000}
+figure img{background:var(--surface)}
+figcaption{font-size:13px;color:var(--muted);max-width:80ch}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:18px}
+.note{border-left:3px solid var(--warn);background:var(--warn-bg);padding:10px 14px;border-radius:0 6px 6px 0;font-size:14px}
+.note.bad{border-color:var(--bad);background:var(--bad-bg);color:var(--ink)}
+.note b{font-weight:600}
+.tbl{overflow-x:auto;border:1px solid var(--rule);border-radius:6px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;font-variant-numeric:tabular-nums}
+th,td{padding:8px 12px;text-align:right;border-bottom:1px solid var(--rule);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+thead th{font:500 11.5px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.05em;background:var(--bg)}
+tbody tr:last-child td{border-bottom:0}
+td.best{color:var(--accent);font-weight:600}
+ul.plain{margin:0;padding-left:18px;display:grid;gap:6px;max-width:74ch}
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:4px 16px;font-size:13.5px;list-style:none;padding:0;margin:0}
+.checks li{display:flex;gap:8px;align-items:baseline}
+.checks .pill{flex:none}
+footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--rule);font-size:13px;color:var(--muted)}
+a{color:var(--accent)}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style>
+</head><body>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">DenseWalk · status as of 25 Sep 2026</span>
+  <h1>DenseWalk progress</h1>
+  <p class="lede">Crowd video to Gaussian-splat street, then a simulated Unitree G1 walking through it. This page collects every result that was saved to the Mac before the GPU box was lost.</p>
+  <div class="meta">
+    <span>AV2 sequence <b class="mono">04994d08-156c-3018-9717-ba0e29be8153</b></span>
+    <span>Units <b>metres, Z-up, floor z = 0</b></span>
+    <span>GPU box <b>93.91.156.106:51081 — connection refused</b></span>
+  </div>
+  <ol class="pipe">
+    <li><span class="n">1</span><span class="t">Setup</span><span class="pill ok">done</span></li>
+    <li><span class="n">2</span><span class="t">3DGS static background</span><span class="pill ok">done · AV2 + Varanasi</span></li>
+    <li><span class="n">3</span><span class="t">4D crowd reconstruction</span><span class="pill warn">partial</span></li>
+    <li><span class="n">4</span><span class="t">360 panoramic render</span><span class="pill idle">not started</span></li>
+    <li><span class="n">5</span><span class="t">G1 locomotion</span><span class="pill ok">done</span></li>
+    <li><span class="n">6</span><span class="t">G1 navigation in splat scene</span><span class="pill ok">first run done</span></li>
+  </ol>
+</header>
+
+<section id="av2">
+  <div class="sechead"><span class="eyebrow">Stage 2</span><h2>AV2 static background, Pittsburgh</h2></div>
+  <p>An 83 m street built from 4 spatial chunks of 2.2M Gaussians each (8.8M total). Stack: gsplat 1.5.3 with 3DGUT, MCMC densification, SAM2 masks on moving objects, lidar initialisation, L1 + D-SSIM loss.</p>
+  <div class="kpis">
+    <div class="kpi"><span class="v">24.20</span><span class="l">Held-out PSNR (dB)</span></div>
+    <div class="kpi"><span class="v">0.777</span><span class="l">Held-out SSIM</span></div>
+    <div class="kpi"><span class="v">0.376</span><span class="l">Held-out LPIPS</span></div>
+    <div class="kpi"><span class="v">27.85</span><span class="l">Train-view PSNR (dB)</span></div>
+  </div>
+  <figure>
+    <video src="a/m1_background.mp4" controls muted playsinline preload="metadata"></video>
+    <figcaption><span class="mono">m1_background.mp4</span>: fly-through. The street is recognisable but not photorealistic. A single forward drive shows each surface from only a narrow range of angles, so off-path views smear.</figcaption>
+  </figure>
+  <figure>
+    <img src="a/wildtrack_visibility.jpg" alt="WildTrack visibility-fraction map" loading="lazy">
+    <figcaption><span class="mono">m2_visibility.png</span>: earlier WildTrack study. 0% of the plaza is visible in fewer than 5% of frames, so WildTrack never contains ground hidden in every view. That is the case the research question targets, and it's why the work moved to the Varanasi clip.</figcaption>
+  </figure>
+</section>
+
+<section id="varanasi">
+  <div class="sechead"><span class="eyebrow">Stages 2–3</span><h2>Varanasi market clip</h2></div>
+  <p>361 frames at 640×360 from a single forward walk through a dense market. COLMAP SfM, a masked static-background splat, and 69 tracked agents placed in a metric world.</p>
+  <div class="kpis">
+    <div class="kpi"><span class="v">29.17</span><span class="l">Held-out PSNR (dB), interpolation only</span></div>
+    <div class="kpi"><span class="v">0.948</span><span class="l">Held-out SSIM</span></div>
+    <div class="kpi"><span class="v">500k</span><span class="l">Gaussians</span></div>
+    <div class="kpi"><span class="v">69</span><span class="l">Tracks: 57 people, 7 motorbikes, 3 bicycles, 1 car, 1 truck</span></div>
+    <div class="kpi"><span class="v">1.62 m</span><span class="l">Camera height, solved from people's heights</span></div>
+  </div>
+  <figure>
+    <img src="a/varanasi_trainview.jpg" alt="Ground truth frame beside splat render of the Varanasi market">
+    <figcaption>Ground truth (left) and splat render at step 30,000 (right). The shop facades are sharp because the camera sees them from many angles as it passes. The street surface turns into crowd smear: the ground behind people is almost never visible in any frame, so masking leaves those Gaussians unsupervised.</figcaption>
+  </figure>
+  <div class="note"><b>Why the 29.17 dB is misleading.</b> Every 8th frame of one continuous walk is held out, so the nearest training frame is 0.27 s away. That measures interpolation, not novel views.</div>
+  <div class="note"><b>The clip's timebase is off.</b> The spatial numbers agree with each other: near-field people measure 1.62–1.74 m tall. Speeds don't. The median pedestrian walks 1.74 m/s, where a crowded market is about 1.2 m/s, so the video looks sped up. All crowd speeds are divided by 1.45.</div>
+  <div class="two">
+    <figure>
+      <img src="a/crowd_world.jpg" alt="Top-down map of tracked agents in the Varanasi world" loading="lazy">
+      <figcaption><span class="mono">crowd_world.png</span>: tracked agents in world coordinates. The ground plane was solved so that people's heights don't change with depth. Fitting it with RANSAC on SfM points gave a tilted plane where people far away came out 4× taller.</figcaption>
+    </figure>
+    <figure>
+      <video src="a/varanasi_bg_v2.mp4" controls muted playsinline preload="metadata"></video>
+      <figcaption><span class="mono">varanasi_bg_v2.mp4</span>: static background fly-through.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="g1">
+  <div class="sechead"><span class="eyebrow">Stage 5</span><h2>G1 locomotion on flat ground</h2></div>
+  <p>Isaac Lab ships no pretrained G1 policy, so one was trained from scratch: 1500 iterations, mean reward 28.09. The policy is saved at <span class="mono">outputs/g1_policy/{policy.onnx, model_1499.pt}</span> and should be reused, not retrained.</p>
+  <div class="two">
+    <figure>
+      <video src="a/m3_g1_flat.mp4" controls muted playsinline preload="metadata" poster="a/g1_flat.jpg"></video>
+      <figcaption><span class="mono">m3_g1_flat.mp4</span>: forward, turn, strafe and stop commands on a ground-plane collider.</figcaption>
+    </figure>
+    <div class="kpis" style="align-self:start">
+      <div class="kpi"><span class="v">1500</span><span class="l">PPO iterations</span></div>
+      <div class="kpi"><span class="v">28.09</span><span class="l">Mean episode reward</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="nav">
+  <div class="sechead"><span class="eyebrow">Stage 6</span><h2>G1 walking through the Varanasi crowd</h2></div>
+  <p>The G1 walks in Isaac Sim on a fitted ground-plane collider. The splat is for visuals only and is never a collider. Tracked people replay at corrected speed. Best run is <span class="mono">m4_run8.json</span>, 40 s of simulation.</p>
+  <div class="kpis">
+    <div class="kpi"><span class="v">0</span><span class="l">Collisions</span></div>
+    <div class="kpi"><span class="v">0.53 m</span><span class="l">Final distance to goal</span></div>
+    <div class="kpi"><span class="v">35.9 m</span><span class="l">Distance walked</span></div>
+    <div class="kpi"><span class="v">1.84 m</span><span class="l">Closest approach to a person</span></div>
+    <div class="kpi"><span class="v">89</span><span class="l">Steps touching the corridor wall (of 2000)</span></div>
+    <div class="kpi"><span class="v">No</span><span class="l">Fell (min base height 0.63 m)</span></div>
+  </div>
+  <figure>
+    <img src="a/m4_path.jpg" alt="Top-down plot of the G1 path weaving through pedestrian tracks from x=0 to x=-30 m">
+    <figcaption>The G1's path (red) weaves between pedestrian tracks (grey) inside the street corridor (dotted), from start (green) to goal (blue).</figcaption>
+  </figure>
+  <div class="two">
+    <figure>
+      <video src="a/m4_g1_crowd_chase.mp4" controls muted playsinline preload="metadata"></video>
+      <figcaption><span class="mono">m4_g1_crowd_chase.mp4</span>: third-person chase view.</figcaption>
+    </figure>
+    <div class="tbl" style="align-self:start">
+      <table>
+        <thead><tr><th>Run</th><th>Walked</th><th>Left to goal</th><th>Closest</th><th>Hits</th></tr></thead>
+        <tbody>
+          <tr><td>run</td><td>18.7 m</td><td>16.0 m</td><td>0.99 m</td><td>0</td></tr>
+          <tr><td>run6</td><td>8.9 m</td><td>29.6 m</td><td>1.09 m</td><td>0</td></tr>
+          <tr><td>run8</td><td class="best">35.9 m</td><td class="best">0.53 m</td><td class="best">1.84 m</td><td>0</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p style="font-size:13px;color:var(--muted)">Larger videos, kept on the Mac only (each is 15–24 MB): <span class="mono">m4_final_crowd_walk.mp4</span>, <span class="mono">m4_g1_fpv_street.mp4</span>, <span class="mono">m4_g1_in_varanasi.mp4</span>, <span class="mono">m4_g1_walk_sidebyside.mp4</span> in <span class="mono">outputs/varanasi/</span>.</p>
+</section>
+
+<section id="horizon">
+  <div class="sechead"><span class="eyebrow">Side track · this week</span><h2>Forecasting horizon on the Cosmos3-Nano DCA model</h2><span class="pill warn">real-data run lost</span></div>
+  <p>Goal: predict where the walker will be Δt seconds ahead, conditioned on Δt, using the fine-tuned model's 4096-d last-token hidden state. The model predicts the walker's own action and nearest-obstacle distance, not per-object tracks.</p>
+
+  <h3>Existing V2_full checkpoint, test set of 50 clips / 2655 frames</h3>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Variant</th><th>Macro-F1</th><th>Mode acc.</th><th>Unsafe go ↓</th><th>Vel. MAE ↓</th><th>Obstacle AUC</th><th>Proximity R²</th></tr></thead>
+      <tbody>
+        <tr><td>dca_full</td><td>0.289</td><td class="best">0.610</td><td class="best">0.562</td><td class="best">0.501</td><td>0.697</td><td>0.177</td></tr>
+        <tr><td>lora_only</td><td>0.260</td><td>0.591</td><td class="best">0.562</td><td>0.515</td><td>0.942</td><td>0.676</td></tr>
+        <tr><td>lora_unsafe</td><td>0.262</td><td>0.579</td><td>0.606</td><td>0.594</td><td class="best">0.945</td><td class="best">0.711</td></tr>
+        <tr><td>lora_unsafe_prior</td><td class="best">0.305</td><td>0.586</td><td>0.606</td><td>0.530</td><td>0.934</td><td>−1.457</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:13.5px;color:var(--muted)">The DCA gate improves action metrics a little but gives up most of the LoRA variants' obstacle sensing. All variants still let through more than half of unsafe "go" decisions.</p>
+
+  <h3>Real-data kinematic baselines (constant velocity, final displacement error)</h3>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Horizon</th><th>0.5 s</th><th>1 s</th><th>2 s</th><th>3 s</th></tr></thead>
+      <tbody><tr><td>Constant velocity</td><td>0.115 m</td><td>0.297 m</td><td>0.708 m</td><td>1.191 m</td></tr></tbody>
+    </table>
+  </div>
+  <p style="font-size:13.5px;color:var(--muted)">A model that sees only the current state beats constant velocity by just 8% at 3 s, so there isn't much room for the latent to add value. Keyframes are 6 Hz, so Δt = 0.1 s can't be labelled on real data.</p>
+
+  <h3>Pipeline sanity check on synthetic data</h3>
+  <div class="two">
+    <figure>
+      <img src="a/horizon_signal.jpg" alt="FDE vs horizon and skill vs constant velocity, synthetic signal run" loading="lazy">
+      <figcaption><b>Signal present:</b> the Δt-conditioned head reaches 0.70 skill over constant velocity at 3 s. All 6 checks pass.</figcaption>
+    </figure>
+    <figure>
+      <img src="a/horizon_null.jpg" alt="FDE vs horizon, synthetic null run" loading="lazy">
+      <figcaption><b>No signal (null control):</b> the head doesn't beat the state-only baseline, as it shouldn't. The pipeline isn't inventing gains.</figcaption>
+    </figure>
+  </div>
+  <ul class="checks">
+    <li><span class="pill ok">pass</span>Close to constant velocity at the shortest Δt</li>
+    <li><span class="pill ok">pass</span>Skill rises with horizon</li>
+    <li><span class="pill ok">pass</span>Beats the state-only model beyond its CI (signal run)</li>
+    <li><span class="pill ok">pass</span>Shuffling Δt hurts</li>
+    <li><span class="pill ok">pass</span>Shuffling the latent removes the gain</li>
+    <li><span class="pill ok">pass</span>Gain concentrated on events</li>
+  </ul>
+
+  <div class="note bad"><b>Lost with the GPU box.</b> The GPU job <span class="mono">scripts/box_cache_job.sh</span> was going to trim the base model, extract features from the V2_full model on real frames, and verify them. None of its output reached the Mac, so the real-data horizon experiment hasn't run. All the scripts are local, so a new box only needs to rerun the job. It needs an HF token with read access to <span class="mono">s-alam/dense_walk_mini</span>, because the default token gets a 404.</div>
+</section>
+
+<section id="next">
+  <div class="sechead"><span class="eyebrow">Open items</span><h2>What's next</h2></div>
+  <ul class="plain">
+    <li><b>Re-extract DCA features</b> on a new instance, then run the Δt horizon experiment on real data.</li>
+    <li><b>Walkable surface:</b> use the fitted ground plane, or mark never-seen regions as unknown. Don't use the crowd-smeared splat surface.</li>
+    <li><b>360 panoramic render</b> (stage 4), not started.</li>
+    <li><b>People back in the scene</b> as avatars (Human3R SMPL-X + 3DGS-Avatar), then trajectory forecasting and crowd-aware navigation.</li>
+    <li><b>Re-download the AV2 sequence</b> from its public S3 bucket if AV2 work continues. The SAM2 masks can be regenerated.</li>
+  </ul>
+</section>
+
+<footer>All figures and numbers come from files in <span class="mono">~/densewalk/outputs/</span> on the Mac. Nothing here was re-run after the GPU box was lost.</footer>
+</div>
+</body></html>

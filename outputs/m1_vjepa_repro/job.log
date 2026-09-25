@@ -1,0 +1,231 @@
+[32mActivated conda/uv virtual environment at [36m/venv/main[0m
+[19:43:55] disk free 26 GB -- stage D pilot
+device: cuda
+pilot clips (20): ['105447', '105489', '105545', '10560', '105611', '105615', '10562', '10564', '105746', '105839', '105928', '105948', '105952', '105965', '105987', '106011', '106015', '106041', '106046', '106065']
+/venv/main/lib/python3.12/site-packages/timm/models/layers/__init__.py:49: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+[vjepa_adapter] encoder load_state_dict: <All keys matched successfully>
+[vjepa_adapter] predictor load_state_dict: <All keys matched successfully>
+skipping 105447: too short (length=29)
+/venv/main/lib/python3.12/contextlib.py:105: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+105489: done (5 horizons)
+105545: done (5 horizons)
+skipping 10560: too short (length=34)
+skipping 105611: too short (length=37)
+skipping 105615: too short (length=35)
+skipping 10562: too short (length=22)
+10564: done (5 horizons)
+105746: done (5 horizons)
+skipping 105839: too short (length=34)
+105928: done (5 horizons)
+105948: done (5 horizons)
+skipping 105952: too short (length=39)
+skipping 105965: too short (length=37)
+skipping 105987: too short (length=27)
+106011: done (5 horizons)
+skipping 106015: too short (length=41)
+106041: done (5 horizons)
+106046: done (5 horizons)
+106065: done (5 horizons)
+
+floor (from Stage C, real) = 0.17956
+
+RAW per-horizon means (real V-JEPA2 + real SSv2, OOD causal query):
+    latent_drift  pixel_error  excess_over_floor
+k                                               
+2    1335.789587     0.226879           0.047323
+4    1343.719983     0.231550           0.051994
+8    1344.677539     0.243070           0.063514
+16   1353.555542     0.256091           0.076534
+32   1364.289783     0.239056           0.059500
+
+RAW full dataframe:
+   clip_id  t   k  latent_drift  pixel_error  excess_over_floor
+0   105489  8   2   1340.328491     0.208879           0.029323
+1   105489  8   4   1388.276978     0.213282           0.033726
+2   105489  8   8   1334.074341     0.210122           0.030565
+3   105489  8  16   1338.978516     0.208293           0.028737
+4   105489  8  32   1402.106934     0.210638           0.031082
+5   105545  8   2   1333.841797     0.128607          -0.050949
+6   105545  8   4   1389.013062     0.131470          -0.048086
+7   105545  8   8   1375.068237     0.159773          -0.019783
+8   105545  8  16   1407.423828     0.230929           0.051372
+9   105545  8  32   1364.170776     0.145215          -0.034341
+10   10564  8   2   1397.546753     0.283106           0.103550
+11   10564  8   4   1401.887329     0.288318           0.108762
+12   10564  8   8   1398.437500     0.294883           0.115327
+13   10564  8  16   1407.564209     0.295960           0.116404
+14   10564  8  32   1416.613037     0.285497           0.105941
+15  105746  8   2   1441.609863     0.237760           0.058204
+16  105746  8   4   1367.993896     0.238166           0.058610
+17  105746  8   8   1403.729614     0.245747           0.066191
+18  105746  8  16   1414.602295     0.274186           0.094630
+19  105746  8  32   1361.107788     0.251695           0.072139
+20  105928  8   2   1314.029907     0.268369           0.088813
+21  105928  8   4   1303.981567     0.268844           0.089288
+22  105928  8   8   1296.885254     0.269983           0.090427
+23  105928  8  16   1324.058228     0.237016           0.057460
+24  105928  8  32   1347.410645     0.238580           0.059024
+25  105948  8   2   1324.221069     0.263788           0.084232
+26  105948  8   4   1313.064819     0.267089           0.087532
+27  105948  8   8   1338.838501     0.273890           0.094334
+28  105948  8  16   1365.098022     0.294197           0.114640
+29  105948  8  32   1347.221924     0.273324           0.093767
+30  106011  8   2   1290.850464     0.258430           0.078874
+31  106011  8   4   1300.174805     0.279671           0.100115
+32  106011  8   8   1346.712524     0.270447           0.090891
+33  106011  8  16   1322.493530     0.282677           0.103121
+34  106011  8  32   1381.845581     0.272668           0.093112
+35  106041  8   2   1313.816406     0.212934           0.033378
+36  106041  8   4   1350.311523     0.212947           0.033391
+37  106041  8   8   1295.095215     0.235243           0.055687
+38  106041  8  16   1300.291504     0.263806           0.084250
+39  106041  8  32   1339.932251     0.209433           0.029877
+40  106046  8   2   1293.043335     0.213276           0.033720
+41  106046  8   4   1297.322876     0.222768           0.043212
+42  106046  8   8   1346.769043     0.278682           0.099126
+43  106046  8  16   1334.519775     0.279361           0.099805
+44  106046  8  32   1344.428589     0.313801           0.134244
+45  106065  8   2   1308.607788     0.193637           0.014081
+46  106065  8   4   1325.172974     0.192942           0.013386
+47  106065  8   8   1311.165161     0.191927           0.012371
+48  106065  8  16   1320.525513     0.194481           0.014925
+49  106065  8  32   1338.060303     0.189710           0.010154
+
+--- separation statistic (fit_k=[2, 4], eval_k=32) ---
+pixel_error = -0.0000 * latent_drift + 0.2883
+predicted=0.22813  actual=0.23906  residual=0.01092
+
+wrote repro/stage_d_results.csv
+
+RAW NUMBERS ONLY ABOVE -- no interpretation. See dataframe/means for the actual decision.
+[19:44:06] disk free 26 GB -- stage H decoder-floor audit
+device: cuda
+/venv/main/lib/python3.12/site-packages/timm/models/layers/__init__.py:49: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+[vjepa_adapter] encoder load_state_dict: <All keys matched successfully>
+[vjepa_adapter] predictor load_state_dict: <All keys matched successfully>
+usable clips (10): ['105489', '105545', '10564', '105746', '105928', '105948', '106011', '106041', '106046', '106065']
+/venv/main/lib/python3.12/contextlib.py:105: FutureWarning: `torch.backends.cuda.sdp_kernel()` is deprecated. In the future, this context manager will be removed. Please see `torch.nn.attention.sdpa_kernel()` for the new context manager, with updated signature.
+  self.gen = func(*args, **kwds)
+105489: done
+105545: done
+10564: done
+105746: done
+105928: done
+105948: done
+106011: done
+106041: done
+106046: done
+106065: done
+
+{
+  "n_clips": 10,
+  "t": 8,
+  "aggregate_floor": 0.17955605685710907,
+  "floor_local": {
+    "mean": 0.18159205600619316,
+    "sd_within_clip_across_k": 0.016313681131855724,
+    "sd_across_clips": 0.03274632232181533,
+    "min": 0.11381281912326813,
+    "max": 0.253253310918808,
+    "psnr_db": 14.818063084155138
+  },
+  "floor_local_vs_aggregate_bias": 0.002035999149084089,
+  "pixel_error_mean": 0.23932890176773072,
+  "excess_local_by_k": {
+    "2": 0.0473397858440876,
+    "4": 0.05616782009601593,
+    "8": 0.057205119729042055,
+    "16": 0.065105502307415,
+    "32": 0.06286600083112717
+  },
+  "excess_aggregate_by_k": {
+    "2": 0.047322654724121095,
+    "4": 0.05199356079101562,
+    "8": 0.06351358145475387,
+    "16": 0.07653449028730393,
+    "32": 0.0594999372959137
+  },
+  "pixel_error_by_k": {
+    "2": 0.22687871158123016,
+    "4": 0.2315496176481247,
+    "8": 0.24306963831186296,
+    "16": 0.256090547144413,
+    "32": 0.23905599415302276
+  },
+  "baselines": {
+    "decoder_floor_local": 0.18159205600619316,
+    "gray_0.5": 0.2577515694499016,
+    "context_mean_frame": 0.15936943113803864,
+    "copy_last_context_frame": 0.16644929848611356,
+    "decoded_prediction": 0.23932890176773072
+  },
+  "chance_reference": {
+    "latent_l2": 1709.097579345703,
+    "pixel_rmse": 0.3575387743115425,
+    "n_pairs": 200
+  },
+  "fraction_of_chance": {
+    "latent_level": 0.7889581631334468,
+    "pixel_level_raw": 0.6693788729028608,
+    "pixel_level_floor_removed": 0.3361575301633967,
+    "latent_by_k": {
+      "2": 0.7815759635641907,
+      "4": 0.7862160704859081,
+      "8": 0.7867763405160784,
+      "16": 0.7919708964249845,
+      "32": 0.7982515446760725
+    },
+    "pixel_by_k": {
+      "2": 0.27531993960784046,
+      "4": 0.3212415320884616,
+      "8": 0.34115655973400133,
+      "16": 0.38274404221527936,
+      "32": 0.36032557717140146
+    }
+  },
+  "divergence_ratio": {
+    "raw": {
+      "latent_rel_range": 0.021136204543029932,
+      "pixel_rel_range": 0.12205728329265046,
+      "ratio": 5.774796654913201,
+      "ci_lo": 1.6565233899385887,
+      "ci_hi": 13.956210359442702,
+      "n_boot_used": 5000
+    },
+    "chance_normalized": {
+      "latent_rel_range": 0.021136204543030085,
+      "pixel_rel_range": 0.3195647664213353,
+      "ratio": 15.119307053011823,
+      "ci_lo": 6.474194359144033,
+      "ci_hi": 34.522890290199456,
+      "n_boot_used": 5000
+    },
+    "excess_local": {
+      "latent_rel_range": 0.021136204543029932,
+      "excess_rel_range": 0.3077015418663962,
+      "ratio": 14.558031989138119
+    }
+  }
+}
+
+wrote repro/decoder_floor_audit.csv and repro/decoder_floor_audit.json
+[19:44:33] disk free 26 GB -- compare against Mac reference
+stage D rows: ref 50 | repro 50 | matched 50
+  latent_drift       median rel diff 0.0042  max 0.0311
+  pixel_error        median rel diff 0.0037  max 0.0332
+  excess_over_floor  median rel diff 0.0171  max 0.1149
+  per-k mean latent_drift max rel diff 0.0054  PASS
+  per-k mean pixel_error  max rel diff 0.0027  PASS
+stage H headline numbers:
+  fraction_of_chance.latent_level          ref     0.7909  repro     0.7890  rel 0.0025  PASS
+  floor_local.mean                         ref     0.1807  repro     0.1816  rel 0.0049  PASS
+  pixel_error_mean                         ref     0.2396  repro     0.2393  rel 0.0010  PASS
+  baselines.copy_last_context_frame        ref     0.1663  repro     0.1664  rel 0.0007  PASS
+  baselines.context_mean_frame             ref     0.1592  repro     0.1594  rel 0.0008  PASS
+  chance_reference.latent_l2               ref  1708.5517  repro  1709.0976  rel 0.0003  PASS
+  divergence_ratio.raw.ratio               ref     6.0994  repro     5.7748  rel 0.0532  FAIL
+M1 REPRODUCTION: FAIL
+[19:44:34] JOB DONE

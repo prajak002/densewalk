@@ -1,0 +1,2543 @@
+{
+  "summary": {
+    "video": "video/varanasi1.mp4",
+    "width": 640,
+    "height": 360,
+    "fps": 29.97,
+    "frames_decoded": 361,
+    "frames_written": 361,
+    "sharpness_median": 1338.8923611833736,
+    "sharpness_p10": 1136.3924435040321,
+    "blur_threshold": 803.3354167100241,
+    "n_blurred": 0
+  },
+  "frames": [
+    {
+      "name": "00000.jpg",
+      "frame": 0,
+      "sharpness": 1253.0544516330108,
+      "mean_luma": 120.61049045138888,
+      "blurred": false
+    },
+    {
+      "name": "00001.jpg",
+      "frame": 1,
+      "sharpness": 1436.3196592031222,
+      "mean_luma": 120.36438802083333,
+      "blurred": false
+    },
+    {
+      "name": "00002.jpg",
+      "frame": 2,
+      "sharpness": 1194.0117004837414,
+      "mean_luma": 121.05009114583333,
+      "blurred": false
+    },
+    {
+      "name": "00003.jpg",
+      "frame": 3,
+      "sharpness": 1432.1353816186222,
+      "mean_luma": 121.02409288194444,
+      "blurred": false
+    },
+    {
+      "name": "00004.jpg",
+      "frame": 4,
+      "sharpness": 1183.5922633673774,
+      "mean_luma": 121.46091145833333,
+      "blurred": false
+    },
+    {
+      "name": "00005.jpg",
+      "frame": 5,
+      "sharpness": 1420.6593022998763,
+      "mean_luma": 121.06684461805555,
+      "blurred": false
+    },
+    {
+      "name": "00006.jpg",
+      "frame": 6,
+      "sharpness": 1198.105824486325,
+      "mean_luma": 121.36102864583333,
+      "blurred": false
+    },
+    {
+      "name": "00007.jpg",
+      "frame": 7,
+      "sharpness": 1445.4023585599925,
+      "mean_luma": 120.8961154513889,
+      "blurred": false
+    },
+    {
+      "name": "00008.jpg",
+      "frame": 8,
+      "sharpness": 1191.4299058659872,
+      "mean_luma": 121.223359375,
+      "blurred": false
+    },
+    {
+      "name": "00009.jpg",
+      "frame": 9,
+      "sharpness": 1434.1578772040286,
+      "mean_luma": 120.62130208333333,
+      "blurred": false
+    },
+    {
+      "name": "00010.jpg",
+      "frame": 10,
+      "sharpness": 1184.7719002368315,
+      "mean_luma": 120.94551215277778,
+      "blurred": false
+    },
+    {
+      "name": "00011.jpg",
+      "frame": 11,
+      "sharpness": 1392.0436103575905,
+      "mean_luma": 120.43062065972222,
+      "blurred": false
+    },
+    {
+      "name": "00012.jpg",
+      "frame": 12,
+      "sharpness": 1148.002032597219,
+      "mean_luma": 120.64475694444444,
+      "blurred": false
+    },
+    {
+      "name": "00013.jpg",
+      "frame": 13,
+      "sharpness": 1356.6648887573053,
+      "mean_luma": 120.05424479166666,
+      "blurred": false
+    },
+    {
+      "name": "00014.jpg",
+      "frame": 14,
+      "sharpness": 1109.2383980031707,
+      "mean_luma": 120.42252170138889,
+      "blurred": false
+    },
+    {
+      "name": "00015.jpg",
+      "frame": 15,
+      "sharpness": 1291.519898128858,
+      "mean_luma": 120.09125868055555,
+      "blurred": false
+    },
+    {
+      "name": "00016.jpg",
+      "frame": 16,
+      "sharpness": 1046.2157894000582,
+      "mean_luma": 120.7601345486111,
+      "blurred": false
+    },
+    {
+      "name": "00017.jpg",
+      "frame": 17,
+      "sharpness": 1199.9583729449805,
+      "mean_luma": 120.60962673611111,
+      "blurred": false
+    },
+    {
+      "name": "00018.jpg",
+      "frame": 18,
+      "sharpness": 2146.7161431513846,
+      "mean_luma": 121.49007378472223,
+      "blurred": false
+    },
+    {
+      "name": "00019.jpg",
+      "frame": 19,
+      "sharpness": 1515.2733162705408,
+      "mean_luma": 122.1113671875,
+      "blurred": false
+    },
+    {
+      "name": "00020.jpg",
+      "frame": 20,
+      "sharpness": 1740.581268916076,
+      "mean_luma": 122.23718315972222,
+      "blurred": false
+    },
+    {
+      "name": "00021.jpg",
+      "frame": 21,
+      "sharpness": 1338.8923611833736,
+      "mean_luma": 123.14316840277777,
+      "blurred": false
+    },
+    {
+      "name": "00022.jpg",
+      "frame": 22,
+      "sharpness": 1587.9650927616638,
+      "mean_luma": 123.32918402777777,
+      "blurred": false
+    },
+    {
+      "name": "00023.jpg",
+      "frame": 23,
+      "sharpness": 1259.361199128252,
+      "mean_luma": 123.98921440972222,
+      "blurred": false
+    },
+    {
+      "name": "00024.jpg",
+      "frame": 24,
+      "sharpness": 1549.1772667566179,
+      "mean_luma": 124.2890451388889,
+      "blurred": false
+    },
+    {
+      "name": "00025.jpg",
+      "frame": 25,
+      "sharpness": 1256.398025116626,
+      "mean_luma": 124.71966579861112,
+      "blurred": false
+    },
+    {
+      "name": "00026.jpg",
+      "frame": 26,
+      "sharpness": 1469.1840540237238,
+      "mean_luma": 124.28305555555555,
+      "blurred": false
+    },
+    {
+      "name": "00027.jpg",
+      "frame": 27,
+      "sharpness": 1187.5693480353461,
+      "mean_luma": 124.4075173611111,
+      "blurred": false
+    },
+    {
+      "name": "00028.jpg",
+      "frame": 28,
+      "sharpness": 1385.980203455023,
+      "mean_luma": 123.86935329861112,
+      "blurred": false
+    },
+    {
+      "name": "00029.jpg",
+      "frame": 29,
+      "sharpness": 1146.3503141996407,
+      "mean_luma": 123.89973524305556,
+      "blurred": false
+    },
+    {
+      "name": "00030.jpg",
+      "frame": 30,
+      "sharpness": 1352.330575811523,
+      "mean_luma": 123.24076388888889,
+      "blurred": false
+    },
+    {
+      "name": "00031.jpg",
+      "frame": 31,
+      "sharpness": 1130.943198422957,
+      "mean_luma": 122.87913194444444,
+      "blurred": false
+    },
+    {
+      "name": "00032.jpg",
+      "frame": 32,
+      "sharpness": 1371.7872509281676,
+      "mean_luma": 121.84118055555555,
+      "blurred": false
+    },
+    {
+      "name": "00033.jpg",
+      "frame": 33,
+      "sharpness": 1132.7912149658016,
+      "mean_luma": 121.56679253472223,
+      "blurred": false
+    },
+    {
+      "name": "00034.jpg",
+      "frame": 34,
+      "sharpness": 1392.7515491099418,
+      "mean_luma": 120.73377604166667,
+      "blurred": false
+    },
+    {
+      "name": "00035.jpg",
+      "frame": 35,
+      "sharpness": 1126.1362190392765,
+      "mean_luma": 120.54422743055555,
+      "blurred": false
+    },
+    {
+      "name": "00036.jpg",
+      "frame": 36,
+      "sharpness": 1385.324206855755,
+      "mean_luma": 119.59551649305556,
+      "blurred": false
+    },
+    {
+      "name": "00037.jpg",
+      "frame": 37,
+      "sharpness": 1151.1633736918131,
+      "mean_luma": 119.5628689236111,
+      "blurred": false
+    },
+    {
+      "name": "00038.jpg",
+      "frame": 38,
+      "sharpness": 1417.7004044406276,
+      "mean_luma": 118.76805555555555,
+      "blurred": false
+    },
+    {
+      "name": "00039.jpg",
+      "frame": 39,
+      "sharpness": 1170.985545290723,
+      "mean_luma": 118.44394965277777,
+      "blurred": false
+    },
+    {
+      "name": "00040.jpg",
+      "frame": 40,
+      "sharpness": 1171.306036908166,
+      "mean_luma": 118.10640625,
+      "blurred": false
+    },
+    {
+      "name": "00041.jpg",
+      "frame": 41,
+      "sharpness": 1456.2418676002599,
+      "mean_luma": 117.88507378472222,
+      "blurred": false
+    },
+    {
+      "name": "00042.jpg",
+      "frame": 42,
+      "sharpness": 1164.9942134126452,
+      "mean_luma": 118.08614583333333,
+      "blurred": false
+    },
+    {
+      "name": "00043.jpg",
+      "frame": 43,
+      "sharpness": 1381.4447765312857,
+      "mean_luma": 117.52755208333333,
+      "blurred": false
+    },
+    {
+      "name": "00044.jpg",
+      "frame": 44,
+      "sharpness": 1120.8907147212087,
+      "mean_luma": 117.71586805555556,
+      "blurred": false
+    },
+    {
+      "name": "00045.jpg",
+      "frame": 45,
+      "sharpness": 1351.4740830485025,
+      "mean_luma": 117.2916015625,
+      "blurred": false
+    },
+    {
+      "name": "00046.jpg",
+      "frame": 46,
+      "sharpness": 1090.96832203955,
+      "mean_luma": 117.9315625,
+      "blurred": false
+    },
+    {
+      "name": "00047.jpg",
+      "frame": 47,
+      "sharpness": 1307.7759848469864,
+      "mean_luma": 117.805625,
+      "blurred": false
+    },
+    {
+      "name": "00048.jpg",
+      "frame": 48,
+      "sharpness": 1167.9836663479086,
+      "mean_luma": 118.00868489583333,
+      "blurred": false
+    },
+    {
+      "name": "00049.jpg",
+      "frame": 49,
+      "sharpness": 1473.3864839047278,
+      "mean_luma": 117.3488671875,
+      "blurred": false
+    },
+    {
+      "name": "00050.jpg",
+      "frame": 50,
+      "sharpness": 1388.444837729202,
+      "mean_luma": 117.09127604166666,
+      "blurred": false
+    },
+    {
+      "name": "00051.jpg",
+      "frame": 51,
+      "sharpness": 1160.2684572916664,
+      "mean_luma": 116.78610677083333,
+      "blurred": false
+    },
+    {
+      "name": "00052.jpg",
+      "frame": 52,
+      "sharpness": 1422.4006210589187,
+      "mean_luma": 116.10259548611111,
+      "blurred": false
+    },
+    {
+      "name": "00053.jpg",
+      "frame": 53,
+      "sharpness": 1147.907736394416,
+      "mean_luma": 116.42916666666666,
+      "blurred": false
+    },
+    {
+      "name": "00054.jpg",
+      "frame": 54,
+      "sharpness": 1440.5434718297133,
+      "mean_luma": 116.08133246527778,
+      "blurred": false
+    },
+    {
+      "name": "00055.jpg",
+      "frame": 55,
+      "sharpness": 1163.9701390258601,
+      "mean_luma": 116.69762152777778,
+      "blurred": false
+    },
+    {
+      "name": "00056.jpg",
+      "frame": 56,
+      "sharpness": 1421.0141361014473,
+      "mean_luma": 116.75723958333333,
+      "blurred": false
+    },
+    {
+      "name": "00057.jpg",
+      "frame": 57,
+      "sharpness": 1146.584442491244,
+      "mean_luma": 118.1829079861111,
+      "blurred": false
+    },
+    {
+      "name": "00058.jpg",
+      "frame": 58,
+      "sharpness": 1416.899492401801,
+      "mean_luma": 119.07496961805556,
+      "blurred": false
+    },
+    {
+      "name": "00059.jpg",
+      "frame": 59,
+      "sharpness": 1172.8367006503636,
+      "mean_luma": 121.00546875,
+      "blurred": false
+    },
+    {
+      "name": "00060.jpg",
+      "frame": 60,
+      "sharpness": 1431.2349872094424,
+      "mean_luma": 121.88979166666667,
+      "blurred": false
+    },
+    {
+      "name": "00061.jpg",
+      "frame": 61,
+      "sharpness": 1190.164700686137,
+      "mean_luma": 123.10697916666666,
+      "blurred": false
+    },
+    {
+      "name": "00062.jpg",
+      "frame": 62,
+      "sharpness": 1456.011743928961,
+      "mean_luma": 123.3720876736111,
+      "blurred": false
+    },
+    {
+      "name": "00063.jpg",
+      "frame": 63,
+      "sharpness": 1225.8489931784547,
+      "mean_luma": 124.45161458333334,
+      "blurred": false
+    },
+    {
+      "name": "00064.jpg",
+      "frame": 64,
+      "sharpness": 1480.6776450710531,
+      "mean_luma": 124.44411458333333,
+      "blurred": false
+    },
+    {
+      "name": "00065.jpg",
+      "frame": 65,
+      "sharpness": 1217.4937023627388,
+      "mean_luma": 125.0871875,
+      "blurred": false
+    },
+    {
+      "name": "00066.jpg",
+      "frame": 66,
+      "sharpness": 1476.9451786009047,
+      "mean_luma": 124.93211371527778,
+      "blurred": false
+    },
+    {
+      "name": "00067.jpg",
+      "frame": 67,
+      "sharpness": 1172.8569307648647,
+      "mean_luma": 125.34601996527778,
+      "blurred": false
+    },
+    {
+      "name": "00068.jpg",
+      "frame": 68,
+      "sharpness": 1201.767006206296,
+      "mean_luma": 125.68555989583334,
+      "blurred": false
+    },
+    {
+      "name": "00069.jpg",
+      "frame": 69,
+      "sharpness": 1465.1456044472588,
+      "mean_luma": 125.82202690972223,
+      "blurred": false
+    },
+    {
+      "name": "00070.jpg",
+      "frame": 70,
+      "sharpness": 1146.793263138665,
+      "mean_luma": 126.1164453125,
+      "blurred": false
+    },
+    {
+      "name": "00071.jpg",
+      "frame": 71,
+      "sharpness": 1233.3815873367687,
+      "mean_luma": 126.5244140625,
+      "blurred": false
+    },
+    {
+      "name": "00072.jpg",
+      "frame": 72,
+      "sharpness": 1470.628868499963,
+      "mean_luma": 126.66818142361112,
+      "blurred": false
+    },
+    {
+      "name": "00073.jpg",
+      "frame": 73,
+      "sharpness": 1182.5061211362297,
+      "mean_luma": 127.30697916666666,
+      "blurred": false
+    },
+    {
+      "name": "00074.jpg",
+      "frame": 74,
+      "sharpness": 1432.3911740324043,
+      "mean_luma": 126.97048177083333,
+      "blurred": false
+    },
+    {
+      "name": "00075.jpg",
+      "frame": 75,
+      "sharpness": 1187.0840106709798,
+      "mean_luma": 127.46386284722222,
+      "blurred": false
+    },
+    {
+      "name": "00076.jpg",
+      "frame": 76,
+      "sharpness": 1425.4497748480715,
+      "mean_luma": 127.36904947916666,
+      "blurred": false
+    },
+    {
+      "name": "00077.jpg",
+      "frame": 77,
+      "sharpness": 1175.1464394689299,
+      "mean_luma": 127.89382378472222,
+      "blurred": false
+    },
+    {
+      "name": "00078.jpg",
+      "frame": 78,
+      "sharpness": 1401.3042903871703,
+      "mean_luma": 127.74417534722222,
+      "blurred": false
+    },
+    {
+      "name": "00079.jpg",
+      "frame": 79,
+      "sharpness": 1157.077574333869,
+      "mean_luma": 128.04657552083333,
+      "blurred": false
+    },
+    {
+      "name": "00080.jpg",
+      "frame": 80,
+      "sharpness": 1425.6050847764002,
+      "mean_luma": 127.65303385416667,
+      "blurred": false
+    },
+    {
+      "name": "00081.jpg",
+      "frame": 81,
+      "sharpness": 1185.328019904921,
+      "mean_luma": 127.78922309027777,
+      "blurred": false
+    },
+    {
+      "name": "00082.jpg",
+      "frame": 82,
+      "sharpness": 1419.9881770531927,
+      "mean_luma": 127.32260416666666,
+      "blurred": false
+    },
+    {
+      "name": "00083.jpg",
+      "frame": 83,
+      "sharpness": 1189.2153862099542,
+      "mean_luma": 127.18758680555555,
+      "blurred": false
+    },
+    {
+      "name": "00084.jpg",
+      "frame": 84,
+      "sharpness": 1395.6115824027167,
+      "mean_luma": 126.60876302083334,
+      "blurred": false
+    },
+    {
+      "name": "00085.jpg",
+      "frame": 85,
+      "sharpness": 1156.7273628736707,
+      "mean_luma": 126.46348958333333,
+      "blurred": false
+    },
+    {
+      "name": "00086.jpg",
+      "frame": 86,
+      "sharpness": 1393.9979146942517,
+      "mean_luma": 125.94141927083334,
+      "blurred": false
+    },
+    {
+      "name": "00087.jpg",
+      "frame": 87,
+      "sharpness": 1182.9960349146525,
+      "mean_luma": 126.25614583333333,
+      "blurred": false
+    },
+    {
+      "name": "00088.jpg",
+      "frame": 88,
+      "sharpness": 1404.7770498981054,
+      "mean_luma": 125.83297743055556,
+      "blurred": false
+    },
+    {
+      "name": "00089.jpg",
+      "frame": 89,
+      "sharpness": 1177.6366170210474,
+      "mean_luma": 125.88749131944445,
+      "blurred": false
+    },
+    {
+      "name": "00090.jpg",
+      "frame": 90,
+      "sharpness": 1397.3746876001994,
+      "mean_luma": 125.31792100694445,
+      "blurred": false
+    },
+    {
+      "name": "00091.jpg",
+      "frame": 91,
+      "sharpness": 1153.5220535824624,
+      "mean_luma": 125.40996961805556,
+      "blurred": false
+    },
+    {
+      "name": "00092.jpg",
+      "frame": 92,
+      "sharpness": 1366.8077207641413,
+      "mean_luma": 124.88465277777777,
+      "blurred": false
+    },
+    {
+      "name": "00093.jpg",
+      "frame": 93,
+      "sharpness": 1136.3924435040321,
+      "mean_luma": 125.1402734375,
+      "blurred": false
+    },
+    {
+      "name": "00094.jpg",
+      "frame": 94,
+      "sharpness": 1371.752463302782,
+      "mean_luma": 124.69803819444445,
+      "blurred": false
+    },
+    {
+      "name": "00095.jpg",
+      "frame": 95,
+      "sharpness": 1172.039843546248,
+      "mean_luma": 124.30842881944444,
+      "blurred": false
+    },
+    {
+      "name": "00096.jpg",
+      "frame": 96,
+      "sharpness": 1382.497456343738,
+      "mean_luma": 123.42107638888889,
+      "blurred": false
+    },
+    {
+      "name": "00097.jpg",
+      "frame": 97,
+      "sharpness": 1165.8489407339403,
+      "mean_luma": 123.21688802083334,
+      "blurred": false
+    },
+    {
+      "name": "00098.jpg",
+      "frame": 98,
+      "sharpness": 1370.4194451786561,
+      "mean_luma": 122.34600260416667,
+      "blurred": false
+    },
+    {
+      "name": "00099.jpg",
+      "frame": 99,
+      "sharpness": 1142.0827087670598,
+      "mean_luma": 122.4460329861111,
+      "blurred": false
+    },
+    {
+      "name": "00100.jpg",
+      "frame": 100,
+      "sharpness": 1378.5099109392334,
+      "mean_luma": 121.95909288194444,
+      "blurred": false
+    },
+    {
+      "name": "00101.jpg",
+      "frame": 101,
+      "sharpness": 1137.0917736490696,
+      "mean_luma": 122.2837109375,
+      "blurred": false
+    },
+    {
+      "name": "00102.jpg",
+      "frame": 102,
+      "sharpness": 1355.9478988712262,
+      "mean_luma": 121.93018663194445,
+      "blurred": false
+    },
+    {
+      "name": "00103.jpg",
+      "frame": 103,
+      "sharpness": 1083.8397565856935,
+      "mean_luma": 122.67157986111111,
+      "blurred": false
+    },
+    {
+      "name": "00104.jpg",
+      "frame": 104,
+      "sharpness": 1145.5331692681207,
+      "mean_luma": 123.06701822916666,
+      "blurred": false
+    },
+    {
+      "name": "00105.jpg",
+      "frame": 105,
+      "sharpness": 1402.324539025408,
+      "mean_luma": 123.27739583333333,
+      "blurred": false
+    },
+    {
+      "name": "00106.jpg",
+      "frame": 106,
+      "sharpness": 1146.5728190298387,
+      "mean_luma": 123.85605034722222,
+      "blurred": false
+    },
+    {
+      "name": "00107.jpg",
+      "frame": 107,
+      "sharpness": 1397.1099983655954,
+      "mean_luma": 123.85216579861111,
+      "blurred": false
+    },
+    {
+      "name": "00108.jpg",
+      "frame": 108,
+      "sharpness": 1138.3464259891464,
+      "mean_luma": 124.62522135416667,
+      "blurred": false
+    },
+    {
+      "name": "00109.jpg",
+      "frame": 109,
+      "sharpness": 1415.186544588819,
+      "mean_luma": 124.74854166666667,
+      "blurred": false
+    },
+    {
+      "name": "00110.jpg",
+      "frame": 110,
+      "sharpness": 1140.9368138122559,
+      "mean_luma": 125.37059895833333,
+      "blurred": false
+    },
+    {
+      "name": "00111.jpg",
+      "frame": 111,
+      "sharpness": 1435.7989584053698,
+      "mean_luma": 125.30189670138888,
+      "blurred": false
+    },
+    {
+      "name": "00112.jpg",
+      "frame": 112,
+      "sharpness": 1179.0983865251708,
+      "mean_luma": 125.67784288194444,
+      "blurred": false
+    },
+    {
+      "name": "00113.jpg",
+      "frame": 113,
+      "sharpness": 1444.0835192828708,
+      "mean_luma": 125.58869357638889,
+      "blurred": false
+    },
+    {
+      "name": "00114.jpg",
+      "frame": 114,
+      "sharpness": 1188.3752818142173,
+      "mean_luma": 125.90897135416667,
+      "blurred": false
+    },
+    {
+      "name": "00115.jpg",
+      "frame": 115,
+      "sharpness": 1419.0810720124236,
+      "mean_luma": 125.72332899305556,
+      "blurred": false
+    },
+    {
+      "name": "00116.jpg",
+      "frame": 116,
+      "sharpness": 1165.0221944895802,
+      "mean_luma": 126.00087673611111,
+      "blurred": false
+    },
+    {
+      "name": "00117.jpg",
+      "frame": 117,
+      "sharpness": 1414.015159478063,
+      "mean_luma": 125.72098958333333,
+      "blurred": false
+    },
+    {
+      "name": "00118.jpg",
+      "frame": 118,
+      "sharpness": 1150.6221307143976,
+      "mean_luma": 125.86784722222222,
+      "blurred": false
+    },
+    {
+      "name": "00119.jpg",
+      "frame": 119,
+      "sharpness": 1411.9861467275925,
+      "mean_luma": 125.23101128472223,
+      "blurred": false
+    },
+    {
+      "name": "00120.jpg",
+      "frame": 120,
+      "sharpness": 1147.1443823235406,
+      "mean_luma": 125.27165798611111,
+      "blurred": false
+    },
+    {
+      "name": "00121.jpg",
+      "frame": 121,
+      "sharpness": 1420.6313482417165,
+      "mean_luma": 124.6914453125,
+      "blurred": false
+    },
+    {
+      "name": "00122.jpg",
+      "frame": 122,
+      "sharpness": 1156.45735481995,
+      "mean_luma": 124.68259548611111,
+      "blurred": false
+    },
+    {
+      "name": "00123.jpg",
+      "frame": 123,
+      "sharpness": 1429.4864107254407,
+      "mean_luma": 124.13325954861111,
+      "blurred": false
+    },
+    {
+      "name": "00124.jpg",
+      "frame": 124,
+      "sharpness": 1164.4162308073633,
+      "mean_luma": 123.95312934027778,
+      "blurred": false
+    },
+    {
+      "name": "00125.jpg",
+      "frame": 125,
+      "sharpness": 1404.9981558566624,
+      "mean_luma": 123.25827690972223,
+      "blurred": false
+    },
+    {
+      "name": "00126.jpg",
+      "frame": 126,
+      "sharpness": 1131.6103033745658,
+      "mean_luma": 122.85076822916666,
+      "blurred": false
+    },
+    {
+      "name": "00127.jpg",
+      "frame": 127,
+      "sharpness": 1201.9878736969938,
+      "mean_luma": 122.03546875,
+      "blurred": false
+    },
+    {
+      "name": "00128.jpg",
+      "frame": 128,
+      "sharpness": 1441.580306248625,
+      "mean_luma": 121.61429253472222,
+      "blurred": false
+    },
+    {
+      "name": "00129.jpg",
+      "frame": 129,
+      "sharpness": 1191.8017380911936,
+      "mean_luma": 121.77626736111111,
+      "blurred": false
+    },
+    {
+      "name": "00130.jpg",
+      "frame": 130,
+      "sharpness": 1392.598033824026,
+      "mean_luma": 121.332109375,
+      "blurred": false
+    },
+    {
+      "name": "00131.jpg",
+      "frame": 131,
+      "sharpness": 1126.8143104428702,
+      "mean_luma": 121.56033420138888,
+      "blurred": false
+    },
+    {
+      "name": "00132.jpg",
+      "frame": 132,
+      "sharpness": 1385.053292468243,
+      "mean_luma": 121.17974826388888,
+      "blurred": false
+    },
+    {
+      "name": "00133.jpg",
+      "frame": 133,
+      "sharpness": 1129.980854487949,
+      "mean_luma": 121.458359375,
+      "blurred": false
+    },
+    {
+      "name": "00134.jpg",
+      "frame": 134,
+      "sharpness": 1389.983851728576,
+      "mean_luma": 120.9867578125,
+      "blurred": false
+    },
+    {
+      "name": "00135.jpg",
+      "frame": 135,
+      "sharpness": 1136.369855850766,
+      "mean_luma": 120.99031684027777,
+      "blurred": false
+    },
+    {
+      "name": "00136.jpg",
+      "frame": 136,
+      "sharpness": 1367.2914714599608,
+      "mean_luma": 120.52390625,
+      "blurred": false
+    },
+    {
+      "name": "00137.jpg",
+      "frame": 137,
+      "sharpness": 1134.8598828845365,
+      "mean_luma": 120.80721788194444,
+      "blurred": false
+    },
+    {
+      "name": "00138.jpg",
+      "frame": 138,
+      "sharpness": 1364.6670580032726,
+      "mean_luma": 120.45484375,
+      "blurred": false
+    },
+    {
+      "name": "00139.jpg",
+      "frame": 139,
+      "sharpness": 1107.6680600947439,
+      "mean_luma": 120.84258246527777,
+      "blurred": false
+    },
+    {
+      "name": "00140.jpg",
+      "frame": 140,
+      "sharpness": 1349.195003096046,
+      "mean_luma": 120.43370659722223,
+      "blurred": false
+    },
+    {
+      "name": "00141.jpg",
+      "frame": 141,
+      "sharpness": 1113.8252597378203,
+      "mean_luma": 120.64081597222223,
+      "blurred": false
+    },
+    {
+      "name": "00142.jpg",
+      "frame": 142,
+      "sharpness": 1367.8009771013426,
+      "mean_luma": 120.54110677083334,
+      "blurred": false
+    },
+    {
+      "name": "00143.jpg",
+      "frame": 143,
+      "sharpness": 1163.02915526432,
+      "mean_luma": 121.11791666666667,
+      "blurred": false
+    },
+    {
+      "name": "00144.jpg",
+      "frame": 144,
+      "sharpness": 1389.9793653080503,
+      "mean_luma": 121.0783984375,
+      "blurred": false
+    },
+    {
+      "name": "00145.jpg",
+      "frame": 145,
+      "sharpness": 1154.2895614956326,
+      "mean_luma": 121.72463975694444,
+      "blurred": false
+    },
+    {
+      "name": "00146.jpg",
+      "frame": 146,
+      "sharpness": 1375.1800295373234,
+      "mean_luma": 121.62675347222222,
+      "blurred": false
+    },
+    {
+      "name": "00147.jpg",
+      "frame": 147,
+      "sharpness": 1128.8709734420022,
+      "mean_luma": 122.12730902777778,
+      "blurred": false
+    },
+    {
+      "name": "00148.jpg",
+      "frame": 148,
+      "sharpness": 1373.746942152066,
+      "mean_luma": 122.02190538194445,
+      "blurred": false
+    },
+    {
+      "name": "00149.jpg",
+      "frame": 149,
+      "sharpness": 1158.8272471896512,
+      "mean_luma": 122.55358506944444,
+      "blurred": false
+    },
+    {
+      "name": "00150.jpg",
+      "frame": 150,
+      "sharpness": 1405.6007266481,
+      "mean_luma": 122.35464409722222,
+      "blurred": false
+    },
+    {
+      "name": "00151.jpg",
+      "frame": 151,
+      "sharpness": 1181.6014386323716,
+      "mean_luma": 122.86730902777778,
+      "blurred": false
+    },
+    {
+      "name": "00152.jpg",
+      "frame": 152,
+      "sharpness": 1417.4914771252102,
+      "mean_luma": 122.66326388888889,
+      "blurred": false
+    },
+    {
+      "name": "00153.jpg",
+      "frame": 153,
+      "sharpness": 1189.7774848442737,
+      "mean_luma": 123.08595920138889,
+      "blurred": false
+    },
+    {
+      "name": "00154.jpg",
+      "frame": 154,
+      "sharpness": 1438.7163509587604,
+      "mean_luma": 122.75104166666667,
+      "blurred": false
+    },
+    {
+      "name": "00155.jpg",
+      "frame": 155,
+      "sharpness": 1171.695959200466,
+      "mean_luma": 122.96158420138889,
+      "blurred": false
+    },
+    {
+      "name": "00156.jpg",
+      "frame": 156,
+      "sharpness": 1403.9206270980835,
+      "mean_luma": 122.3596875,
+      "blurred": false
+    },
+    {
+      "name": "00157.jpg",
+      "frame": 157,
+      "sharpness": 1153.4437379436729,
+      "mean_luma": 122.31566840277777,
+      "blurred": false
+    },
+    {
+      "name": "00158.jpg",
+      "frame": 158,
+      "sharpness": 1382.8064092869886,
+      "mean_luma": 121.34687934027778,
+      "blurred": false
+    },
+    {
+      "name": "00159.jpg",
+      "frame": 159,
+      "sharpness": 1125.415320427035,
+      "mean_luma": 120.9996484375,
+      "blurred": false
+    },
+    {
+      "name": "00160.jpg",
+      "frame": 160,
+      "sharpness": 1356.6108411276737,
+      "mean_luma": 120.15397135416667,
+      "blurred": false
+    },
+    {
+      "name": "00161.jpg",
+      "frame": 161,
+      "sharpness": 1113.3188006724417,
+      "mean_luma": 119.8056640625,
+      "blurred": false
+    },
+    {
+      "name": "00162.jpg",
+      "frame": 162,
+      "sharpness": 1325.034584146966,
+      "mean_luma": 119.09794270833333,
+      "blurred": false
+    },
+    {
+      "name": "00163.jpg",
+      "frame": 163,
+      "sharpness": 1110.6278938934704,
+      "mean_luma": 119.52618489583334,
+      "blurred": false
+    },
+    {
+      "name": "00164.jpg",
+      "frame": 164,
+      "sharpness": 1275.3107365086685,
+      "mean_luma": 119.50863715277778,
+      "blurred": false
+    },
+    {
+      "name": "00165.jpg",
+      "frame": 165,
+      "sharpness": 1062.2837819417318,
+      "mean_luma": 119.84694444444445,
+      "blurred": false
+    },
+    {
+      "name": "00166.jpg",
+      "frame": 166,
+      "sharpness": 1054.6299725377778,
+      "mean_luma": 120.07188368055556,
+      "blurred": false
+    },
+    {
+      "name": "00167.jpg",
+      "frame": 167,
+      "sharpness": 1156.6465524358114,
+      "mean_luma": 119.83588975694444,
+      "blurred": false
+    },
+    {
+      "name": "00168.jpg",
+      "frame": 168,
+      "sharpness": 2193.862269670934,
+      "mean_luma": 120.23940104166667,
+      "blurred": false
+    },
+    {
+      "name": "00169.jpg",
+      "frame": 169,
+      "sharpness": 1567.245563656202,
+      "mean_luma": 120.69746961805555,
+      "blurred": false
+    },
+    {
+      "name": "00170.jpg",
+      "frame": 170,
+      "sharpness": 1748.9488335684127,
+      "mean_luma": 120.28927951388889,
+      "blurred": false
+    },
+    {
+      "name": "00171.jpg",
+      "frame": 171,
+      "sharpness": 1415.1374915905421,
+      "mean_luma": 120.69111111111111,
+      "blurred": false
+    },
+    {
+      "name": "00172.jpg",
+      "frame": 172,
+      "sharpness": 1381.9271899774997,
+      "mean_luma": 121.24501302083333,
+      "blurred": false
+    },
+    {
+      "name": "00173.jpg",
+      "frame": 173,
+      "sharpness": 1608.9848243597337,
+      "mean_luma": 121.51147135416667,
+      "blurred": false
+    },
+    {
+      "name": "00174.jpg",
+      "frame": 174,
+      "sharpness": 1291.5950807706856,
+      "mean_luma": 122.28174045138888,
+      "blurred": false
+    },
+    {
+      "name": "00175.jpg",
+      "frame": 175,
+      "sharpness": 1332.0603059217665,
+      "mean_luma": 122.80303385416667,
+      "blurred": false
+    },
+    {
+      "name": "00176.jpg",
+      "frame": 176,
+      "sharpness": 1532.6610824923293,
+      "mean_luma": 122.81930989583333,
+      "blurred": false
+    },
+    {
+      "name": "00177.jpg",
+      "frame": 177,
+      "sharpness": 1272.9994029438537,
+      "mean_luma": 123.30289930555556,
+      "blurred": false
+    },
+    {
+      "name": "00178.jpg",
+      "frame": 178,
+      "sharpness": 1486.1033133673775,
+      "mean_luma": 123.00483506944444,
+      "blurred": false
+    },
+    {
+      "name": "00179.jpg",
+      "frame": 179,
+      "sharpness": 1278.7477723750171,
+      "mean_luma": 123.46303819444445,
+      "blurred": false
+    },
+    {
+      "name": "00180.jpg",
+      "frame": 180,
+      "sharpness": 1478.172125402361,
+      "mean_luma": 123.10618055555555,
+      "blurred": false
+    },
+    {
+      "name": "00181.jpg",
+      "frame": 181,
+      "sharpness": 1258.5168704750909,
+      "mean_luma": 123.2438064236111,
+      "blurred": false
+    },
+    {
+      "name": "00182.jpg",
+      "frame": 182,
+      "sharpness": 1448.7360511482898,
+      "mean_luma": 122.81257378472222,
+      "blurred": false
+    },
+    {
+      "name": "00183.jpg",
+      "frame": 183,
+      "sharpness": 1216.2764572313097,
+      "mean_luma": 122.89003472222223,
+      "blurred": false
+    },
+    {
+      "name": "00184.jpg",
+      "frame": 184,
+      "sharpness": 1277.5103355576503,
+      "mean_luma": 122.83589409722222,
+      "blurred": false
+    },
+    {
+      "name": "00185.jpg",
+      "frame": 185,
+      "sharpness": 1455.2999305407866,
+      "mean_luma": 122.6146267361111,
+      "blurred": false
+    },
+    {
+      "name": "00186.jpg",
+      "frame": 186,
+      "sharpness": 1203.2747879264923,
+      "mean_luma": 122.73764322916666,
+      "blurred": false
+    },
+    {
+      "name": "00187.jpg",
+      "frame": 187,
+      "sharpness": 1385.9396310477362,
+      "mean_luma": 122.36736979166666,
+      "blurred": false
+    },
+    {
+      "name": "00188.jpg",
+      "frame": 188,
+      "sharpness": 1184.9874138888888,
+      "mean_luma": 122.73682291666667,
+      "blurred": false
+    },
+    {
+      "name": "00189.jpg",
+      "frame": 189,
+      "sharpness": 1369.1617961504148,
+      "mean_luma": 122.58793402777778,
+      "blurred": false
+    },
+    {
+      "name": "00190.jpg",
+      "frame": 190,
+      "sharpness": 1199.3381700023322,
+      "mean_luma": 123.147890625,
+      "blurred": false
+    },
+    {
+      "name": "00191.jpg",
+      "frame": 191,
+      "sharpness": 1399.859587273473,
+      "mean_luma": 123.41341145833333,
+      "blurred": false
+    },
+    {
+      "name": "00192.jpg",
+      "frame": 192,
+      "sharpness": 1188.1252270399307,
+      "mean_luma": 124.27211371527778,
+      "blurred": false
+    },
+    {
+      "name": "00193.jpg",
+      "frame": 193,
+      "sharpness": 1271.5576434393802,
+      "mean_luma": 124.6829079861111,
+      "blurred": false
+    },
+    {
+      "name": "00194.jpg",
+      "frame": 194,
+      "sharpness": 1467.4685650733475,
+      "mean_luma": 124.86664930555555,
+      "blurred": false
+    },
+    {
+      "name": "00195.jpg",
+      "frame": 195,
+      "sharpness": 1276.3880150516463,
+      "mean_luma": 125.60040364583334,
+      "blurred": false
+    },
+    {
+      "name": "00196.jpg",
+      "frame": 196,
+      "sharpness": 1462.7992201666186,
+      "mean_luma": 125.78572916666667,
+      "blurred": false
+    },
+    {
+      "name": "00197.jpg",
+      "frame": 197,
+      "sharpness": 1244.463475579834,
+      "mean_luma": 126.69996961805556,
+      "blurred": false
+    },
+    {
+      "name": "00198.jpg",
+      "frame": 198,
+      "sharpness": 1424.6411006835935,
+      "mean_luma": 126.85602430555555,
+      "blurred": false
+    },
+    {
+      "name": "00199.jpg",
+      "frame": 199,
+      "sharpness": 1384.5548020696003,
+      "mean_luma": 127.14848958333333,
+      "blurred": false
+    },
+    {
+      "name": "00200.jpg",
+      "frame": 200,
+      "sharpness": 1696.7463392125826,
+      "mean_luma": 127.12960503472222,
+      "blurred": false
+    },
+    {
+      "name": "00201.jpg",
+      "frame": 201,
+      "sharpness": 1392.5073232010263,
+      "mean_luma": 127.59457899305555,
+      "blurred": false
+    },
+    {
+      "name": "00202.jpg",
+      "frame": 202,
+      "sharpness": 1634.0450420994887,
+      "mean_luma": 127.28965711805556,
+      "blurred": false
+    },
+    {
+      "name": "00203.jpg",
+      "frame": 203,
+      "sharpness": 1403.4070956185612,
+      "mean_luma": 127.45108940972223,
+      "blurred": false
+    },
+    {
+      "name": "00204.jpg",
+      "frame": 204,
+      "sharpness": 1696.0898723354765,
+      "mean_luma": 127.10137152777777,
+      "blurred": false
+    },
+    {
+      "name": "00205.jpg",
+      "frame": 205,
+      "sharpness": 1412.376479826675,
+      "mean_luma": 126.95795138888889,
+      "blurred": false
+    },
+    {
+      "name": "00206.jpg",
+      "frame": 206,
+      "sharpness": 1701.3180450879508,
+      "mean_luma": 126.32604166666667,
+      "blurred": false
+    },
+    {
+      "name": "00207.jpg",
+      "frame": 207,
+      "sharpness": 1443.7081889548783,
+      "mean_luma": 126.46559027777778,
+      "blurred": false
+    },
+    {
+      "name": "00208.jpg",
+      "frame": 208,
+      "sharpness": 1668.764126617639,
+      "mean_luma": 126.13297309027777,
+      "blurred": false
+    },
+    {
+      "name": "00209.jpg",
+      "frame": 209,
+      "sharpness": 1432.6727817696276,
+      "mean_luma": 126.11376736111112,
+      "blurred": false
+    },
+    {
+      "name": "00210.jpg",
+      "frame": 210,
+      "sharpness": 1700.4176414115998,
+      "mean_luma": 125.71239583333333,
+      "blurred": false
+    },
+    {
+      "name": "00211.jpg",
+      "frame": 211,
+      "sharpness": 1413.0585682805379,
+      "mean_luma": 125.79796006944444,
+      "blurred": false
+    },
+    {
+      "name": "00212.jpg",
+      "frame": 212,
+      "sharpness": 1663.3680259324815,
+      "mean_luma": 125.34630642361111,
+      "blurred": false
+    },
+    {
+      "name": "00213.jpg",
+      "frame": 213,
+      "sharpness": 1418.6438504530163,
+      "mean_luma": 125.40581163194445,
+      "blurred": false
+    },
+    {
+      "name": "00214.jpg",
+      "frame": 214,
+      "sharpness": 1694.5270265954855,
+      "mean_luma": 125.13697916666666,
+      "blurred": false
+    },
+    {
+      "name": "00215.jpg",
+      "frame": 215,
+      "sharpness": 1402.1147281168433,
+      "mean_luma": 125.10069444444444,
+      "blurred": false
+    },
+    {
+      "name": "00216.jpg",
+      "frame": 216,
+      "sharpness": 1670.8303056421917,
+      "mean_luma": 124.68926215277777,
+      "blurred": false
+    },
+    {
+      "name": "00217.jpg",
+      "frame": 217,
+      "sharpness": 1374.2367970557698,
+      "mean_luma": 125.02095920138889,
+      "blurred": false
+    },
+    {
+      "name": "00218.jpg",
+      "frame": 218,
+      "sharpness": 1663.0152090250463,
+      "mean_luma": 124.88132378472223,
+      "blurred": false
+    },
+    {
+      "name": "00219.jpg",
+      "frame": 219,
+      "sharpness": 1302.6502278639052,
+      "mean_luma": 125.0760763888889,
+      "blurred": false
+    },
+    {
+      "name": "00220.jpg",
+      "frame": 220,
+      "sharpness": 1373.6433154129404,
+      "mean_luma": 124.86623263888889,
+      "blurred": false
+    },
+    {
+      "name": "00221.jpg",
+      "frame": 221,
+      "sharpness": 1661.1844324959463,
+      "mean_luma": 124.89697048611112,
+      "blurred": false
+    },
+    {
+      "name": "00222.jpg",
+      "frame": 222,
+      "sharpness": 1344.1888572692872,
+      "mean_luma": 125.27666232638889,
+      "blurred": false
+    },
+    {
+      "name": "00223.jpg",
+      "frame": 223,
+      "sharpness": 1349.766421824062,
+      "mean_luma": 125.43822916666667,
+      "blurred": false
+    },
+    {
+      "name": "00224.jpg",
+      "frame": 224,
+      "sharpness": 1651.0410356317968,
+      "mean_luma": 125.67174479166667,
+      "blurred": false
+    },
+    {
+      "name": "00225.jpg",
+      "frame": 225,
+      "sharpness": 1363.5257924885877,
+      "mean_luma": 126.39097222222222,
+      "blurred": false
+    },
+    {
+      "name": "00226.jpg",
+      "frame": 226,
+      "sharpness": 1655.4543846973372,
+      "mean_luma": 126.34289496527778,
+      "blurred": false
+    },
+    {
+      "name": "00227.jpg",
+      "frame": 227,
+      "sharpness": 1359.1236395736694,
+      "mean_luma": 126.98578559027777,
+      "blurred": false
+    },
+    {
+      "name": "00228.jpg",
+      "frame": 228,
+      "sharpness": 1615.1717785024948,
+      "mean_luma": 126.7758203125,
+      "blurred": false
+    },
+    {
+      "name": "00229.jpg",
+      "frame": 229,
+      "sharpness": 1284.9379073203004,
+      "mean_luma": 127.1740234375,
+      "blurred": false
+    },
+    {
+      "name": "00230.jpg",
+      "frame": 230,
+      "sharpness": 1554.2854599051582,
+      "mean_luma": 126.56445746527778,
+      "blurred": false
+    },
+    {
+      "name": "00231.jpg",
+      "frame": 231,
+      "sharpness": 1252.5113655508346,
+      "mean_luma": 126.52580295138888,
+      "blurred": false
+    },
+    {
+      "name": "00232.jpg",
+      "frame": 232,
+      "sharpness": 1277.7591132100424,
+      "mean_luma": 126.24670572916666,
+      "blurred": false
+    },
+    {
+      "name": "00233.jpg",
+      "frame": 233,
+      "sharpness": 1559.7790942314807,
+      "mean_luma": 125.7556032986111,
+      "blurred": false
+    },
+    {
+      "name": "00234.jpg",
+      "frame": 234,
+      "sharpness": 1237.355445365548,
+      "mean_luma": 125.98009114583333,
+      "blurred": false
+    },
+    {
+      "name": "00235.jpg",
+      "frame": 235,
+      "sharpness": 1531.699698903609,
+      "mean_luma": 125.46728732638888,
+      "blurred": false
+    },
+    {
+      "name": "00236.jpg",
+      "frame": 236,
+      "sharpness": 1273.7439197964138,
+      "mean_luma": 125.66640625,
+      "blurred": false
+    },
+    {
+      "name": "00237.jpg",
+      "frame": 237,
+      "sharpness": 1514.6927217949572,
+      "mean_luma": 125.15509114583334,
+      "blurred": false
+    },
+    {
+      "name": "00238.jpg",
+      "frame": 238,
+      "sharpness": 1249.4518830430582,
+      "mean_luma": 125.56351996527778,
+      "blurred": false
+    },
+    {
+      "name": "00239.jpg",
+      "frame": 239,
+      "sharpness": 1465.1509502476822,
+      "mean_luma": 125.40108940972222,
+      "blurred": false
+    },
+    {
+      "name": "00240.jpg",
+      "frame": 240,
+      "sharpness": 1214.518085756184,
+      "mean_luma": 126.12015625,
+      "blurred": false
+    },
+    {
+      "name": "00241.jpg",
+      "frame": 241,
+      "sharpness": 1416.7169928844876,
+      "mean_luma": 126.04861979166667,
+      "blurred": false
+    },
+    {
+      "name": "00242.jpg",
+      "frame": 242,
+      "sharpness": 1177.3003686523436,
+      "mean_luma": 127.34362847222222,
+      "blurred": false
+    },
+    {
+      "name": "00243.jpg",
+      "frame": 243,
+      "sharpness": 1414.1792888668863,
+      "mean_luma": 127.6196875,
+      "blurred": false
+    },
+    {
+      "name": "00244.jpg",
+      "frame": 244,
+      "sharpness": 1168.8305159769693,
+      "mean_luma": 128.873671875,
+      "blurred": false
+    },
+    {
+      "name": "00245.jpg",
+      "frame": 245,
+      "sharpness": 1423.4045298439119,
+      "mean_luma": 129.2204470486111,
+      "blurred": false
+    },
+    {
+      "name": "00246.jpg",
+      "frame": 246,
+      "sharpness": 1172.363203620044,
+      "mean_luma": 130.55046006944445,
+      "blurred": false
+    },
+    {
+      "name": "00247.jpg",
+      "frame": 247,
+      "sharpness": 1385.6067712890438,
+      "mean_luma": 130.74875868055557,
+      "blurred": false
+    },
+    {
+      "name": "00248.jpg",
+      "frame": 248,
+      "sharpness": 1143.636471994188,
+      "mean_luma": 132.27647135416666,
+      "blurred": false
+    },
+    {
+      "name": "00249.jpg",
+      "frame": 249,
+      "sharpness": 1390.1322807020213,
+      "mean_luma": 132.74063368055556,
+      "blurred": false
+    },
+    {
+      "name": "00250.jpg",
+      "frame": 250,
+      "sharpness": 1149.4021738495248,
+      "mean_luma": 134.093671875,
+      "blurred": false
+    },
+    {
+      "name": "00251.jpg",
+      "frame": 251,
+      "sharpness": 1401.0061113819077,
+      "mean_luma": 134.26418836805556,
+      "blurred": false
+    },
+    {
+      "name": "00252.jpg",
+      "frame": 252,
+      "sharpness": 1138.6820981709798,
+      "mean_luma": 135.551328125,
+      "blurred": false
+    },
+    {
+      "name": "00253.jpg",
+      "frame": 253,
+      "sharpness": 1417.4658537178698,
+      "mean_luma": 136.02914930555556,
+      "blurred": false
+    },
+    {
+      "name": "00254.jpg",
+      "frame": 254,
+      "sharpness": 1180.0786359589,
+      "mean_luma": 137.5333203125,
+      "blurred": false
+    },
+    {
+      "name": "00255.jpg",
+      "frame": 255,
+      "sharpness": 1435.1353241855195,
+      "mean_luma": 138.18180989583334,
+      "blurred": false
+    },
+    {
+      "name": "00256.jpg",
+      "frame": 256,
+      "sharpness": 1162.6874260154254,
+      "mean_luma": 139.3039670138889,
+      "blurred": false
+    },
+    {
+      "name": "00257.jpg",
+      "frame": 257,
+      "sharpness": 1436.7639635203986,
+      "mean_luma": 139.10426215277778,
+      "blurred": false
+    },
+    {
+      "name": "00258.jpg",
+      "frame": 258,
+      "sharpness": 1167.4124041340392,
+      "mean_luma": 139.5759809027778,
+      "blurred": false
+    },
+    {
+      "name": "00259.jpg",
+      "frame": 259,
+      "sharpness": 1441.2800383870444,
+      "mean_luma": 139.31375,
+      "blurred": false
+    },
+    {
+      "name": "00260.jpg",
+      "frame": 260,
+      "sharpness": 1152.7981371337703,
+      "mean_luma": 138.95073784722223,
+      "blurred": false
+    },
+    {
+      "name": "00261.jpg",
+      "frame": 261,
+      "sharpness": 1243.5332250486586,
+      "mean_luma": 137.92090711805557,
+      "blurred": false
+    },
+    {
+      "name": "00262.jpg",
+      "frame": 262,
+      "sharpness": 1490.2821413587592,
+      "mean_luma": 137.31037760416666,
+      "blurred": false
+    },
+    {
+      "name": "00263.jpg",
+      "frame": 263,
+      "sharpness": 1201.0926351803625,
+      "mean_luma": 137.15196614583334,
+      "blurred": false
+    },
+    {
+      "name": "00264.jpg",
+      "frame": 264,
+      "sharpness": 1451.8934418265449,
+      "mean_luma": 136.09191840277776,
+      "blurred": false
+    },
+    {
+      "name": "00265.jpg",
+      "frame": 265,
+      "sharpness": 1195.9379166539325,
+      "mean_luma": 135.85546875,
+      "blurred": false
+    },
+    {
+      "name": "00266.jpg",
+      "frame": 266,
+      "sharpness": 1484.0378254552584,
+      "mean_luma": 134.85929253472221,
+      "blurred": false
+    },
+    {
+      "name": "00267.jpg",
+      "frame": 267,
+      "sharpness": 1205.3174693467881,
+      "mean_luma": 134.54309027777776,
+      "blurred": false
+    },
+    {
+      "name": "00268.jpg",
+      "frame": 268,
+      "sharpness": 1461.1293530987587,
+      "mean_luma": 133.53677083333332,
+      "blurred": false
+    },
+    {
+      "name": "00269.jpg",
+      "frame": 269,
+      "sharpness": 1224.5345038103835,
+      "mean_luma": 133.1362717013889,
+      "blurred": false
+    },
+    {
+      "name": "00270.jpg",
+      "frame": 270,
+      "sharpness": 1512.555365926088,
+      "mean_luma": 132.192421875,
+      "blurred": false
+    },
+    {
+      "name": "00271.jpg",
+      "frame": 271,
+      "sharpness": 1216.3829187124559,
+      "mean_luma": 132.510234375,
+      "blurred": false
+    },
+    {
+      "name": "00272.jpg",
+      "frame": 272,
+      "sharpness": 1463.66414255324,
+      "mean_luma": 132.17014322916665,
+      "blurred": false
+    },
+    {
+      "name": "00273.jpg",
+      "frame": 273,
+      "sharpness": 1189.0167718978882,
+      "mean_luma": 132.22510850694445,
+      "blurred": false
+    },
+    {
+      "name": "00274.jpg",
+      "frame": 274,
+      "sharpness": 1448.3206329118896,
+      "mean_luma": 131.52428385416667,
+      "blurred": false
+    },
+    {
+      "name": "00275.jpg",
+      "frame": 275,
+      "sharpness": 1200.3002537555271,
+      "mean_luma": 131.915,
+      "blurred": false
+    },
+    {
+      "name": "00276.jpg",
+      "frame": 276,
+      "sharpness": 1465.6848474315314,
+      "mean_luma": 131.4349435763889,
+      "blurred": false
+    },
+    {
+      "name": "00277.jpg",
+      "frame": 277,
+      "sharpness": 1233.8915482349348,
+      "mean_luma": 131.7589800347222,
+      "blurred": false
+    },
+    {
+      "name": "00278.jpg",
+      "frame": 278,
+      "sharpness": 1494.7667876627604,
+      "mean_luma": 131.2525347222222,
+      "blurred": false
+    },
+    {
+      "name": "00279.jpg",
+      "frame": 279,
+      "sharpness": 1224.0463845476881,
+      "mean_luma": 131.37149739583333,
+      "blurred": false
+    },
+    {
+      "name": "00280.jpg",
+      "frame": 280,
+      "sharpness": 1506.703083892747,
+      "mean_luma": 130.65477430555555,
+      "blurred": false
+    },
+    {
+      "name": "00281.jpg",
+      "frame": 281,
+      "sharpness": 1247.1270779886884,
+      "mean_luma": 130.67936197916666,
+      "blurred": false
+    },
+    {
+      "name": "00282.jpg",
+      "frame": 282,
+      "sharpness": 1486.2485816767185,
+      "mean_luma": 130.31335069444444,
+      "blurred": false
+    },
+    {
+      "name": "00283.jpg",
+      "frame": 283,
+      "sharpness": 1248.747598513455,
+      "mean_luma": 130.54440104166667,
+      "blurred": false
+    },
+    {
+      "name": "00284.jpg",
+      "frame": 284,
+      "sharpness": 1500.4224660873413,
+      "mean_luma": 130.19054253472223,
+      "blurred": false
+    },
+    {
+      "name": "00285.jpg",
+      "frame": 285,
+      "sharpness": 1213.383994264033,
+      "mean_luma": 130.30094184027777,
+      "blurred": false
+    },
+    {
+      "name": "00286.jpg",
+      "frame": 286,
+      "sharpness": 1504.5087014497544,
+      "mean_luma": 129.97115451388888,
+      "blurred": false
+    },
+    {
+      "name": "00287.jpg",
+      "frame": 287,
+      "sharpness": 1192.742369125856,
+      "mean_luma": 129.67412760416667,
+      "blurred": false
+    },
+    {
+      "name": "00288.jpg",
+      "frame": 288,
+      "sharpness": 1215.5592317477567,
+      "mean_luma": 129.04147569444444,
+      "blurred": false
+    },
+    {
+      "name": "00289.jpg",
+      "frame": 289,
+      "sharpness": 1450.7441138451848,
+      "mean_luma": 128.59212239583334,
+      "blurred": false
+    },
+    {
+      "name": "00290.jpg",
+      "frame": 290,
+      "sharpness": 1174.6188129264924,
+      "mean_luma": 128.63952256944444,
+      "blurred": false
+    },
+    {
+      "name": "00291.jpg",
+      "frame": 291,
+      "sharpness": 1379.7458743240734,
+      "mean_luma": 128.0094574652778,
+      "blurred": false
+    },
+    {
+      "name": "00292.jpg",
+      "frame": 292,
+      "sharpness": 1128.253432874722,
+      "mean_luma": 127.89943576388889,
+      "blurred": false
+    },
+    {
+      "name": "00293.jpg",
+      "frame": 293,
+      "sharpness": 1406.0245509107801,
+      "mean_luma": 127.3678298611111,
+      "blurred": false
+    },
+    {
+      "name": "00294.jpg",
+      "frame": 294,
+      "sharpness": 1097.7475175998075,
+      "mean_luma": 127.89832899305556,
+      "blurred": false
+    },
+    {
+      "name": "00295.jpg",
+      "frame": 295,
+      "sharpness": 1399.9485087800015,
+      "mean_luma": 127.74984809027778,
+      "blurred": false
+    },
+    {
+      "name": "00296.jpg",
+      "frame": 296,
+      "sharpness": 1177.8207171847687,
+      "mean_luma": 128.08341145833333,
+      "blurred": false
+    },
+    {
+      "name": "00297.jpg",
+      "frame": 297,
+      "sharpness": 1449.640554740548,
+      "mean_luma": 128.0221701388889,
+      "blurred": false
+    },
+    {
+      "name": "00298.jpg",
+      "frame": 298,
+      "sharpness": 1192.574689799669,
+      "mean_luma": 128.03891493055556,
+      "blurred": false
+    },
+    {
+      "name": "00299.jpg",
+      "frame": 299,
+      "sharpness": 1425.4305244425266,
+      "mean_luma": 127.44807725694444,
+      "blurred": false
+    },
+    {
+      "name": "00300.jpg",
+      "frame": 300,
+      "sharpness": 1201.487564846293,
+      "mean_luma": 127.26010850694445,
+      "blurred": false
+    },
+    {
+      "name": "00301.jpg",
+      "frame": 301,
+      "sharpness": 1434.8122915172999,
+      "mean_luma": 126.38828993055556,
+      "blurred": false
+    },
+    {
+      "name": "00302.jpg",
+      "frame": 302,
+      "sharpness": 1182.5769498213967,
+      "mean_luma": 126.00647135416666,
+      "blurred": false
+    },
+    {
+      "name": "00303.jpg",
+      "frame": 303,
+      "sharpness": 1392.2019344309865,
+      "mean_luma": 125.42026909722222,
+      "blurred": false
+    },
+    {
+      "name": "00304.jpg",
+      "frame": 304,
+      "sharpness": 1136.1490505208333,
+      "mean_luma": 125.17267795138889,
+      "blurred": false
+    },
+    {
+      "name": "00305.jpg",
+      "frame": 305,
+      "sharpness": 1137.7066499287926,
+      "mean_luma": 124.83830729166667,
+      "blurred": false
+    },
+    {
+      "name": "00306.jpg",
+      "frame": 306,
+      "sharpness": 1340.4884005167455,
+      "mean_luma": 124.35630642361112,
+      "blurred": false
+    },
+    {
+      "name": "00307.jpg",
+      "frame": 307,
+      "sharpness": 1120.981987846921,
+      "mean_luma": 124.50155381944444,
+      "blurred": false
+    },
+    {
+      "name": "00308.jpg",
+      "frame": 308,
+      "sharpness": 1350.5733287853666,
+      "mean_luma": 124.45138454861112,
+      "blurred": false
+    },
+    {
+      "name": "00309.jpg",
+      "frame": 309,
+      "sharpness": 1116.4065395399307,
+      "mean_luma": 125.19615017361112,
+      "blurred": false
+    },
+    {
+      "name": "00310.jpg",
+      "frame": 310,
+      "sharpness": 1315.7155303538948,
+      "mean_luma": 125.02283854166667,
+      "blurred": false
+    },
+    {
+      "name": "00311.jpg",
+      "frame": 311,
+      "sharpness": 1045.0242594604304,
+      "mean_luma": 125.17960503472223,
+      "blurred": false
+    },
+    {
+      "name": "00312.jpg",
+      "frame": 312,
+      "sharpness": 1077.751150548563,
+      "mean_luma": 125.10927517361111,
+      "blurred": false
+    },
+    {
+      "name": "00313.jpg",
+      "frame": 313,
+      "sharpness": 1268.149388983663,
+      "mean_luma": 124.71468315972223,
+      "blurred": false
+    },
+    {
+      "name": "00314.jpg",
+      "frame": 314,
+      "sharpness": 1002.0362484374999,
+      "mean_luma": 124.62540798611111,
+      "blurred": false
+    },
+    {
+      "name": "00315.jpg",
+      "frame": 315,
+      "sharpness": 1157.6084731867284,
+      "mean_luma": 124.09028645833334,
+      "blurred": false
+    },
+    {
+      "name": "00316.jpg",
+      "frame": 316,
+      "sharpness": 983.5041223849827,
+      "mean_luma": 124.35956163194444,
+      "blurred": false
+    },
+    {
+      "name": "00317.jpg",
+      "frame": 317,
+      "sharpness": 1091.9859067918565,
+      "mean_luma": 123.90090277777777,
+      "blurred": false
+    },
+    {
+      "name": "00318.jpg",
+      "frame": 318,
+      "sharpness": 2224.5606029843743,
+      "mean_luma": 122.38641927083333,
+      "blurred": false
+    },
+    {
+      "name": "00319.jpg",
+      "frame": 319,
+      "sharpness": 1610.133575487603,
+      "mean_luma": 122.71719618055556,
+      "blurred": false
+    },
+    {
+      "name": "00320.jpg",
+      "frame": 320,
+      "sharpness": 1727.419066695583,
+      "mean_luma": 122.43331163194445,
+      "blurred": false
+    },
+    {
+      "name": "00321.jpg",
+      "frame": 321,
+      "sharpness": 1379.0475020139907,
+      "mean_luma": 122.38686197916667,
+      "blurred": false
+    },
+    {
+      "name": "00322.jpg",
+      "frame": 322,
+      "sharpness": 1631.0634663895028,
+      "mean_luma": 121.64762152777777,
+      "blurred": false
+    },
+    {
+      "name": "00323.jpg",
+      "frame": 323,
+      "sharpness": 1247.4349728242662,
+      "mean_luma": 121.42237847222222,
+      "blurred": false
+    },
+    {
+      "name": "00324.jpg",
+      "frame": 324,
+      "sharpness": 1288.4949649995592,
+      "mean_luma": 120.79384548611111,
+      "blurred": false
+    },
+    {
+      "name": "00325.jpg",
+      "frame": 325,
+      "sharpness": 1524.3981755325694,
+      "mean_luma": 120.42658854166666,
+      "blurred": false
+    },
+    {
+      "name": "00326.jpg",
+      "frame": 326,
+      "sharpness": 1239.5069763719348,
+      "mean_luma": 120.35614583333333,
+      "blurred": false
+    },
+    {
+      "name": "00327.jpg",
+      "frame": 327,
+      "sharpness": 1453.169611277187,
+      "mean_luma": 119.65799045138888,
+      "blurred": false
+    },
+    {
+      "name": "00328.jpg",
+      "frame": 328,
+      "sharpness": 1204.9007781882767,
+      "mean_luma": 119.90359809027778,
+      "blurred": false
+    },
+    {
+      "name": "00329.jpg",
+      "frame": 329,
+      "sharpness": 1407.332356254747,
+      "mean_luma": 119.56202690972222,
+      "blurred": false
+    },
+    {
+      "name": "00330.jpg",
+      "frame": 330,
+      "sharpness": 1193.673641526041,
+      "mean_luma": 119.29714409722222,
+      "blurred": false
+    },
+    {
+      "name": "00331.jpg",
+      "frame": 331,
+      "sharpness": 1412.4434462129382,
+      "mean_luma": 118.83695746527778,
+      "blurred": false
+    },
+    {
+      "name": "00332.jpg",
+      "frame": 332,
+      "sharpness": 1192.9412641634717,
+      "mean_luma": 119.08434027777778,
+      "blurred": false
+    },
+    {
+      "name": "00333.jpg",
+      "frame": 333,
+      "sharpness": 1395.315603847758,
+      "mean_luma": 118.76230034722222,
+      "blurred": false
+    },
+    {
+      "name": "00334.jpg",
+      "frame": 334,
+      "sharpness": 1188.66462980277,
+      "mean_luma": 118.92830729166667,
+      "blurred": false
+    },
+    {
+      "name": "00335.jpg",
+      "frame": 335,
+      "sharpness": 1396.670306177191,
+      "mean_luma": 118.63423611111111,
+      "blurred": false
+    },
+    {
+      "name": "00336.jpg",
+      "frame": 336,
+      "sharpness": 1151.6703549641738,
+      "mean_luma": 118.47452690972223,
+      "blurred": false
+    },
+    {
+      "name": "00337.jpg",
+      "frame": 337,
+      "sharpness": 1162.466933398136,
+      "mean_luma": 118.3476388888889,
+      "blurred": false
+    },
+    {
+      "name": "00338.jpg",
+      "frame": 338,
+      "sharpness": 1387.975879690646,
+      "mean_luma": 118.14843315972222,
+      "blurred": false
+    },
+    {
+      "name": "00339.jpg",
+      "frame": 339,
+      "sharpness": 1149.1327558586968,
+      "mean_luma": 118.02236979166666,
+      "blurred": false
+    },
+    {
+      "name": "00340.jpg",
+      "frame": 340,
+      "sharpness": 1353.753979532708,
+      "mean_luma": 117.36551215277778,
+      "blurred": false
+    },
+    {
+      "name": "00341.jpg",
+      "frame": 341,
+      "sharpness": 1146.4887025715393,
+      "mean_luma": 117.65252170138889,
+      "blurred": false
+    },
+    {
+      "name": "00342.jpg",
+      "frame": 342,
+      "sharpness": 1357.3427258556792,
+      "mean_luma": 117.18211371527778,
+      "blurred": false
+    },
+    {
+      "name": "00343.jpg",
+      "frame": 343,
+      "sharpness": 1145.9323163979425,
+      "mean_luma": 117.271953125,
+      "blurred": false
+    },
+    {
+      "name": "00344.jpg",
+      "frame": 344,
+      "sharpness": 1332.256931215564,
+      "mean_luma": 116.94509114583333,
+      "blurred": false
+    },
+    {
+      "name": "00345.jpg",
+      "frame": 345,
+      "sharpness": 1118.7206102520788,
+      "mean_luma": 117.00535590277778,
+      "blurred": false
+    },
+    {
+      "name": "00346.jpg",
+      "frame": 346,
+      "sharpness": 1126.815454874505,
+      "mean_luma": 117.02362413194444,
+      "blurred": false
+    },
+    {
+      "name": "00347.jpg",
+      "frame": 347,
+      "sharpness": 1344.3529773829143,
+      "mean_luma": 116.70510850694444,
+      "blurred": false
+    },
+    {
+      "name": "00348.jpg",
+      "frame": 348,
+      "sharpness": 1192.4440386699912,
+      "mean_luma": 116.76725260416667,
+      "blurred": false
+    },
+    {
+      "name": "00349.jpg",
+      "frame": 349,
+      "sharpness": 1412.437169306701,
+      "mean_luma": 116.45752604166667,
+      "blurred": false
+    },
+    {
+      "name": "00350.jpg",
+      "frame": 350,
+      "sharpness": 1182.3486419103365,
+      "mean_luma": 116.851953125,
+      "blurred": false
+    },
+    {
+      "name": "00351.jpg",
+      "frame": 351,
+      "sharpness": 1378.431023899992,
+      "mean_luma": 116.7030859375,
+      "blurred": false
+    },
+    {
+      "name": "00352.jpg",
+      "frame": 352,
+      "sharpness": 1137.421223958032,
+      "mean_luma": 116.98827690972222,
+      "blurred": false
+    },
+    {
+      "name": "00353.jpg",
+      "frame": 353,
+      "sharpness": 1152.2910501274955,
+      "mean_luma": 116.99092447916667,
+      "blurred": false
+    },
+    {
+      "name": "00354.jpg",
+      "frame": 354,
+      "sharpness": 1372.875528542582,
+      "mean_luma": 116.66091579861111,
+      "blurred": false
+    },
+    {
+      "name": "00355.jpg",
+      "frame": 355,
+      "sharpness": 1102.9683557859632,
+      "mean_luma": 116.60791666666667,
+      "blurred": false
+    },
+    {
+      "name": "00356.jpg",
+      "frame": 356,
+      "sharpness": 1346.0061719590926,
+      "mean_luma": 116.00848524305556,
+      "blurred": false
+    },
+    {
+      "name": "00357.jpg",
+      "frame": 357,
+      "sharpness": 1111.8191987256462,
+      "mean_luma": 116.0259982638889,
+      "blurred": false
+    },
+    {
+      "name": "00358.jpg",
+      "frame": 358,
+      "sharpness": 1322.7526593446896,
+      "mean_luma": 115.27394965277777,
+      "blurred": false
+    },
+    {
+      "name": "00359.jpg",
+      "frame": 359,
+      "sharpness": 1105.2209291075908,
+      "mean_luma": 115.36789496527778,
+      "blurred": false
+    },
+    {
+      "name": "00360.jpg",
+      "frame": 360,
+      "sharpness": 1332.9970293872789,
+      "mean_luma": 115.09036892361111,
+      "blurred": false
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "low_opacity": 343343,
+  "oversized": 4577,
+  "below_floor": 28353,
+  "far": 29413,
+  "kept": 94314,
+  "input": 500000,
+  "floor_z_percentiles_kept": [
+    -0.181,
+    0.059,
+    2.847
+  ]
+}

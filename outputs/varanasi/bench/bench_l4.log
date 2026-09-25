@@ -1,0 +1,33 @@
+/opt/pytorch/lib/python3.13/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+HOST ip-172-31-23-117 | NVIDIA L4 | torch 2.12.1+cu130 | 4 cores
+  gpu_fp32_tflops: 11.05
+  gpu_bandwidth_gbs: 231.4
+  gpu_fp32_tflops_sustained20s: 10.19
+  cpu_1core_task_s: 0.067
+  cpu_1proc_512tasks_s: 28.93
+  cpu_1proc_tasks_per_s: 17.7
+  cpu_4proc_512tasks_s: 12.77
+  cpu_4proc_tasks_per_s: 40.1
+Traceback (most recent call last):
+  File "/tmp/bench.py", line 72, in <module>
+    subprocess.run(["ffmpeg", "-v", "error", "-i", vid, "-q:v", "2",
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                    f"{out}/f%05d.jpg", "-y"], check=True)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 554, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1039, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        pass_fds, cwd, env,
+                        ^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+                        gid, gids, uid, umask,
+                        ^^^^^^^^^^^^^^^^^^^^^^
+                        start_new_session, process_group)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1991, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'ffmpeg'

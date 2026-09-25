@@ -1,0 +1,86 @@
+
+============================== SYNTHETIC [signal] signal=1.0 ==============================
+clips 60 -> train 42 / val 6 / test 12 | latents (9000, 64)
+  train tuples  28728 | per Δt {0.1: 6258, 0.5: 6090, 1.0: 5880, 2.0: 5460, 3.0: 5040}
+  val   tuples   4104 | per Δt {0.1: 894, 0.5: 870, 1.0: 840, 2.0: 780, 3.0: 720}
+  test  tuples  14796 | per Δt {0.1: 1788, 0.25: 1764, 0.5: 1740, 0.75: 1704, 1.0: 1680, 1.5: 1620, 2.0: 1560, 2.5: 1500, 3.0: 1440}
+    trained {'cond': 'film', 'use_h': True} seed0: 26 epochs, best val NLL -4.3415
+    trained {'cond': 'film', 'use_h': True} seed1: 36 epochs, best val NLL -4.3397
+    trained {'cond': 'concat', 'use_h': True} seed0: 28 epochs, best val NLL -4.3591
+    trained {'cond': 'concat', 'use_h': True} seed1: 32 epochs, best val NLL -4.3538
+    trained {'cond': 'film', 'use_h': False} seed0: 40 epochs, best val NLL -3.5125
+    trained {'cond': 'film', 'use_h': False} seed1: 28 epochs, best val NLL -3.5054
+    trained {'cond': 'none', 'use_h': True} seed0: 40 epochs, best val NLL -10.1225
+    trained {'cond': 'none', 'use_h': True} seed0: 40 epochs, best val NLL -5.8447
+    trained {'cond': 'none', 'use_h': True} seed0: 40 epochs, best val NLL -3.4574
+    trained {'cond': 'none', 'use_h': True} seed0: 40 epochs, best val NLL -1.3126
+    trained {'cond': 'none', 'use_h': True} seed0: 24 epochs, best val NLL -0.1147
+
+method                              FDE@0.1s             FDE@0.25s              FDE@0.5s             FDE@0.75s              FDE@1.0s              FDE@1.5s              FDE@2.0s              FDE@2.5s              FDE@3.0s
+B0_zero                  0.107 [0.099,0.114]   0.265 [0.247,0.284]   0.528 [0.491,0.565]   0.787 [0.732,0.843]   1.042 [0.969,1.117]   1.541 [1.433,1.657]   2.027 [1.882,2.184]   2.502 [2.325,2.702]   2.968 [2.758,3.211]
+B1_cv                    0.000 [0.000,0.000]   0.015 [0.013,0.017]   0.056 [0.048,0.065]   0.125 [0.105,0.145]   0.219 [0.181,0.256]   0.475 [0.392,0.556]   0.787 [0.656,0.917]   1.125 [0.954,1.301]   1.476 [1.274,1.683]
+Ours_film                0.002 [0.002,0.002]   0.024 [0.021,0.027]   0.051 [0.042,0.059]   0.100 [0.081,0.118]   0.158 [0.128,0.186]   0.266 [0.224,0.309]   0.331 [0.284,0.380]   0.442 [0.395,0.493]   0.446 [0.404,0.491]
+CTRL_shuffled_dt         1.087 [1.000,1.176]   0.978 [0.901,1.067]   0.880 [0.817,0.948]   0.858 [0.792,0.926]   0.857 [0.801,0.918]   0.941 [0.887,0.998]   1.168 [1.074,1.264]   1.485 [1.377,1.601]   1.887 [1.770,2.013]
+CTRL_shuffled_h          0.002 [0.002,0.002]   0.040 [0.034,0.045]   0.098 [0.087,0.109]   0.202 [0.178,0.228]   0.381 [0.341,0.435]   0.635 [0.552,0.729]   0.981 [0.862,1.123]   1.248 [1.132,1.388]   1.432 [1.268,1.604]
+F_concat                 0.001 [0.001,0.001]   0.016 [0.013,0.018]   0.051 [0.042,0.060]   0.110 [0.090,0.130]   0.159 [0.129,0.190]   0.269 [0.228,0.309]   0.317 [0.271,0.362]   0.394 [0.347,0.443]   0.436 [0.395,0.480]
+B2_state                 0.001 [0.001,0.001]   0.015 [0.013,0.017]   0.053 [0.045,0.062]   0.119 [0.099,0.139]   0.202 [0.170,0.234]   0.385 [0.331,0.441]   0.584 [0.511,0.661]   0.786 [0.706,0.871]   0.980 [0.876,1.092]
+B3_per_horizon           0.000 [0.000,0.000]                     -   0.052 [0.043,0.061]                     -   0.165 [0.133,0.197]                     -   0.308 [0.263,0.353]                     -   0.443 [0.400,0.487]
+
+B3 = one head per trained Δt: if it matches Ours, conditioning's only gain is answering unseen Δt
+Ours skill vs CV : 0.1s:+nan  0.25s:-0.592  0.5s:+0.100  0.75s:+0.201  1.0s:+0.279  1.5s:+0.440  2.0s:+0.580  2.5s:+0.607  3.0s:+0.698
+Ours coverage68  : 0.1s:1.00  0.25s:0.85  0.5s:0.72  0.75s:0.62  1.0s:0.65  1.5s:0.59  2.0s:0.60  2.5s:0.54  3.0s:0.58
+Ours clr MAE     : 0.1s:0.17  0.25s:0.27  0.5s:0.34  0.75s:0.42  1.0s:0.47  1.5s:0.58  2.0s:0.62  2.5s:0.68  3.0s:0.75
+
+VERDICT (Section 7 checks):
+  [PASS] near_cv_at_shortest
+  [PASS] skill_rises_with_horizon
+  [PASS] beats_state_only_CI
+  [PASS] shuffled_dt_hurts
+  [PASS] shuffled_h_loses_gain
+  [PASS] gain_concentrated_on_events
+  [PASS] ALL
+
+wrote outputs/horizon/synthetic/signal/results.json, horizon_curve.png  (3.9 min)
+
+============================== SYNTHETIC [null] signal=0.0 ==============================
+clips 60 -> train 42 / val 6 / test 12 | latents (9000, 64)
+  train tuples  28728 | per Δt {0.1: 6258, 0.5: 6090, 1.0: 5880, 2.0: 5460, 3.0: 5040}
+  val   tuples   4104 | per Δt {0.1: 894, 0.5: 870, 1.0: 840, 2.0: 780, 3.0: 720}
+  test  tuples  14796 | per Δt {0.1: 1788, 0.25: 1764, 0.5: 1740, 0.75: 1704, 1.0: 1680, 1.5: 1620, 2.0: 1560, 2.5: 1500, 3.0: 1440}
+    trained {'cond': 'film', 'use_h': True} seed0: 14 epochs, best val NLL -3.1825
+    trained {'cond': 'film', 'use_h': True} seed1: 15 epochs, best val NLL -3.2460
+    trained {'cond': 'concat', 'use_h': True} seed0: 13 epochs, best val NLL -3.1558
+    trained {'cond': 'concat', 'use_h': True} seed1: 17 epochs, best val NLL -3.1853
+    trained {'cond': 'film', 'use_h': False} seed0: 40 epochs, best val NLL -3.5125
+    trained {'cond': 'film', 'use_h': False} seed1: 28 epochs, best val NLL -3.5054
+    trained {'cond': 'none', 'use_h': True} seed0: 26 epochs, best val NLL -10.0590
+    trained {'cond': 'none', 'use_h': True} seed0: 17 epochs, best val NLL -4.9446
+    trained {'cond': 'none', 'use_h': True} seed0: 22 epochs, best val NLL -2.1779
+    trained {'cond': 'none', 'use_h': True} seed0: 17 epochs, best val NLL 0.3032
+    trained {'cond': 'none', 'use_h': True} seed0: 22 epochs, best val NLL 1.4536
+
+method                              FDE@0.1s             FDE@0.25s              FDE@0.5s             FDE@0.75s              FDE@1.0s              FDE@1.5s              FDE@2.0s              FDE@2.5s              FDE@3.0s
+B0_zero                  0.107 [0.099,0.114]   0.265 [0.247,0.284]   0.528 [0.491,0.565]   0.787 [0.732,0.843]   1.042 [0.969,1.117]   1.541 [1.433,1.657]   2.027 [1.882,2.184]   2.502 [2.325,2.702]   2.968 [2.758,3.211]
+B1_cv                    0.000 [0.000,0.000]   0.015 [0.013,0.017]   0.056 [0.048,0.065]   0.125 [0.105,0.145]   0.219 [0.181,0.256]   0.475 [0.392,0.556]   0.787 [0.656,0.917]   1.125 [0.954,1.301]   1.476 [1.274,1.683]
+Ours_film                0.003 [0.003,0.004]   0.017 [0.015,0.019]   0.059 [0.051,0.068]   0.125 [0.105,0.145]   0.211 [0.178,0.245]   0.420 [0.357,0.486]   0.675 [0.578,0.779]   0.937 [0.820,1.063]   1.202 [1.065,1.347]
+CTRL_shuffled_dt         1.104 [1.016,1.195]   0.985 [0.911,1.071]   0.884 [0.827,0.943]   0.870 [0.804,0.935]   0.878 [0.821,0.927]   0.996 [0.925,1.065]   1.268 [1.173,1.361]   1.639 [1.515,1.759]   2.046 [1.914,2.190]
+CTRL_shuffled_h          0.004 [0.003,0.004]   0.017 [0.015,0.019]   0.059 [0.051,0.068]   0.125 [0.105,0.144]   0.211 [0.177,0.244]   0.419 [0.356,0.485]   0.670 [0.575,0.773]   0.935 [0.820,1.060]   1.198 [1.062,1.342]
+F_concat                 0.001 [0.001,0.001]   0.016 [0.014,0.018]   0.058 [0.049,0.066]   0.124 [0.104,0.144]   0.216 [0.180,0.252]   0.460 [0.382,0.538]   0.764 [0.642,0.886]   1.089 [0.934,1.252]   1.411 [1.225,1.599]
+B2_state                 0.001 [0.001,0.001]   0.015 [0.013,0.017]   0.053 [0.045,0.062]   0.119 [0.099,0.139]   0.202 [0.170,0.234]   0.385 [0.331,0.441]   0.584 [0.511,0.661]   0.786 [0.706,0.871]   0.980 [0.876,1.092]
+B3_per_horizon           0.001 [0.000,0.001]                     -   0.057 [0.049,0.065]                     -   0.208 [0.175,0.241]                     -   0.612 [0.544,0.689]                     -   1.014 [0.913,1.122]
+
+B3 = one head per trained Δt: if it matches Ours, conditioning's only gain is answering unseen Δt
+Ours skill vs CV : 0.1s:+nan  0.25s:-0.119  0.5s:-0.048  0.75s:-0.001  1.0s:+0.038  1.5s:+0.116  2.0s:+0.143  2.5s:+0.167  3.0s:+0.185
+Ours coverage68  : 0.1s:1.00  0.25s:0.92  0.5s:0.81  0.75s:0.73  1.0s:0.76  1.5s:0.72  2.0s:0.67  2.5s:0.67  3.0s:0.66
+Ours clr MAE     : 0.1s:0.16  0.25s:0.24  0.5s:0.36  0.75s:0.46  1.0s:0.54  1.5s:0.65  2.0s:0.72  2.5s:0.78  3.0s:0.83
+
+VERDICT (Section 7 checks):
+  [PASS] near_cv_at_shortest
+  [PASS] skill_rises_with_horizon
+  [FAIL] beats_state_only_CI
+  [PASS] shuffled_dt_hurts
+  [PASS] shuffled_h_loses_gain
+  [PASS] gain_concentrated_on_events
+  [FAIL] ALL
+
+wrote outputs/horizon/synthetic/null/results.json, horizon_curve.png  (2.7 min)

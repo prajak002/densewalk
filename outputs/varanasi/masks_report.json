@@ -1,0 +1,1816 @@
+{
+  "summary": {
+    "n_images": 361,
+    "mean_dynamic_frac": 0.26050434989612187,
+    "max_dynamic_frac": 0.34758680555555554,
+    "frames_over_50pct_dynamic": 0,
+    "mean_instances": 12.606648199445983
+  },
+  "frames": [
+    {
+      "name": "00000.jpg",
+      "instances": 22,
+      "dynamic_frac": 0.27263020833333335
+    },
+    {
+      "name": "00001.jpg",
+      "instances": 19,
+      "dynamic_frac": 0.2690842013888889
+    },
+    {
+      "name": "00002.jpg",
+      "instances": 21,
+      "dynamic_frac": 0.2812717013888889
+    },
+    {
+      "name": "00003.jpg",
+      "instances": 21,
+      "dynamic_frac": 0.28575520833333334
+    },
+    {
+      "name": "00004.jpg",
+      "instances": 20,
+      "dynamic_frac": 0.2975217013888889
+    },
+    {
+      "name": "00005.jpg",
+      "instances": 22,
+      "dynamic_frac": 0.30657552083333334
+    },
+    {
+      "name": "00006.jpg",
+      "instances": 23,
+      "dynamic_frac": 0.31053819444444447
+    },
+    {
+      "name": "00007.jpg",
+      "instances": 20,
+      "dynamic_frac": 0.3040017361111111
+    },
+    {
+      "name": "00008.jpg",
+      "instances": 18,
+      "dynamic_frac": 0.3024045138888889
+    },
+    {
+      "name": "00009.jpg",
+      "instances": 20,
+      "dynamic_frac": 0.3132421875
+    },
+    {
+      "name": "00010.jpg",
+      "instances": 19,
+      "dynamic_frac": 0.31768663194444446
+    },
+    {
+      "name": "00011.jpg",
+      "instances": 18,
+      "dynamic_frac": 0.31763020833333333
+    },
+    {
+      "name": "00012.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.31555555555555553
+    },
+    {
+      "name": "00013.jpg",
+      "instances": 18,
+      "dynamic_frac": 0.32276475694444445
+    },
+    {
+      "name": "00014.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.3065407986111111
+    },
+    {
+      "name": "00015.jpg",
+      "instances": 17,
+      "dynamic_frac": 0.32513020833333334
+    },
+    {
+      "name": "00016.jpg",
+      "instances": 17,
+      "dynamic_frac": 0.3244227430555556
+    },
+    {
+      "name": "00017.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.2519921875
+    },
+    {
+      "name": "00018.jpg",
+      "instances": 18,
+      "dynamic_frac": 0.3215972222222222
+    },
+    {
+      "name": "00019.jpg",
+      "instances": 18,
+      "dynamic_frac": 0.288359375
+    },
+    {
+      "name": "00020.jpg",
+      "instances": 17,
+      "dynamic_frac": 0.3210546875
+    },
+    {
+      "name": "00021.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.2810503472222222
+    },
+    {
+      "name": "00022.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.31907118055555556
+    },
+    {
+      "name": "00023.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.2799262152777778
+    },
+    {
+      "name": "00024.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.276640625
+    },
+    {
+      "name": "00025.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.25113715277777776
+    },
+    {
+      "name": "00026.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.2515277777777778
+    },
+    {
+      "name": "00027.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.2715885416666667
+    },
+    {
+      "name": "00028.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.2829296875
+    },
+    {
+      "name": "00029.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.28097222222222223
+    },
+    {
+      "name": "00030.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.2805859375
+    },
+    {
+      "name": "00031.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.3062890625
+    },
+    {
+      "name": "00032.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.2951128472222222
+    },
+    {
+      "name": "00033.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.30221354166666664
+    },
+    {
+      "name": "00034.jpg",
+      "instances": 17,
+      "dynamic_frac": 0.2993793402777778
+    },
+    {
+      "name": "00035.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.2795052083333333
+    },
+    {
+      "name": "00036.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.275703125
+    },
+    {
+      "name": "00037.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.29637586805555555
+    },
+    {
+      "name": "00038.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.29433159722222224
+    },
+    {
+      "name": "00039.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.30378472222222225
+    },
+    {
+      "name": "00040.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.29942708333333334
+    },
+    {
+      "name": "00041.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.29388888888888887
+    },
+    {
+      "name": "00042.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.2923394097222222
+    },
+    {
+      "name": "00043.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.2979557291666667
+    },
+    {
+      "name": "00044.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.3004470486111111
+    },
+    {
+      "name": "00045.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.29061631944444444
+    },
+    {
+      "name": "00046.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.2913368055555556
+    },
+    {
+      "name": "00047.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.2860416666666667
+    },
+    {
+      "name": "00048.jpg",
+      "instances": 17,
+      "dynamic_frac": 0.32245225694444446
+    },
+    {
+      "name": "00049.jpg",
+      "instances": 18,
+      "dynamic_frac": 0.3313888888888889
+    },
+    {
+      "name": "00050.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.3245486111111111
+    },
+    {
+      "name": "00051.jpg",
+      "instances": 17,
+      "dynamic_frac": 0.33796006944444446
+    },
+    {
+      "name": "00052.jpg",
+      "instances": 17,
+      "dynamic_frac": 0.3407118055555556
+    },
+    {
+      "name": "00053.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.34119791666666666
+    },
+    {
+      "name": "00054.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.34046440972222225
+    },
+    {
+      "name": "00055.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.34575086805555555
+    },
+    {
+      "name": "00056.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.34758680555555554
+    },
+    {
+      "name": "00057.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.3467795138888889
+    },
+    {
+      "name": "00058.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.33437934027777777
+    },
+    {
+      "name": "00059.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.32289930555555557
+    },
+    {
+      "name": "00060.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.3113888888888889
+    },
+    {
+      "name": "00061.jpg",
+      "instances": 17,
+      "dynamic_frac": 0.30755208333333334
+    },
+    {
+      "name": "00062.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.2762760416666667
+    },
+    {
+      "name": "00063.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.26587239583333333
+    },
+    {
+      "name": "00064.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.27456597222222223
+    },
+    {
+      "name": "00065.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.2818793402777778
+    },
+    {
+      "name": "00066.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.27230034722222224
+    },
+    {
+      "name": "00067.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.27774305555555556
+    },
+    {
+      "name": "00068.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.2777864583333333
+    },
+    {
+      "name": "00069.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.2780121527777778
+    },
+    {
+      "name": "00070.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.28075086805555555
+    },
+    {
+      "name": "00071.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.30505208333333333
+    },
+    {
+      "name": "00072.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.2819184027777778
+    },
+    {
+      "name": "00073.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.2793880208333333
+    },
+    {
+      "name": "00074.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.26434895833333333
+    },
+    {
+      "name": "00075.jpg",
+      "instances": 18,
+      "dynamic_frac": 0.28225260416666664
+    },
+    {
+      "name": "00076.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.29332899305555554
+    },
+    {
+      "name": "00077.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.2852951388888889
+    },
+    {
+      "name": "00078.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.2873003472222222
+    },
+    {
+      "name": "00079.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.28370659722222225
+    },
+    {
+      "name": "00080.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.28629340277777776
+    },
+    {
+      "name": "00081.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.2869097222222222
+    },
+    {
+      "name": "00082.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.2723046875
+    },
+    {
+      "name": "00083.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.2849479166666667
+    },
+    {
+      "name": "00084.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.2858072916666667
+    },
+    {
+      "name": "00085.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.2860373263888889
+    },
+    {
+      "name": "00086.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.27862413194444446
+    },
+    {
+      "name": "00087.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.28668836805555553
+    },
+    {
+      "name": "00088.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.29760850694444446
+    },
+    {
+      "name": "00089.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.29911024305555556
+    },
+    {
+      "name": "00090.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.30077256944444447
+    },
+    {
+      "name": "00091.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.2944835069444444
+    },
+    {
+      "name": "00092.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.3027126736111111
+    },
+    {
+      "name": "00093.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.30421440972222225
+    },
+    {
+      "name": "00094.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.3024782986111111
+    },
+    {
+      "name": "00095.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.30661024305555556
+    },
+    {
+      "name": "00096.jpg",
+      "instances": 17,
+      "dynamic_frac": 0.31147569444444445
+    },
+    {
+      "name": "00097.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.3143532986111111
+    },
+    {
+      "name": "00098.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.31419270833333335
+    },
+    {
+      "name": "00099.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.3200998263888889
+    },
+    {
+      "name": "00100.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.31981770833333334
+    },
+    {
+      "name": "00101.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.3212673611111111
+    },
+    {
+      "name": "00102.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.3205078125
+    },
+    {
+      "name": "00103.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.31936197916666664
+    },
+    {
+      "name": "00104.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.32015625
+    },
+    {
+      "name": "00105.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.3189973958333333
+    },
+    {
+      "name": "00106.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.3174739583333333
+    },
+    {
+      "name": "00107.jpg",
+      "instances": 17,
+      "dynamic_frac": 0.31841579861111113
+    },
+    {
+      "name": "00108.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.3099782986111111
+    },
+    {
+      "name": "00109.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.31104600694444445
+    },
+    {
+      "name": "00110.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.3050390625
+    },
+    {
+      "name": "00111.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.3013107638888889
+    },
+    {
+      "name": "00112.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.2928472222222222
+    },
+    {
+      "name": "00113.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.2755815972222222
+    },
+    {
+      "name": "00114.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.27523003472222224
+    },
+    {
+      "name": "00115.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.2721310763888889
+    },
+    {
+      "name": "00116.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.29379340277777777
+    },
+    {
+      "name": "00117.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.29486111111111113
+    },
+    {
+      "name": "00118.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.2960894097222222
+    },
+    {
+      "name": "00119.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.29770399305555556
+    },
+    {
+      "name": "00120.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.2766883680555556
+    },
+    {
+      "name": "00121.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.2996918402777778
+    },
+    {
+      "name": "00122.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.29238715277777777
+    },
+    {
+      "name": "00123.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.2834592013888889
+    },
+    {
+      "name": "00124.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.2921701388888889
+    },
+    {
+      "name": "00125.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.2952126736111111
+    },
+    {
+      "name": "00126.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.30018663194444445
+    },
+    {
+      "name": "00127.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.29928819444444443
+    },
+    {
+      "name": "00128.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.3029644097222222
+    },
+    {
+      "name": "00129.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.31178385416666665
+    },
+    {
+      "name": "00130.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.3127126736111111
+    },
+    {
+      "name": "00131.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.3054600694444444
+    },
+    {
+      "name": "00132.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.3087239583333333
+    },
+    {
+      "name": "00133.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.31026909722222223
+    },
+    {
+      "name": "00134.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.3122092013888889
+    },
+    {
+      "name": "00135.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.31182725694444446
+    },
+    {
+      "name": "00136.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.3243402777777778
+    },
+    {
+      "name": "00137.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.31106770833333336
+    },
+    {
+      "name": "00138.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.32450086805555556
+    },
+    {
+      "name": "00139.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.3057855902777778
+    },
+    {
+      "name": "00140.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.3156076388888889
+    },
+    {
+      "name": "00141.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.3146875
+    },
+    {
+      "name": "00142.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.31146701388888887
+    },
+    {
+      "name": "00143.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.3131684027777778
+    },
+    {
+      "name": "00144.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.30235243055555555
+    },
+    {
+      "name": "00145.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.3032942708333333
+    },
+    {
+      "name": "00146.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.3035069444444444
+    },
+    {
+      "name": "00147.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.30493055555555554
+    },
+    {
+      "name": "00148.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.3053125
+    },
+    {
+      "name": "00149.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.3137847222222222
+    },
+    {
+      "name": "00150.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.31083333333333335
+    },
+    {
+      "name": "00151.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.3111111111111111
+    },
+    {
+      "name": "00152.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.30878038194444446
+    },
+    {
+      "name": "00153.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.31019097222222225
+    },
+    {
+      "name": "00154.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.3105078125
+    },
+    {
+      "name": "00155.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.31829427083333334
+    },
+    {
+      "name": "00156.jpg",
+      "instances": 16,
+      "dynamic_frac": 0.3104340277777778
+    },
+    {
+      "name": "00157.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.3035329861111111
+    },
+    {
+      "name": "00158.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.30116319444444445
+    },
+    {
+      "name": "00159.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.3000564236111111
+    },
+    {
+      "name": "00160.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.2857421875
+    },
+    {
+      "name": "00161.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.2796310763888889
+    },
+    {
+      "name": "00162.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.281015625
+    },
+    {
+      "name": "00163.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.2737847222222222
+    },
+    {
+      "name": "00164.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.2723046875
+    },
+    {
+      "name": "00165.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.26276041666666666
+    },
+    {
+      "name": "00166.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.2540017361111111
+    },
+    {
+      "name": "00167.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.2547743055555556
+    },
+    {
+      "name": "00168.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.26159288194444447
+    },
+    {
+      "name": "00169.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.2613020833333333
+    },
+    {
+      "name": "00170.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.25977430555555553
+    },
+    {
+      "name": "00171.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.25457899305555554
+    },
+    {
+      "name": "00172.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.24350260416666666
+    },
+    {
+      "name": "00173.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.24080729166666667
+    },
+    {
+      "name": "00174.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.2305295138888889
+    },
+    {
+      "name": "00175.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.2314626736111111
+    },
+    {
+      "name": "00176.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.23280381944444445
+    },
+    {
+      "name": "00177.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.22800347222222223
+    },
+    {
+      "name": "00178.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.23036024305555555
+    },
+    {
+      "name": "00179.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.23451822916666668
+    },
+    {
+      "name": "00180.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.23373697916666666
+    },
+    {
+      "name": "00181.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.23859809027777779
+    },
+    {
+      "name": "00182.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.2371918402777778
+    },
+    {
+      "name": "00183.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.23988715277777778
+    },
+    {
+      "name": "00184.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.24182291666666667
+    },
+    {
+      "name": "00185.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.24535590277777777
+    },
+    {
+      "name": "00186.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.25110243055555553
+    },
+    {
+      "name": "00187.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.24259548611111112
+    },
+    {
+      "name": "00188.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.2478515625
+    },
+    {
+      "name": "00189.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.2519401041666667
+    },
+    {
+      "name": "00190.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.25623263888888886
+    },
+    {
+      "name": "00191.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.2517144097222222
+    },
+    {
+      "name": "00192.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.24998697916666668
+    },
+    {
+      "name": "00193.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.24862847222222223
+    },
+    {
+      "name": "00194.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.2512109375
+    },
+    {
+      "name": "00195.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.24232638888888888
+    },
+    {
+      "name": "00196.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.2500347222222222
+    },
+    {
+      "name": "00197.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.2521657986111111
+    },
+    {
+      "name": "00198.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.24936631944444446
+    },
+    {
+      "name": "00199.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.2521484375
+    },
+    {
+      "name": "00200.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.24861111111111112
+    },
+    {
+      "name": "00201.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.24118489583333333
+    },
+    {
+      "name": "00202.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.2359418402777778
+    },
+    {
+      "name": "00203.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.23024305555555555
+    },
+    {
+      "name": "00204.jpg",
+      "instances": 8,
+      "dynamic_frac": 0.22359809027777777
+    },
+    {
+      "name": "00205.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.24805989583333332
+    },
+    {
+      "name": "00206.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.24534722222222222
+    },
+    {
+      "name": "00207.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.24446614583333334
+    },
+    {
+      "name": "00208.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.23325086805555556
+    },
+    {
+      "name": "00209.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.23083333333333333
+    },
+    {
+      "name": "00210.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.23721354166666667
+    },
+    {
+      "name": "00211.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.2295486111111111
+    },
+    {
+      "name": "00212.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.22678819444444445
+    },
+    {
+      "name": "00213.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.2310763888888889
+    },
+    {
+      "name": "00214.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.22625
+    },
+    {
+      "name": "00215.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.22386284722222222
+    },
+    {
+      "name": "00216.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.22214409722222223
+    },
+    {
+      "name": "00217.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.2257986111111111
+    },
+    {
+      "name": "00218.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.22962673611111112
+    },
+    {
+      "name": "00219.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.22518663194444444
+    },
+    {
+      "name": "00220.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.22447482638888888
+    },
+    {
+      "name": "00221.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.22928819444444445
+    },
+    {
+      "name": "00222.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.2307248263888889
+    },
+    {
+      "name": "00223.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.23414496527777778
+    },
+    {
+      "name": "00224.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.2387717013888889
+    },
+    {
+      "name": "00225.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.2359548611111111
+    },
+    {
+      "name": "00226.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.2310590277777778
+    },
+    {
+      "name": "00227.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.23342881944444444
+    },
+    {
+      "name": "00228.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.23478298611111112
+    },
+    {
+      "name": "00229.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.23869357638888888
+    },
+    {
+      "name": "00230.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.2543229166666667
+    },
+    {
+      "name": "00231.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.2420746527777778
+    },
+    {
+      "name": "00232.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.23135416666666667
+    },
+    {
+      "name": "00233.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.23509114583333332
+    },
+    {
+      "name": "00234.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.2426953125
+    },
+    {
+      "name": "00235.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.2624739583333333
+    },
+    {
+      "name": "00236.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.24529947916666667
+    },
+    {
+      "name": "00237.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.26141493055555554
+    },
+    {
+      "name": "00238.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.26121961805555555
+    },
+    {
+      "name": "00239.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.24447916666666666
+    },
+    {
+      "name": "00240.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.260078125
+    },
+    {
+      "name": "00241.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.2571310763888889
+    },
+    {
+      "name": "00242.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.2609635416666667
+    },
+    {
+      "name": "00243.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.2676779513888889
+    },
+    {
+      "name": "00244.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.26697916666666666
+    },
+    {
+      "name": "00245.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.266640625
+    },
+    {
+      "name": "00246.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.2696484375
+    },
+    {
+      "name": "00247.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.2723046875
+    },
+    {
+      "name": "00248.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.26254340277777777
+    },
+    {
+      "name": "00249.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.2706163194444444
+    },
+    {
+      "name": "00250.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.26831163194444446
+    },
+    {
+      "name": "00251.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.2687847222222222
+    },
+    {
+      "name": "00252.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.2860112847222222
+    },
+    {
+      "name": "00253.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.26734375
+    },
+    {
+      "name": "00254.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.2706857638888889
+    },
+    {
+      "name": "00255.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.26407118055555556
+    },
+    {
+      "name": "00256.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.2725911458333333
+    },
+    {
+      "name": "00257.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.2687847222222222
+    },
+    {
+      "name": "00258.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.27384114583333335
+    },
+    {
+      "name": "00259.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.2661371527777778
+    },
+    {
+      "name": "00260.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.2614973958333333
+    },
+    {
+      "name": "00261.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.2133810763888889
+    },
+    {
+      "name": "00262.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.21463975694444445
+    },
+    {
+      "name": "00263.jpg",
+      "instances": 8,
+      "dynamic_frac": 0.2013671875
+    },
+    {
+      "name": "00264.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.20953125
+    },
+    {
+      "name": "00265.jpg",
+      "instances": 8,
+      "dynamic_frac": 0.20161458333333335
+    },
+    {
+      "name": "00266.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.21483506944444444
+    },
+    {
+      "name": "00267.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.24712239583333334
+    },
+    {
+      "name": "00268.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.23891493055555554
+    },
+    {
+      "name": "00269.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.2427734375
+    },
+    {
+      "name": "00270.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.24588541666666666
+    },
+    {
+      "name": "00271.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.2124565972222222
+    },
+    {
+      "name": "00272.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.20956163194444444
+    },
+    {
+      "name": "00273.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.248203125
+    },
+    {
+      "name": "00274.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.2275217013888889
+    },
+    {
+      "name": "00275.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.22953559027777778
+    },
+    {
+      "name": "00276.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.23327256944444444
+    },
+    {
+      "name": "00277.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.21076822916666665
+    },
+    {
+      "name": "00278.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.20754774305555557
+    },
+    {
+      "name": "00279.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.19880208333333332
+    },
+    {
+      "name": "00280.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.22405381944444444
+    },
+    {
+      "name": "00281.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.1991059027777778
+    },
+    {
+      "name": "00282.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.21457899305555556
+    },
+    {
+      "name": "00283.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.20717881944444444
+    },
+    {
+      "name": "00284.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.20223090277777778
+    },
+    {
+      "name": "00285.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.20131944444444444
+    },
+    {
+      "name": "00286.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.20214409722222224
+    },
+    {
+      "name": "00287.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.20294704861111112
+    },
+    {
+      "name": "00288.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.20010416666666667
+    },
+    {
+      "name": "00289.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.19667100694444445
+    },
+    {
+      "name": "00290.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.20063802083333335
+    },
+    {
+      "name": "00291.jpg",
+      "instances": 8,
+      "dynamic_frac": 0.19501736111111112
+    },
+    {
+      "name": "00292.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.20375434027777778
+    },
+    {
+      "name": "00293.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.19915364583333334
+    },
+    {
+      "name": "00294.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.20325954861111112
+    },
+    {
+      "name": "00295.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.20428385416666667
+    },
+    {
+      "name": "00296.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.2084939236111111
+    },
+    {
+      "name": "00297.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.17903211805555555
+    },
+    {
+      "name": "00298.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.2048654513888889
+    },
+    {
+      "name": "00299.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.19853732638888888
+    },
+    {
+      "name": "00300.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.19955729166666666
+    },
+    {
+      "name": "00301.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.20250868055555554
+    },
+    {
+      "name": "00302.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.21231770833333333
+    },
+    {
+      "name": "00303.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.21419270833333334
+    },
+    {
+      "name": "00304.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.22811631944444444
+    },
+    {
+      "name": "00305.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.22586805555555556
+    },
+    {
+      "name": "00306.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.20812934027777777
+    },
+    {
+      "name": "00307.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.20737413194444446
+    },
+    {
+      "name": "00308.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.2136501736111111
+    },
+    {
+      "name": "00309.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.20986979166666667
+    },
+    {
+      "name": "00310.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.20617621527777777
+    },
+    {
+      "name": "00311.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.19474392361111112
+    },
+    {
+      "name": "00312.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.19530815972222224
+    },
+    {
+      "name": "00313.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.1799435763888889
+    },
+    {
+      "name": "00314.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.19675347222222223
+    },
+    {
+      "name": "00315.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.2051388888888889
+    },
+    {
+      "name": "00316.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.20092013888888888
+    },
+    {
+      "name": "00317.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.20414930555555555
+    },
+    {
+      "name": "00318.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.1832595486111111
+    },
+    {
+      "name": "00319.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.19236111111111112
+    },
+    {
+      "name": "00320.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.19154947916666668
+    },
+    {
+      "name": "00321.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.21768229166666667
+    },
+    {
+      "name": "00322.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.22485677083333333
+    },
+    {
+      "name": "00323.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.20575520833333333
+    },
+    {
+      "name": "00324.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.20206597222222222
+    },
+    {
+      "name": "00325.jpg",
+      "instances": 8,
+      "dynamic_frac": 0.1866015625
+    },
+    {
+      "name": "00326.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.23495225694444444
+    },
+    {
+      "name": "00327.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.21015625
+    },
+    {
+      "name": "00328.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.22967881944444443
+    },
+    {
+      "name": "00329.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.22028211805555556
+    },
+    {
+      "name": "00330.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.1973263888888889
+    },
+    {
+      "name": "00331.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.22262586805555556
+    },
+    {
+      "name": "00332.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.19549045138888888
+    },
+    {
+      "name": "00333.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.19
+    },
+    {
+      "name": "00334.jpg",
+      "instances": 8,
+      "dynamic_frac": 0.17370225694444444
+    },
+    {
+      "name": "00335.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.19028645833333332
+    },
+    {
+      "name": "00336.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.21456597222222223
+    },
+    {
+      "name": "00337.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.200546875
+    },
+    {
+      "name": "00338.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.1956987847222222
+    },
+    {
+      "name": "00339.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.1993315972222222
+    },
+    {
+      "name": "00340.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.19997395833333334
+    },
+    {
+      "name": "00341.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.20252604166666666
+    },
+    {
+      "name": "00342.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.18967881944444445
+    },
+    {
+      "name": "00343.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.18757378472222222
+    },
+    {
+      "name": "00344.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.1866970486111111
+    },
+    {
+      "name": "00345.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.1969921875
+    },
+    {
+      "name": "00346.jpg",
+      "instances": 10,
+      "dynamic_frac": 0.20055121527777778
+    },
+    {
+      "name": "00347.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.21549479166666666
+    },
+    {
+      "name": "00348.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.22431423611111112
+    },
+    {
+      "name": "00349.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.22420138888888888
+    },
+    {
+      "name": "00350.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.20471354166666667
+    },
+    {
+      "name": "00351.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.209375
+    },
+    {
+      "name": "00352.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.18067708333333332
+    },
+    {
+      "name": "00353.jpg",
+      "instances": 15,
+      "dynamic_frac": 0.23391493055555557
+    },
+    {
+      "name": "00354.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.21897569444444445
+    },
+    {
+      "name": "00355.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.20213975694444444
+    },
+    {
+      "name": "00356.jpg",
+      "instances": 13,
+      "dynamic_frac": 0.2247092013888889
+    },
+    {
+      "name": "00357.jpg",
+      "instances": 11,
+      "dynamic_frac": 0.21411024305555557
+    },
+    {
+      "name": "00358.jpg",
+      "instances": 14,
+      "dynamic_frac": 0.23312065972222223
+    },
+    {
+      "name": "00359.jpg",
+      "instances": 9,
+      "dynamic_frac": 0.20667534722222222
+    },
+    {
+      "name": "00360.jpg",
+      "instances": 12,
+      "dynamic_frac": 0.23662760416666667
+    }
+  ]
+}

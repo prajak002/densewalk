@@ -1,0 +1,23 @@
+# environments / caches
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+.DS_Store
+
+# datasets and bulky intermediates (re-downloadable or regenerable; see CLAUDE.md / memory)
+data/
+artifacts/
+outputs/chunks/
+outputs/dca_latents/
+outputs/dca_v2_full/
+outputs/dca_labels_sample/
+outputs/varanasi/*.mp4
+
+# model weights / latents (large); keep the small trained G1 policy
+*.pt
+*.npz
+*.safetensors
+*.zip
+!outputs/g1_policy/*.pt

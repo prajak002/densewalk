@@ -1,0 +1,15 @@
+stage D rows: ref 50 | repro 50 | matched 50
+  latent_drift       median rel diff 0.0042  max 0.0311
+  pixel_error        median rel diff 0.0037  max 0.0332
+  excess_over_floor  median rel diff 0.0171  max 0.1149
+  per-k mean latent_drift max rel diff 0.0054  PASS
+  per-k mean pixel_error  max rel diff 0.0027  PASS
+stage H headline numbers:
+  fraction_of_chance.latent_level          ref     0.7909  repro     0.7890  rel 0.0025  PASS
+  floor_local.mean                         ref     0.1807  repro     0.1816  rel 0.0049  PASS
+  pixel_error_mean                         ref     0.2396  repro     0.2393  rel 0.0010  PASS
+  baselines.copy_last_context_frame        ref     0.1663  repro     0.1664  rel 0.0007  PASS
+  baselines.context_mean_frame             ref     0.1592  repro     0.1594  rel 0.0008  PASS
+  chance_reference.latent_l2               ref  1708.5517  repro  1709.0976  rel 0.0003  PASS
+  divergence_ratio.raw.ratio               ref     6.0994  repro     5.7748  rel 0.0532  FAIL
+M1 REPRODUCTION: FAIL

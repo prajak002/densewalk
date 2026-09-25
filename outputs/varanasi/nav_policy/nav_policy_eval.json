@@ -1,0 +1,22 @@
+{
+  "learned": {
+    "controller": "learned (PPO)",
+    "episodes": 120,
+    "success_rate": 0.567,
+    "collision_rate": 0.442,
+    "left_street_rate": 0.0,
+    "mean_final_goal_dist_m": 2.99,
+    "mean_min_clearance_m": 0.894,
+    "mean_steps": 50.5
+  },
+  "rule_based": {
+    "controller": "rule-based (TTC)",
+    "episodes": 120,
+    "success_rate": 0.517,
+    "collision_rate": 0.5,
+    "left_street_rate": 0.0,
+    "mean_final_goal_dist_m": 3.23,
+    "mean_min_clearance_m": 0.664,
+    "mean_steps": 55.8
+  }
+}

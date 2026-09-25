@@ -1,0 +1,16 @@
+HOST fb7f04b4f146 | NVIDIA GeForce RTX 5060 Ti | torch 2.11.0+cu128 | 128 cores
+  gpu_fp32_tflops: 17.51
+  gpu_bandwidth_gbs: 386.3
+  gpu_fp32_tflops_sustained20s: 17.13
+  cpu_1core_task_s: 0.064
+  cpu_1proc_512tasks_s: 27.08
+  cpu_1proc_tasks_per_s: 18.9
+  cpu_4proc_512tasks_s: 6.93
+  cpu_4proc_tasks_per_s: 73.9
+  cpu_32proc_512tasks_s: 2.24
+  cpu_32proc_tasks_per_s: 229.0
+  cpu_128proc_512tasks_s: 7.81
+  cpu_128proc_tasks_per_s: 65.6
+  ffmpeg_extract_493f_s: 0.36
+  frames_written: 361
+JSON {"host": "fb7f04b4f146", "gpu": "NVIDIA GeForce RTX 5060 Ti", "torch": "2.11.0+cu128", "cores": 128, "gpu_fp32_tflops": 17.51, "gpu_bandwidth_gbs": 386.3, "gpu_fp32_tflops_sustained20s": 17.13, "cpu_1core_task_s": 0.064, "cpu_1proc_512tasks_s": 27.08, "cpu_1proc_tasks_per_s": 18.9, "cpu_4proc_512tasks_s": 6.93, "cpu_4proc_tasks_per_s": 73.9, "cpu_32proc_512tasks_s": 2.24, "cpu_32proc_tasks_per_s": 229.0, "cpu_128proc_512tasks_s": 7.81, "cpu_128proc_tasks_per_s": 65.6, "ffmpeg_extract_493f_s": 0.36, "frames_written": 361}

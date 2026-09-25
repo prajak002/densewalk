@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>G1 Parallel Playback</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F4F6F4; --surface:#FFFFFF; --ink:#18221F; --muted:#56645F; --rule:#D5DCD8;
+  --accent:#0B6B66; --robot:#C8402F; --track:#9AA5A0; --plan:#C9D2CE; --warn:#9A640F; --warn-bg:#F6EBD5;
+  --ok:#2E7A48; --ok-bg:#E1F0E5;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --cond:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#111715; --surface:#18201D; --ink:#E3EAE6; --muted:#9AA8A2; --rule:#2C3733;
+    --accent:#5CC2B9; --robot:#F07A68; --track:#5E6B66; --plan:#34403C; --warn:#E0AE5A; --warn-bg:#35280F;
+    --ok:#6CC78A; --ok-bg:#16301F;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#111715; --surface:#18201D; --ink:#E3EAE6; --muted:#9AA8A2; --rule:#2C3733;
+  --accent:#5CC2B9; --robot:#F07A68; --track:#5E6B66; --plan:#34403C; --warn:#E0AE5A; --warn-bg:#35280F;
+  --ok:#6CC78A; --ok-bg:#16301F;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 var(--sans)}
+.wrap{max-width:1400px;margin:0 auto;padding-inline:16px;padding-block:28px 60px}
+h1{font:700 clamp(26px,4vw,38px)/1.1 var(--cond);margin:0;text-wrap:balance}
+p{margin:0;max-width:78ch}
+.mono{font-family:var(--mono);font-size:.86em}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+header{display:grid;gap:10px;margin-bottom:16px}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:10px 12px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin-bottom:16px}
+button{font:600 13px/1 var(--sans);color:var(--ink);background:var(--bg);border:1px solid var(--rule);border-radius:6px;padding:8px 12px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button.primary{background:var(--accent);color:var(--surface);border-color:var(--accent);min-width:78px}
+button[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
+#scrub{flex:1 1 240px;accent-color:var(--accent)}
+.clock{font:500 13px var(--mono);font-variant-numeric:tabular-nums;display:flex;gap:14px;flex-wrap:wrap}
+.clock b{font-weight:600}
+.speeds{display:flex;gap:4px}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px}
+.tile{background:var(--surface);border:1px solid var(--rule);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.tile .h{display:flex;justify-content:space-between;gap:8px;align-items:baseline;padding:8px 12px;border-bottom:1px solid var(--rule)}
+.tile .h b{font:600 14px/1.2 var(--cond)}
+.tile .h span{font:400 11px var(--mono);color:var(--muted);text-align:right}
+.tile video{width:100%;height:auto;display:block;background:#000}
+.tile .cap{padding:8px 12px;font-size:12.5px;color:var(--muted)}
+.big{grid-column:span 8}.map{grid-column:span 4}
+.wide{grid-column:span 12}.third{grid-column:span 4}.half{grid-column:span 6}
+canvas{width:100%;display:block;background:var(--surface)}
+.tele{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--rule);border-top:1px solid var(--rule)}
+.tele div{background:var(--surface);padding:8px 12px;display:grid;gap:1px}
+.tele .v{font:600 18px/1.2 var(--cond);font-variant-numeric:tabular-nums}
+.tele .l{font-size:11.5px;color:var(--muted)}
+.state{font:500 11px/1 var(--mono);padding:4px 7px;border-radius:99px}
+.state.walk{color:var(--ok);background:var(--ok-bg)}.state.stop{color:var(--warn);background:var(--warn-bg)}
+.note{margin-top:16px;border-left:3px solid var(--warn);background:var(--warn-bg);padding:10px 14px;border-radius:0 6px 6px 0;font-size:13.5px;max-width:100ch}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;padding:8px 12px;font-size:11.5px;color:var(--muted);border-top:1px solid var(--rule)}
+.legend i{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:5px;border-radius:2px}
+@media (max-width:1000px){.big,.map,.third,.half{grid-column:span 12}}
+@media (min-width:1001px) and (max-width:1200px){.third{grid-column:span 6}}
+</style>
+</head><body>
+<div class="wrap">
+<header>
+  <span class="eyebrow">DenseWalk · stage 6 · synchronized playback</span>
+  <h1>G1 through the Varanasi splat, every layer at once</h1>
+  <p>All saved M4 renders play on one clock: the composite, physics next to the splat, the robot's first-person view, the robot placed in the splat, the Isaac chase camera and the empty background. The top-down map follows run 8's logged pose. Video time × 1.2 = simulation time, because 33.3 s of video covers the 40 s simulation.</p>
+</header>
+
+<div class="bar" role="group" aria-label="Playback">
+  <button id="play" class="primary">Play</button>
+  <button id="restart">Restart</button>
+  <div class="speeds" role="group" aria-label="Speed">
+    <button data-rate="0.5">0.5×</button><button data-rate="1" aria-pressed="true">1×</button><button data-rate="2">2×</button>
+  </div>
+  <input id="scrub" type="range" min="0" max="33.3" step="0.01" value="0" aria-label="Scrub all videos">
+  <div class="clock"><span>video <b id="vt">0.0</b> s</span><span>sim <b id="st">0.0</b> s</span></div>
+</div>
+
+<div class="grid">
+  <div class="tile big">
+    <div class="h"><b>Composite: splat + real people + G1</b><span>m4_final_crowd_walk.mp4</span></div>
+    <video class="sync" src="../varanasi/m4_final_crowd_walk.mp4" muted playsinline preload="auto"></video>
+    <div class="cap">Green boxes are the people the robot perceives. Draw order follows depth, so people nearer the camera cover the robot.</div>
+  </div>
+
+  <div class="tile map">
+    <div class="h"><b>Top-down, run 8</b><span id="state" class="state walk">walking</span></div>
+    <canvas id="map" width="560" height="420" aria-label="Top-down map of the robot path through crowd tracks"></canvas>
+    <div class="legend"><span><i style="background:var(--track)"></i>crowd tracks (whole clip)</span><span><i style="background:var(--plan)"></i>full path</span><span><i style="background:var(--robot)"></i>G1 so far</span><span><i style="background:var(--accent)"></i>goal</span></div>
+    <div class="tele">
+      <div><span class="v" id="tGoal">–</span><span class="l">distance to goal</span></div>
+      <div><span class="v" id="tClr">–</span><span class="l">nearest person (clearance)</span></div>
+      <div><span class="v" id="tTtc">–</span><span class="l">min time to collision</span></div>
+      <div><span class="v" id="tObs">–</span><span class="l">obstacles in range</span></div>
+      <div><span class="v" id="tCmd">–</span><span class="l">command v<sub>x</sub>, v<sub>y</sub> (m/s)</span></div>
+      <div><span class="v" id="tYaw">–</span><span class="l">yaw-rate command (rad/s)</span></div>
+    </div>
+  </div>
+
+  <div class="tile wide">
+    <div class="h"><b>Physics world beside the splat view</b><span>m4_g1_walk_sidebyside.mp4</span></div>
+    <video class="sync" src="../varanasi/m4_g1_walk_sidebyside.mp4" muted playsinline preload="auto"></video>
+    <div class="cap">Left: Isaac Sim, where the only collider is the ground plane at z = 0. Right: the same pose rendered in the splat.</div>
+  </div>
+
+  <div class="tile third">
+    <div class="h"><b>First-person view</b><span>m4_g1_fpv_street.mp4</span></div>
+    <video class="sync" src="../varanasi/m4_g1_fpv_street.mp4" muted playsinline preload="auto"></video>
+  </div>
+  <div class="tile third">
+    <div class="h"><b>G1 placed in the splat</b><span>m4_g1_in_varanasi.mp4</span></div>
+    <video class="sync" src="../varanasi/m4_g1_in_varanasi.mp4" muted playsinline preload="auto"></video>
+  </div>
+  <div class="tile third">
+    <div class="h"><b>Isaac chase camera</b><span>m4_g1_crowd_chase.mp4</span></div>
+    <video class="sync" src="../varanasi/m4_g1_crowd_chase.mp4" muted playsinline preload="auto"></video>
+  </div>
+
+  <div class="tile half">
+    <div class="h"><b>Background only, no people or robot</b><span>varanasi_bg_v2.mp4 · 12 s, loops</span></div>
+    <video id="bg" src="../varanasi/varanasi_bg_v2.mp4" muted playsinline loop preload="auto"></video>
+    <div class="cap">The static splat along the original camera path. It runs on its own 12 s loop and isn't tied to the shared clock.</div>
+  </div>
+  <div class="tile half" style="justify-content:center">
+    <div class="cap" style="font-size:13.5px;color:var(--ink);display:grid;gap:8px;padding:16px">
+      <b style="font:600 16px var(--cond)">How the layers relate</b>
+      <span><b>Physics</b> (Isaac): G1 + ground plane. Crowd people are analytic moving obstacles, and the splat is never in physics.</span>
+      <span><b>Visual</b> (gsplat): the street. Masked people become crowd smear on the road, where the camera never saw the ground.</span>
+      <span><b>People</b>: real pixel cutouts placed at their tracked metric positions, with speeds divided by 1.45.</span>
+      <span><b>Robot render</b>: Isaac RGBA with alpha from depth, composited using Isaac's camera settings.</span>
+    </div>
+  </div>
+</div>
+
+<div class="note">The videos are separate renders, so they don't all show the same run. At sim t = 37.2 s the overlays read 8.1 m to goal (composite, holding), 2.8 m (side by side), 2.0 m (first-person) and 3.2 m (G1 in the splat). The map and numbers on the right come from <span class="mono">m4_run8.json</span>, which is about 2.2 m from the goal at that moment. It's the closest match to the side-by-side view.</div>
+</div>
+
+<script src="parallel_data.js"></script>
+<script>
+(function(){
+  const vids=[...document.querySelectorAll('video.sync')];
+  const master=vids[0], bg=document.getElementById('bg');
+  const play=document.getElementById('play'), scrub=document.getElementById('scrub');
+  const SIM=40/33.3333;
+  let rate=1, scrubbing=false;
+
+  function all(fn){vids.forEach(fn)}
+  function setPlaying(on){
+    if(on){ all(v=>{v.playbackRate=rate; v.play().catch(()=>{})}); bg.playbackRate=rate; bg.play().catch(()=>{}); play.textContent='Pause'; }
+    else { all(v=>v.pause()); bg.pause(); play.textContent='Play'; }
+  }
+  play.addEventListener('click',()=>setPlaying(master.paused));
+  document.getElementById('restart').addEventListener('click',()=>{ all(v=>v.currentTime=0); bg.currentTime=0; draw(0); });
+  document.querySelectorAll('[data-rate]').forEach(b=>b.addEventListener('click',()=>{
+    rate=+b.dataset.rate; document.querySelectorAll('[data-rate]').forEach(x=>x.setAttribute('aria-pressed',x===b));
+    all(v=>v.playbackRate=rate); bg.playbackRate=rate;
+  }));
+  scrub.addEventListener('input',()=>{ scrubbing=true; const t=+scrub.value; all(v=>v.currentTime=Math.min(t,(v.duration||33.3)-0.05)); draw(t); });
+  scrub.addEventListener('change',()=>{ scrubbing=false; });
+  master.addEventListener('ended',()=>setPlaying(false));
+
+  // keep followers locked to the master clock
+  function tick(){
+    const t=master.currentTime;
+    if(!master.paused){
+      vids.slice(1).forEach(v=>{
+        if(v.ended) return;
+        const d=v.currentTime-t;
+        if(Math.abs(d)>0.25) v.currentTime=t;
+        else v.playbackRate=rate*(1-Math.max(-0.1,Math.min(0.1,d*0.5)));
+      });
+    }
+    if(!scrubbing) scrub.value=t;
+    draw(t);
+    requestAnimationFrame(tick);
+  }
+
+  // top-down map
+  const W=window.WALK, cv=document.getElementById('map'), cx=cv.getContext('2d');
+  const X0=-42, X1=3, Y0=-10, Y1=9;
+  function css(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()}
+  function fit(){ const r=cv.getBoundingClientRect(), dpr=window.devicePixelRatio||1; cv.width=Math.round(r.width*dpr); cv.height=Math.round(r.width*0.72*dpr); cv.style.height=(r.width*0.72)+'px'; }
+  function P(x,y){ const pad=28*(window.devicePixelRatio||1); const w=cv.width-2*pad,h=cv.height-2*pad;
+    const s=Math.min(w/(X1-X0),h/(Y1-Y0)); const ox=pad+(w-s*(X1-X0))/2, oy=pad+(h-s*(Y1-Y0))/2;
+    return [ox+(x-X0)*s, oy+(Y1-y)*s, s]; }
+  let lastIdx=-1;
+  function draw(vt){
+    const st=vt*SIM;
+    document.getElementById('vt').textContent=vt.toFixed(1);
+    document.getElementById('st').textContent=st.toFixed(1);
+    const R=W.run, i=Math.max(0,Math.min(R.length-1,Math.round(st/0.08)));
+    const dpr=window.devicePixelRatio||1;
+    cx.clearRect(0,0,cv.width,cv.height);
+    // grid + axis labels
+    cx.strokeStyle=css('--rule'); cx.lineWidth=1*dpr; cx.fillStyle=css('--muted'); cx.font=`${10*dpr}px ${css('--mono')}`;
+    for(let x=-40;x<=0;x+=10){const [a,b]=P(x,Y0),[,c]=P(x,Y1); cx.beginPath();cx.moveTo(a,b);cx.lineTo(a,c);cx.stroke(); cx.fillText(x+' m',a-10*dpr,b+14*dpr);}
+    // corridor
+    cx.setLineDash([4*dpr,4*dpr]); cx.strokeStyle=css('--warn');
+    W.corridor.forEach(y=>{const [a,b]=P(X0,y),[c]=P(X1,y); cx.beginPath();cx.moveTo(a,b);cx.lineTo(c,b);cx.stroke();});
+    cx.setLineDash([]);
+    // crowd tracks
+    cx.strokeStyle=css('--track'); cx.lineWidth=1*dpr;
+    W.tracks.forEach(t=>{cx.beginPath(); t.p.forEach((q,k)=>{const [a,b]=P(q[0],q[1]); k?cx.lineTo(a,b):cx.moveTo(a,b)}); cx.stroke();});
+    // full path, then trail
+    const line=(n,col,w)=>{cx.strokeStyle=col;cx.lineWidth=w*dpr;cx.beginPath();for(let k=0;k<=n;k++){const [a,b]=P(R[k][1],R[k][2]);k?cx.lineTo(a,b):cx.moveTo(a,b)}cx.stroke();};
+    line(R.length-1,css('--plan'),3); line(i,css('--robot'),3);
+    // goal
+    const [gx,gy]=P(W.goal[0],W.goal[1]); cx.fillStyle=css('--accent'); cx.beginPath(); cx.arc(gx,gy,6*dpr,0,7); cx.fill();
+    // robot + heading
+    const e=R[i], [rx,ry,s]=P(e[1],e[2]);
+    if(e[5]!=null){cx.strokeStyle=css('--robot');cx.globalAlpha=.35;cx.lineWidth=1*dpr;cx.beginPath();cx.arc(rx,ry,e[5]*s,0,7);cx.stroke();cx.globalAlpha=1;}
+    cx.fillStyle=css('--robot'); cx.beginPath(); cx.arc(rx,ry,7*dpr,0,7); cx.fill();
+    cx.strokeStyle=css('--robot'); cx.lineWidth=2.5*dpr; cx.beginPath(); cx.moveTo(rx,ry); cx.lineTo(rx+Math.cos(e[3])*18*dpr, ry-Math.sin(e[3])*18*dpr); cx.stroke();
+    if(i!==lastIdx){ lastIdx=i;
+      document.getElementById('tGoal').textContent=e[4].toFixed(2)+' m';
+      document.getElementById('tClr').textContent=e[5]==null?'none in range':e[5].toFixed(2)+' m';
+      document.getElementById('tTtc').textContent=e[6]==null?'no one closing':e[6].toFixed(2)+' s';
+      document.getElementById('tObs').textContent=e[7];
+      document.getElementById('tCmd').textContent=e[9][0].toFixed(2)+', '+e[9][1].toFixed(2);
+      document.getElementById('tYaw').textContent=e[9][2].toFixed(2);
+      const sEl=document.getElementById('state'); sEl.textContent=e[8]?'stopped':'walking'; sEl.className='state '+(e[8]?'stop':'walk');
+    }
+  }
+  fit(); window.addEventListener('resize',()=>{fit();lastIdx=-1;draw(master.currentTime)});
+  master.addEventListener('loadedmetadata',()=>{scrub.max=master.duration.toFixed(2)});
+  draw(0); requestAnimationFrame(tick);
+})();
+</script>
+</body></html>

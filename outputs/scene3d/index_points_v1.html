@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Varanasi Scene 3D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --panel:rgba(16,22,20,.86); --ink:#E3EAE6; --muted:#9AA8A2; --rule:rgba(255,255,255,.12);
+  --accent:#5CC2B9; --robot:#F07A68; --warn:#E0AE5A; --ok:#6CC78A; --bg:#0D1211;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --cond:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font:13px/1.45 var(--sans);overflow:hidden}
+#view{position:fixed;inset:0}
+.panel{position:fixed;background:var(--panel);border:1px solid var(--rule);border-radius:10px;backdrop-filter:blur(6px)}
+#info{top:calc(env(safe-area-inset-top,0px) + 12px);left:12px;padding:12px 14px;display:grid;gap:8px;max-width:min(360px,calc(100vw - 24px))}
+#info h1{font:600 18px/1.15 var(--cond);margin:0}
+#info p{margin:0;color:var(--muted);font-size:12px}
+.tele{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;font-variant-numeric:tabular-nums}
+.tele div{display:grid}
+.tele b{font:600 15px var(--cond)}
+.tele span{font-size:11px;color:var(--muted)}
+.state{font:500 11px/1 var(--mono);padding:4px 7px;border-radius:99px;justify-self:start}
+.state.walk{color:var(--ok);background:rgba(108,199,138,.14)}.state.stop{color:var(--warn);background:rgba(224,174,90,.16)}
+#bar{left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 12px);padding:10px 12px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+button{font:600 12px/1 var(--sans);color:var(--ink);background:rgba(255,255,255,.06);border:1px solid var(--rule);border-radius:6px;padding:7px 10px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+button[aria-pressed="true"]{color:var(--accent);border-color:var(--accent)}
+button.primary{background:var(--accent);color:#0D1211;border-color:var(--accent);min-width:64px}
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.grp{display:flex;gap:4px;flex-wrap:wrap}
+#scrub{flex:1 1 220px;accent-color:var(--accent)}
+.clock{font:500 12px var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+#pip{top:calc(env(safe-area-inset-top,0px) + 12px);right:12px;width:min(320px,40vw);padding:6px;display:grid;gap:4px}
+#pip video{width:100%;border-radius:6px;display:block;background:#000}
+#pip span{font:500 11px var(--mono);color:var(--muted);padding:0 2px}
+#legend{right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 74px);padding:8px 10px;display:grid;gap:3px;font-size:11.5px;color:var(--muted)}
+#legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+#load{position:fixed;inset:0;display:grid;place-items:center;font:500 13px var(--mono);color:var(--muted);pointer-events:none}
+@media (max-width:700px){#pip{width:44vw}#legend{display:none}#info{max-width:52vw}}
+</style>
+</head><body>
+<div id="view"></div>
+<div id="load">loading scene…</div>
+
+<div id="info" class="panel">
+  <h1>Varanasi street · G1 run 8</h1>
+  <p>Metric world (metres, Z-up, floor z = 0). Points are the COLMAP reconstruction; people follow their tracked paths, time-stretched ×1.45; the G1 follows its logged base pose.</p>
+  <div class="tele">
+    <div><b id="hGoal">–</b><span>distance to goal</span></div>
+    <div><b id="hClr">–</b><span>nearest person</span></div>
+    <div><b id="hObs">–</b><span>obstacles in range</span></div>
+    <div><b id="hPeople">–</b><span>tracked agents visible</span></div>
+  </div>
+  <span id="hState" class="state walk">walking</span>
+  <p style="font-size:11px">G1 leg motion is a procedural gait for display only. The run logged base pose, not joint angles.</p>
+</div>
+
+<div id="pip" class="panel" aria-label="Original video, synced">
+  <video id="vid" src="varanasi1.mp4" muted playsinline preload="auto"></video>
+  <span id="vidlbl">source video · synced</span>
+</div>
+
+<div id="legend" class="panel">
+  <span><i style="background:#F07A68"></i>G1 + trail</span>
+  <span><i style="background:#5CC2B9"></i>goal</span>
+  <span><i style="background:#E0AE5A"></i>phone camera path</span>
+  <span><i style="background:#8DB6E0"></i>people (tracked)</span>
+  <span><i style="background:#C3A2E2"></i>vehicles (tracked)</span>
+  <span><i style="background:rgba(224,174,90,.5)"></i>street corridor</span>
+</div>
+
+<div id="bar" class="panel" role="group" aria-label="Playback">
+  <button id="play" class="primary">Play</button>
+  <div class="grp" role="group" aria-label="Speed"><button data-rate="0.5">0.5×</button><button data-rate="1" aria-pressed="true">1×</button><button data-rate="2">2×</button><button data-rate="4">4×</button></div>
+  <input id="scrub" type="range" min="0" max="40" step="0.02" value="0" aria-label="Time">
+  <span class="clock">t <b id="tt">0.00</b> s</span>
+  <div class="grp" role="group" aria-label="Camera">
+    <button data-cam="orbit" aria-pressed="true">Orbit</button><button data-cam="follow">Follow</button><button data-cam="eye">G1 eye</button><button data-cam="phone">Phone cam</button>
+  </div>
+  <div class="grp"><button id="tglPts" aria-pressed="true">Points</button><button id="tglLow" aria-pressed="false">Below-floor pts</button></div>
+</div>
+
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+  "urdf-loader": "https://cdn.jsdelivr.net/npm/urdf-loader@0.12.3/src/URDFLoader.js"
+} }
+</script>
+<script type="module">
+import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import URDFLoader from "urdf-loader";
+
+THREE.Object3D.DEFAULT_UP.set(0, 0, 1);
+const S = await (await fetch("scene.json")).json();
+const T_END = S.robot.t[S.robot.t.length - 1];
+
+// ---------- renderer / scene ----------
+const host = document.getElementById("view");
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
+host.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0d1211);
+scene.fog = new THREE.Fog(0x0d1211, 45, 110);
+const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.05, 400);
+camera.up.set(0, 0, 1);
+camera.position.set(-2, -26, 18);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(0, 0, 0.5);
+controls.enableDamping = true;
+scene.add(new THREE.HemisphereLight(0xdfe8ff, 0x2a2622, 1.1));
+const sun = new THREE.DirectionalLight(0xffffff, 1.4);
+sun.position.set(-10, -12, 25); sun.castShadow = true;
+sun.shadow.camera.left = -40; sun.shadow.camera.right = 40; sun.shadow.camera.top = 40; sun.shadow.camera.bottom = -40;
+sun.shadow.mapSize.set(2048, 2048);
+scene.add(sun);
+
+// ground (the physics ground plane, z = 0)
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(120, 60),
+  new THREE.MeshStandardMaterial({ color: 0x1b2321, roughness: 1 }));
+ground.receiveShadow = true; scene.add(ground);
+const grid = new THREE.GridHelper(120, 120, 0x34403c, 0x222b28);
+grid.rotation.x = Math.PI / 2; grid.position.z = 0.002; scene.add(grid);
+
+// ---------- static scene: SfM points ----------
+const N = S.points.xyz.length;
+function makePoints(filterLow) {
+  const pos = [], col = [];
+  for (let i = 0; i < N; i++) {
+    const p = S.points.xyz[i];
+    const low = p[2] < -0.15;
+    if (low !== filterLow) continue;
+    pos.push(p[0], p[1], p[2]);
+    const c = S.points.rgb[i]; col.push(c[0] / 255, c[1] / 255, c[2] / 255);
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+  g.setAttribute("color", new THREE.Float32BufferAttribute(col, 3));
+  return new THREE.Points(g, new THREE.PointsMaterial({ size: 0.11, vertexColors: true, sizeAttenuation: true }));
+}
+const ptsMain = makePoints(false), ptsLow = makePoints(true);
+ptsLow.visible = false; scene.add(ptsMain, ptsLow);
+
+// ---------- camera path + corridor + goal ----------
+const line = (arr, color, z = 0.02, opts = {}) => {
+  const g = new THREE.BufferGeometry().setFromPoints(arr.map(p => new THREE.Vector3(p[0], p[1], p.length > 2 && !opts.flat ? p[2] : z)));
+  const m = opts.dashed ? new THREE.LineDashedMaterial({ color, dashSize: 0.6, gapSize: 0.4, transparent: true, opacity: .7 })
+                        : new THREE.LineBasicMaterial({ color, transparent: true, opacity: opts.op ?? 1 });
+  const l = new THREE.Line(g, m); if (opts.dashed) l.computeLineDistances(); scene.add(l); return l;
+};
+line(S.camera.xyz, 0xE0AE5A, 0, { op: .9 });
+line(S.camera.xyz.map(p => [p[0], p[1], 0.02]), 0xE0AE5A, 0.02, { op: .25 });
+S.corridor.forEach(c => line(c, 0xE0AE5A, 0.03, { dashed: true, flat: true }));
+const goal = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.35, 0.06, 32), new THREE.MeshStandardMaterial({ color: 0x5CC2B9, emissive: 0x1b4a46 }));
+goal.rotation.x = Math.PI / 2; goal.position.set(S.goal[0], S.goal[1], 0.04); scene.add(goal);
+const goalPole = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 2.2), new THREE.MeshStandardMaterial({ color: 0x5CC2B9 }));
+goalPole.rotation.x = Math.PI / 2; goalPole.position.set(S.goal[0], S.goal[1], 1.1); scene.add(goalPole);
+
+// phone camera frustum marker
+const frustum = new THREE.Mesh(new THREE.ConeGeometry(0.25, 0.5, 4, 1, true), new THREE.MeshBasicMaterial({ color: 0xE0AE5A, wireframe: true }));
+scene.add(frustum);
+
+// ---------- crowd ----------
+const personGeo = { body: new THREE.CapsuleGeometry(0.2, 0.95, 4, 10), head: new THREE.SphereGeometry(0.12, 14, 10) };
+const vehSize = { motorcycle: [1.9, 0.7, 1.2], bicycle: [1.7, 0.5, 1.1], car: [4.3, 1.8, 1.5], truck: [6.5, 2.4, 2.8] };
+const agents = S.tracks.map((tr, i) => {
+  const grp = new THREE.Group();
+  if (tr.cls === "person") {
+    const hue = 0.55 + 0.12 * Math.sin(i * 2.3);
+    const mat = new THREE.MeshStandardMaterial({ color: new THREE.Color().setHSL(hue, 0.45, 0.62), roughness: .8 });
+    const b = new THREE.Mesh(personGeo.body, mat); b.rotation.x = Math.PI / 2; b.position.z = 0.78;
+    const h = new THREE.Mesh(personGeo.head, mat); h.position.z = 1.58;
+    b.castShadow = h.castShadow = true; grp.add(b, h);
+  } else {
+    const s = vehSize[tr.cls] || [1.5, 0.7, 1.2];
+    const m = new THREE.Mesh(new THREE.BoxGeometry(...s), new THREE.MeshStandardMaterial({ color: 0xC3A2E2, roughness: .7, transparent: true, opacity: .85 }));
+    m.position.z = s[2] / 2; m.castShadow = true; grp.add(m);
+  }
+  grp.visible = false; scene.add(grp);
+  return { tr, grp, heading: 0 };
+});
+function interp(ts, arr, t) {
+  let lo = 0, hi = ts.length - 1;
+  if (t <= ts[0]) return [arr[0], 0]; if (t >= ts[hi]) return [arr[hi], hi];
+  while (hi - lo > 1) { const m = (lo + hi) >> 1; (ts[m] <= t ? lo = m : hi = m); }
+  const a = (t - ts[lo]) / (ts[hi] - ts[lo]);
+  return [arr[lo].map((v, k) => v + a * (arr[hi][k] - v)), lo];
+}
+
+// ---------- robot ----------
+const robot = new THREE.Group(); scene.add(robot);
+let urdf = null;
+const loader = new URDFLoader();
+loader.load("g1/g1_29dof.urdf", r => {
+  urdf = r;
+  r.traverse(o => { if (o.isMesh) { o.castShadow = true; o.material = new THREE.MeshStandardMaterial({ color: 0xd8dde0, metalness: .25, roughness: .45 }); } });
+  robot.add(r);
+  document.getElementById("load").remove();
+}, undefined, e => { document.getElementById("load").textContent = "G1 model failed to load: " + e; });
+const ring = new THREE.Mesh(new THREE.RingGeometry(0.45, 0.5, 40), new THREE.MeshBasicMaterial({ color: 0xF07A68, transparent: true, opacity: .8, side: THREE.DoubleSide }));
+ring.position.z = 0.02; robot.add(ring);
+const clrRing = new THREE.Mesh(new THREE.RingGeometry(0.98, 1, 64), new THREE.MeshBasicMaterial({ color: 0xF07A68, transparent: true, opacity: .35, side: THREE.DoubleSide }));
+clrRing.position.z = 0.02; scene.add(clrRing);
+// trail
+const R = S.robot, NR = R.t.length;
+const trailPos = new Float32Array(NR * 3);
+const trailGeo = new THREE.BufferGeometry(); trailGeo.setAttribute("position", new THREE.BufferAttribute(trailPos, 3));
+R.xy.forEach((p, i) => { trailPos[3 * i] = p[0]; trailPos[3 * i + 1] = p[1]; trailPos[3 * i + 2] = 0.05; });
+const trail = new THREE.Line(trailGeo, new THREE.LineBasicMaterial({ color: 0xF07A68 })); scene.add(trail);
+line(R.xy, 0xF07A68, 0.04, { op: .18 });
+// cumulative distance for gait phase
+const cum = [0]; for (let i = 1; i < NR; i++) cum.push(cum[i - 1] + Math.hypot(R.xy[i][0] - R.xy[i - 1][0], R.xy[i][1] - R.xy[i - 1][1]));
+function gait(dist, moving) {
+  if (!urdf) return;
+  const ph = dist / 0.55 * Math.PI, a = moving ? 1 : 0;
+  const J = (n, v) => urdf.joints[n] && urdf.setJointValue(n, v);
+  for (const [side, off] of [["left", 0], ["right", Math.PI]]) {
+    const s = Math.sin(ph + off);
+    J(`${side}_hip_pitch_joint`, -0.15 - a * 0.38 * s);
+    J(`${side}_knee_joint`, 0.32 + a * 0.45 * Math.max(0, Math.sin(ph + off + 0.8)));
+    J(`${side}_ankle_pitch_joint`, -0.18 + a * 0.15 * s);
+    J(`${side}_shoulder_pitch_joint`, 0.2 + a * 0.3 * s);
+    J(`${side}_elbow_joint`, 0.9);
+  }
+}
+
+// ---------- time, UI ----------
+let t = 0, playing = false, rate = 1, camMode = "orbit", lastWall = performance.now();
+const $ = id => document.getElementById(id);
+const scrub = $("scrub"); scrub.max = T_END.toFixed(2);
+const vid = $("vid");
+$("play").onclick = () => { playing = !playing; $("play").textContent = playing ? "Pause" : "Play"; if (t >= T_END - 0.01) t = 0; };
+document.querySelectorAll("[data-rate]").forEach(b => b.onclick = () => { rate = +b.dataset.rate; document.querySelectorAll("[data-rate]").forEach(x => x.setAttribute("aria-pressed", x === b)); });
+document.querySelectorAll("[data-cam]").forEach(b => b.onclick = () => {
+  camMode = b.dataset.cam; controls.enabled = camMode === "orbit";
+  document.querySelectorAll("[data-cam]").forEach(x => x.setAttribute("aria-pressed", x === b));
+  if (camMode === "orbit") { camera.fov = 55; camera.updateProjectionMatrix(); }
+});
+scrub.oninput = () => { t = +scrub.value; };
+$("tglPts").onclick = e => { ptsMain.visible = !ptsMain.visible; e.target.setAttribute("aria-pressed", ptsMain.visible); };
+$("tglLow").onclick = e => { ptsLow.visible = !ptsLow.visible; e.target.setAttribute("aria-pressed", ptsLow.visible); };
+
+const tmpV = new THREE.Vector3();
+function update() {
+  // agents
+  let nVis = 0;
+  for (const a of agents) {
+    const ts = a.tr.t, on = t >= ts[0] && t <= ts[ts.length - 1];
+    a.grp.visible = on; if (!on) continue; nVis++;
+    const [p, k] = interp(ts, a.tr.xy, t);
+    a.grp.position.set(p[0], p[1], 0);
+    const k2 = Math.min(k + 1, ts.length - 1), k1 = Math.max(k2 - 1, 0);
+    const dx = a.tr.xy[k2][0] - a.tr.xy[k1][0], dy = a.tr.xy[k2][1] - a.tr.xy[k1][1];
+    if (Math.hypot(dx, dy) > 1e-3) a.heading = Math.atan2(dy, dx);
+    a.grp.rotation.z = a.heading;
+  }
+  // robot
+  const [p, i] = interp(R.t, R.xy, t);
+  const yaw = R.yaw[i], z = R.z[i];
+  robot.position.set(p[0], p[1], 0);
+  if (urdf) { urdf.position.set(0, 0, z); }
+  robot.rotation.z = yaw;
+  gait(cum[i], !R.stopped[i] && i < NR - 1);
+  trailGeo.setDrawRange(0, i + 1);
+  const clr = R.clearance[i];
+  clrRing.visible = clr != null; if (clr != null) { clrRing.position.set(p[0], p[1], 0.02); clrRing.scale.setScalar(clr); }
+  // phone camera at crowd time (video time = t / time_scale)
+  const vt = t / S.time_scale, fi = Math.min(Math.round(vt * S.video_fps), S.camera.xyz.length - 1);
+  const cp = S.camera.xyz[fi], cf = S.camera.fwd[fi];
+  frustum.position.set(cp[0], cp[1], cp[2]);
+  frustum.quaternion.setFromUnitVectors(new THREE.Vector3(0, -1, 0), new THREE.Vector3(cf[0], cf[1], cf[2]).normalize());
+  frustum.visible = vt <= 12.04;
+  // HUD
+  $("tt").textContent = t.toFixed(2);
+  $("hGoal").textContent = R.goal_dist[i].toFixed(2) + " m";
+  $("hClr").textContent = clr == null ? "none in range" : clr.toFixed(2) + " m";
+  $("hObs").textContent = R.n_obs[i];
+  $("hPeople").textContent = nVis;
+  const st = $("hState"); st.textContent = R.stopped[i] ? "stopped" : "walking"; st.className = "state " + (R.stopped[i] ? "stop" : "walk");
+  // source video sync
+  if (vt <= 12.04) {
+    $("vidlbl").textContent = `source video · ${vt.toFixed(2)} s (crowd time)`;
+    if (Math.abs(vid.currentTime - vt) > 0.12) vid.currentTime = vt;
+    if (playing && vid.paused) { vid.playbackRate = rate / S.time_scale; vid.play().catch(() => {}); }
+    if (!playing && !vid.paused) vid.pause();
+    vid.playbackRate = rate / S.time_scale;
+  } else { if (!vid.paused) vid.pause(); $("vidlbl").textContent = "source clip ended (12.0 s → crowd gone at t ≈ 17.4 s)"; }
+  // cameras
+  const fwd = new THREE.Vector3(Math.cos(yaw), Math.sin(yaw), 0);
+  if (camMode === "follow") {
+    camera.position.lerp(tmpV.set(p[0], p[1], 0).addScaledVector(fwd, -4.2).setZ(2.4), 0.12);
+    camera.lookAt(p[0] + fwd.x * 3, p[1] + fwd.y * 3, 0.9);
+  } else if (camMode === "eye") {
+    camera.fov = 75; camera.updateProjectionMatrix();
+    camera.position.set(p[0] + fwd.x * 0.15, p[1] + fwd.y * 0.15, z + 0.55);
+    camera.lookAt(p[0] + fwd.x * 10, p[1] + fwd.y * 10, 0.9);
+  } else if (camMode === "phone") {
+    camera.fov = 60; camera.updateProjectionMatrix();
+    camera.position.set(cp[0], cp[1], cp[2]);
+    camera.lookAt(cp[0] + cf[0], cp[1] + cf[1], cp[2] + cf[2]);
+  }
+}
+
+function loop(now) {
+  const dt = Math.min(0.1, (now - lastWall) / 1000); lastWall = now;
+  if (playing) { t += dt * rate; if (t >= T_END) { t = T_END; playing = false; $("play").textContent = "Play"; } scrub.value = t; }
+  update();
+  if (camMode === "orbit") controls.update();
+  renderer.render(scene, camera);
+  requestAnimationFrame(loop);
+}
+addEventListener("resize", () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); });
+requestAnimationFrame(loop);
+</script>
+</body></html>
