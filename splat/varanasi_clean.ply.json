@@ -1,0 +1,18 @@
+{
+  "low_opacity": 343343,
+  "oversized": 4577,
+  "below_floor": 28353,
+  "far": 29413,
+  "crowd_ghost_corridor": 9192,
+  "corridor_world_y": [
+    -2.8592332903158324,
+    2.8378934924511525
+  ],
+  "kept": 85122,
+  "input": 500000,
+  "floor_z_percentiles_kept": [
+    -0.181,
+    0.057,
+    3.68
+  ]
+}

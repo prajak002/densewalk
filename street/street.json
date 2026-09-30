@@ -1,0 +1,32 @@
+{
+  "x0": -16.0,
+  "x1": 32.0,
+  "y_left": 3.4,
+  "y_right": -3.6,
+  "wall_h": 9.0,
+  "res_m": 0.015,
+  "frames_used": 181,
+  "planes": {
+    "wall_left": {
+      "size_px": [
+        3200,
+        600
+      ],
+      "coverage": 0.901
+    },
+    "wall_right": {
+      "size_px": [
+        3200,
+        600
+      ],
+      "coverage": 0.877
+    },
+    "ground": {
+      "size_px": [
+        3200,
+        466
+      ],
+      "coverage": 0.791
+    }
+  }
+}
